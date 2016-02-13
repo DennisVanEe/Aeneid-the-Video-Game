@@ -9,23 +9,26 @@
 
 #include "NPCInterface.as";
 
-class Aeneas implements NPC {
-	private int cHealth;
-	private int mHealth;
-	private int cStamina;
-	private int mStamina;
-	private int piety;
-	private CharPosition pos;
-	private double walkSpeed;
+class Aeneas : NPC {
+	private int cHealth; // Current Health
+	private int mHealth; // Maximum Health
+	private int cStamina; // Current Stamina
+	private int mStamina; // Maximum Stamina
+	private int piety; // Piety points
+	private CharPosition pos; // Position
+	private double walkSpeed; // Walk speed
 
+	// Default Constructor
 	Aeneas () {
 		Aeneas ( 0, 0, 0 );
 	}
 
+	// Constructor with default base values
 	Aeneas ( int x, int y, double angle ) {
 		Aeneas ( 100, 100, 100, 100, 0, x, y, angle, 100 );
 	}
 
+	// Constructor with custom values for everything
 	Aeneas ( int mH, int cH, int cS, int mS, int p, int x, int y, double angle, double walk ) {
 		mHealth = mH;
 		cHealth = cH;
@@ -37,10 +40,11 @@ class Aeneas implements NPC {
 	}
 
 	// Implemented function
+	// Tells Aeneas to follow a certain AI Character
 	void follow ( AIChar aic ) {
 		CharPosition@ rPos = aic.getPos();
 
-		int yDif = os.getY() - rPos.getY();
+		int yDif = pos.getY() - rPos.getY();
 		int xDif = pos.getX() - rPos.getX();
 
 		double angle = Math.atan( ( (float) yDif ) / xDif );
@@ -50,6 +54,7 @@ class Aeneas implements NPC {
 		// TODO: Finish follow method
 	}
 
+	// Tells Aeneas to update the position using x, y and angle values
 	void updatePos( int iX, int iY, double ang ) {
 		pos.setX( iX );
 		pos.setY( iY );
@@ -57,26 +62,28 @@ class Aeneas implements NPC {
 	}
 
 	// Implemented function
-	void rotate () {
-
-	}
-
-	// Implemented function
+	// Rotates Aeneas to follow the Mouse
 	void setRotation () {
+		int xMouse = getXPosMouse();
+		int yMouse = getYPosMouse();
 
+		int yDif = pos.getY() - yMouse;
+		int xDif = pos.getX() - xMouse;
+
+		pos.angle = Math.atan( ( (float) yDif ) / xDif );
 	}
 
 	// Implemented function
+	// Returns a reference to the position of Aeneas
 	const CharPosition@ getPos() {
 		CharPosition@ refPos = pos;
 
-		if (refPos != null ) {
-			return refPos;
-		}
+		if (refPos != null ) {  return refPos;  }
 		return CharPosition( 0, 0, 0 );
 	}
 
 	// Implemented function
+	// Tell Aeneas to move in a certain direction based on W, A, S, D or a combo of that
 	void move() {
 		
 	}
