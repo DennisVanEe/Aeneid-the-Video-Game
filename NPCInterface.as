@@ -1,9 +1,10 @@
 
-// The base NPC interface
+// The base NPC abstract
 
-interface NPC {
-	private int cHealth; // current health;
-	private int mHealth; // max health;
+abstract class NPC {
+	private bool invincibility; // if invinsible or not
+	private int cHealth; // current health
+	private int mHealth; // max health
 	private CharPosition pos; // postion on the map and degree the NPC is facing
 
 	void follow( AIChar aic ); // the NPC follows another NPC
@@ -14,11 +15,15 @@ interface NPC {
 
 	void move( int x, int y ); // moves the NPC to postion (x, y)
 
-	void attack(); // NPC attacks
+	void attack( int damage, AIChar@ npc ); // NPC attacks with damage on another NPC
 
 	void talk( String phrase ); // the NPC speaks the phrase
 
-	void changeHealth( int changedTo ); // cHealth of the NPC is changed to changedTo. If cHealth is 0, the NPC dies
+	void changeHealth( int difference ); // cHealth of the NPC is subtracted by difference. If cHealth is below 0, the NPC dies
+
+	void setInvincibility( bool flag) {
+		invincibility = flag;
+	} // sets invincibility
 }
 
 // ----------------------------------------------------------------------------------------------------------------------
