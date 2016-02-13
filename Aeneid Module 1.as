@@ -83,7 +83,7 @@ class Aeneas implements NPC {
 	}
 
 	// Implemented function
-	CharPosition@ getPos() {
+	const CharPosition@ getPos() {
 		CharPosition@ refPos = pos;
 
 		if (refPos != null ) {
@@ -94,34 +94,22 @@ class Aeneas implements NPC {
 
 	// Implemented function
 	void move() {
-
+		
 	}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------
 
 class CharPosition() {
-	private int x;
-	private int y;
-	private double angle; // measured in degrees (circle)
+	public int x;
+	public int y;
+	public double angle; // measured in degrees (circle)
 
 	CharPosition ( int iX, int iY, double ang ) {
 		x = iX;
 		y = iY;
 		angle = ang; // determined by tan-1()
 	}
-
-	int getX() { return x; }
-
-	int getY() { return y; }
-
-	double getAngle() { return angle; }
-
-	int setX( int iX ) { x = iX; }
-
-	int setY( int iY ) { y = iY; }
-
-	double setAngle( double ang ) { angle = ang; }
 }
 
 // ----------------------------------------------------------------------------------------------------------------------
