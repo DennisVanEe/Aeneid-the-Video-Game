@@ -1,25 +1,29 @@
 
-// The base NPC interface
+// The base NPC abstract
 
+abstract class NPC {
+	private bool invincibility; // if invinsible or not
+	private int cHealth; // current health
+	private int mHealth; // max health
+	private CharPosition pos; // postion on the map and degree the NPC is facing
 
-interface NPC {
-	private int cHealth;
-	private int mHealth;
-	private CharPosition pos;
+	void follow( AIChar aic ); // the NPC follows another NPC
 
-	void follow();
+	void setRotation( int degree ); // sets the degree the NPC is facing
 
-	void rotate();
+	const CharPosition@ getPos(); // gets the position of the NPC
 
-	void setRotation();
+	void move( int x, int y ); // moves the NPC to postion (x, y)
 
-	CharPosition@ getPos();
+	void attack( int damage, AIChar@ npc ); // NPC attacks with damage on another NPC
 
-	void move();
+	void talk( String phrase ); // the NPC speaks the phrase
 
-	void attack();
+	void changeHealth( int difference ); // cHealth of the NPC is subtracted by difference. If cHealth is below 0, the NPC dies
 
-	void talk();
+	void setInvincibility( bool flag) {
+		invincibility = flag;
+	} // sets invincibility
 }
 
 // ----------------------------------------------------------------------------------------------------------------------
