@@ -49,6 +49,8 @@ class Aeneas {
 		double angle = Math.atan( ( (float) yDif ) / xDif );
 		float distance = Math.sqrt( yDif*yDif + xDif*xDif );
 
+		// Call move function
+
 		// TODO: Update positions
 		// TODO: Finish follow method
 	}
@@ -84,6 +86,13 @@ class Aeneas {
 		
 	}
 
+	// Checks for inputs
+	void checkInputs() {
+		if( isKeyPressed( W ) || isKeyPressed( A ) || isKeyPressed( S ) || isKeyPressed( D ) ) {
+			move();
+		}
+	}
+
 	// Tell Aeneas to attack the AI Character, with a certain amount of damage
 	void attack( int damage, AIChar@ aic ) {
 		aic.changeHealth( damage );
@@ -112,6 +121,14 @@ class Aeneas {
 
 void initialize () {
 	// Retrieve data from the save files and figure out what to do from there
+	boolean thereIsASaveGame = false; // Change this
+	if( thereIsASaveGame ) {
+		// Then retrieve the Aeneas object saved
+	} else {
+		Aeneas aeneas = new Aeneas();
+	}
+
+	// Finish this
 }
 
 // ----------------------------------------------------------------------------------------------------------------------
@@ -124,6 +141,8 @@ void step ( uint16 milliseconds ) {
 	// Update animation
 	// Update armor, weapons
 	// Interact with picking up weapons
+
+	Aeneas.checkInputs();
 }
 
 
