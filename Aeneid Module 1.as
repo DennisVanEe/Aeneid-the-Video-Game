@@ -7,23 +7,7 @@
 // Implement position change and angle change (preferably through updatePos() function)
 // Find out what the hell we need to do
 
-interface NPC {
-	private int cHealth;
-	private int mHealth;
-	private CharPosition pos;
-
-	void follow ();
-
-	void rotate ();
-
-	void setRotation ();
-
-	CharPosition@ getPos();
-
-	void move();
-}
-
-// ----------------------------------------------------------------------------------------------------------------------
+#include "NPCInterface.as";
 
 class Aeneas implements NPC {
 	private int cHealth;
@@ -96,19 +80,13 @@ class Aeneas implements NPC {
 	void move() {
 		
 	}
-}
 
-// ----------------------------------------------------------------------------------------------------------------------
+	void attack() {
 
-class CharPosition() {
-	public int x;
-	public int y;
-	public double angle; // measured in degrees (circle)
+	}
 
-	CharPosition ( int iX, int iY, double ang ) {
-		x = iX;
-		y = iY;
-		angle = ang; // determined by tan-1()
+	void talk() {
+
 	}
 }
 
