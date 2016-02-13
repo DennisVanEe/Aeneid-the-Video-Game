@@ -1,25 +1,24 @@
 
 // The base NPC interface
 
-
 interface NPC {
-	private int cHealth;
-	private int mHealth;
-	private CharPosition pos;
+	private int cHealth; // current health;
+	private int mHealth; // max health;
+	private CharPosition pos; // postion on the map and degree the NPC is facing
 
-	void follow();
+	void follow( AIChar aic ); // the NPC follows another NPC
 
-	void rotate();
+	void setRotation( int degree ); // sets the degree the NPC is facing
 
-	void setRotation();
+	const CharPosition@ getPos(); // gets the position of the NPC
 
-	CharPosition@ getPos();
+	void move( int x, int y ); // moves the NPC to postion (x, y)
 
-	void move();
+	void attack(); // NPC attacks
 
-	void attack();
+	void talk( String phrase ); // the NPC speaks the phrase
 
-	void talk();
+	void changeHealth( int changedTo ); // cHealth of the NPC is changed to changedTo. If cHealth is 0, the NPC dies
 }
 
 // ----------------------------------------------------------------------------------------------------------------------
