@@ -8,6 +8,7 @@
 // Find out what the hell we need to do
 
 #include "AIChar.as";
+#include "NPCInterface.as";
 
 class Aeneas {
 	private int cHealth; // Current Health
@@ -89,13 +90,14 @@ class Aeneas {
 	// Checks for inputs
 	// if-statements must be listed in order of priority
 	void checkInputs() {
-		if( isKeyPressed( T ) ) {
+		if( isKeyPressed( W ) || isKeyPressed( A ) || isKeyPressed( S ) || isKeyPressed( D ) )
+			move();
+		// If clicking on NPC
+		if ( isButtonPressed( Left ) && mouseOnNPC ) { // Make sure that mouse is on NPC
 			// See who to talk to who
 			AIChar aic = new AIChar();
 			talk( aic );
 		}
-		if( isKeyPressed( W ) || isKeyPressed( A ) || isKeyPressed( S ) || isKeyPressed( D ) )
-			move();
 		if( isButtonPressed( Left ) )
 			attack();
 	}
