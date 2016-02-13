@@ -7,9 +7,9 @@
 // Implement position change and angle change (preferably through updatePos() function)
 // Find out what the hell we need to do
 
-#include "NPCInterface.as";
+#include "AIChar.as";
 
-class Aeneas : NPC {
+class Aeneas {
 	private int cHealth; // Current Health
 	private int mHealth; // Maximum Health
 	private int cStamina; // Current Stamina
@@ -39,7 +39,6 @@ class Aeneas : NPC {
 		walkSpeed = walk;
 	}
 
-	// Implemented function
 	// Tells Aeneas to follow a certain AI Character
 	void follow ( AIChar aic ) {
 		CharPosition@ rPos = aic.getPos();
@@ -61,7 +60,6 @@ class Aeneas : NPC {
 		pos.setAngle( ang );
 	}
 
-	// Implemented function
 	// Rotates Aeneas to follow the Mouse
 	void setRotation () {
 		int xMouse = getXPosMouse();
@@ -73,7 +71,6 @@ class Aeneas : NPC {
 		pos.angle = Math.atan( ( (float) yDif ) / xDif );
 	}
 
-	// Implemented function
 	// Returns a reference to the position of Aeneas
 	const CharPosition@ getPos() {
 		CharPosition@ refPos = pos;
@@ -82,17 +79,31 @@ class Aeneas : NPC {
 		return CharPosition( 0, 0, 0 );
 	}
 
-	// Implemented function
 	// Tell Aeneas to move in a certain direction based on W, A, S, D or a combo of that
 	void move() {
 		
 	}
 
-	void attack() {
+	// Tell Aeneas to attack the AI Character, with a certain amount of damage
+	void attack( int damage, AIChar@ aic ) {
+		aic.changeHealth( damage );
+	}
+
+	// Aeneas initiate conversation with a certain AI Character
+	void talk( String phrase ) {
 
 	}
 
-	void talk() {
+	// cHealth of the NPC is changed to changedTo. If cHealth is 0, the NPC dies
+	void changeHealth( int difference ) {
+		cHealth -= difference;
+		if( cHealth <= 0 ) {
+			die();
+		}
+	}
+
+	// A function for when Aeneas dies
+	void die() {
 
 	}
 }
