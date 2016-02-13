@@ -3,16 +3,17 @@
 
 void initialize()
 {
-
+	AIChar bob = new AIChar(10, 10)
 }
 
 void step( uint16 milliseconds )
 {
-
+	bob.rotate( milliseconds );
 }
 
 class AIChar : NPC
 {
+	final double rotationSpeed = 10; // to be set later after testing. degree per seconds
 	private bool invincibility;
 	private int cHealth;
 	private int mHealth;
@@ -28,7 +29,6 @@ class AIChar : NPC
 		invincibility = inv;
 	}
 
-	// Implemented function
 	void follow ( AIChar aic )
 	{
 		CharPosition@ rPos = aic.getPos();
@@ -50,19 +50,11 @@ class AIChar : NPC
 		pos.setAngle( ang );
 	}
 
-	// Implemented function
-	void rotate ()
+	void rotate ( uint16 milliseconds )
 	{
-
+		pos.angle += rotationSpeed / 1000 * milliseconds;
 	}
 
-	// Implemented function
-	void setRotation ()
-	{
-
-	}
-
-	// Implemented function
 	const CharPosition@ getPos()
 	{
 		CharPosition@ refPos = pos;
@@ -74,7 +66,6 @@ class AIChar : NPC
 		return CharPosition( 0, 0, 0 );
 	}
 
-	// Implemented function
 	void move()
 	{
 		
@@ -100,4 +91,15 @@ class AIChar : NPC
 			// change image to dead body and kill NPC
 		}
 	}
+}
+
+class Action
+{
+	String movement;
+	int degree;
+	
+	Action() {
+
+	}
+
 }
