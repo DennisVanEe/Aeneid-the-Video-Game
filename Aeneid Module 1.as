@@ -87,20 +87,28 @@ class Aeneas {
 	}
 
 	// Checks for inputs
+	// if-statements must be listed in order of priority
 	void checkInputs() {
-		if( isKeyPressed( W ) || isKeyPressed( A ) || isKeyPressed( S ) || isKeyPressed( D ) ) {
-			move();
+		if( isKeyPressed( T ) ) {
+			// See who to talk to who
+			AIChar aic = new AIChar();
+			talk( aic );
 		}
+		if( isKeyPressed( W ) || isKeyPressed( A ) || isKeyPressed( S ) || isKeyPressed( D ) )
+			move();
+		if( isButtonPressed( Left ) )
+			attack();
 	}
 
 	// Tell Aeneas to attack the AI Character, with a certain amount of damage
 	void attack( int damage, AIChar@ aic ) {
+		// Check to see if AI Character is in front of Aeneas
 		aic.changeHealth( damage );
 	}
 
 	// Aeneas initiate conversation with a certain AI Character
-	void talk( String phrase ) {
-
+	void talk( AIChar aic ) {
+		// Do stuff with AIChar
 	}
 
 	// cHealth of the NPC is changed to changedTo. If cHealth is 0, the NPC dies
@@ -142,6 +150,7 @@ void step ( uint16 milliseconds ) {
 	// Update armor, weapons
 	// Interact with picking up weapons
 
+	Aeneas.setRotation();
 	Aeneas.checkInputs();
 }
 
