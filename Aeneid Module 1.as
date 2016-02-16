@@ -5,6 +5,7 @@
 // Implement animation switch with master sprite sheet
 // Implement damage calculations and health reduction as well as stamina reduction
 // Implement position change and angle change (preferably through updatePos() function)
+// Find out pathfinding
 // Find out what the hell we need to do
 
 #include "AIChar.as";
@@ -44,13 +45,13 @@ class Aeneas {
 	void follow ( AIChar aic ) {
 		CharPosition@ rPos = aic.getPos();
 
-		int yDif = pos.getY() - rPos.getY();
-		int xDif = pos.getX() - rPos.getX();
+		int yDif = pos.y - rPos.y;
+		int xDif = pos.x - rPos.x;
 
 		double angle = Math.atan( ( (float) yDif ) / xDif );
 		float distance = Math.sqrt( yDif*yDif + xDif*xDif );
 
-		// Call move function
+		move();
 
 		// TODO: Update positions
 		// TODO: Finish follow method
@@ -136,6 +137,7 @@ void initialize () {
 		// Then retrieve the Aeneas object saved
 	} else {
 		Aeneas aeneas = new Aeneas();
+		// Place Aeneas at the correct position on the map via updatePos;
 	}
 
 	// Finish this
