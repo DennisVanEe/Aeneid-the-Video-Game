@@ -2,8 +2,8 @@
 class Cluster
 {
 	
-	public array<StaticEntity@> x;
-	public array<AnimatedEntity@> y;
+	public array<StaticEntity@> s_entarray;
+	public array<AnimatedEntity@> a_entarray;
 	public Vector origin;
 	
 	Cluster()
@@ -15,8 +15,8 @@ class Cluster
 	
 	Cluster(int x, int y)
 	{
-		this.x = new array<StaticEntity@>();
-		this.y = new array<AnimatedEntity@>();
+		x = new array<StaticEntity@>();
+		y = new array<AnimatedEntity@>();
 		origin = new Vector(x,y);
 	}
 	
