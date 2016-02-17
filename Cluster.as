@@ -32,12 +32,12 @@ class Cluster
 	
 	void moveAll(int xx, int yy)
 	{
-		for(int i = 0; i<x.size(); i++)
+		for(int i = 0; i < s_entarray.size(); i++)
 		{
 			s_entarray[i].setPositionX( s_entarray[i].getPositionX(), s_entarray[i].getPositionX() + xx );
 		}
 		
-		for(int z = 0; z<y.size(); z++)
+		for(int z = 0; z < a_entarray.size(); z++)
 		{
 			a_entarray[z].setPositionX( a_entarray[z].getPositionY, a_entarray[z].getPositionY + yy );
 		}
@@ -51,10 +51,10 @@ class Cluster
 			s_entarray[i].rotate(degrees);
 		}
 		
-		for(int z = 0; z<y.size(); z++)
+		for(int z = 0; z < a_entarray.size(); z++)
 		{
-			y[z].setOrigin((y[z].getOriginX() * Math.cos(Math.toRadians(degrees)) - y[z].getOriginY() * Math.sin(Math.toRadians(degrees)), y[z].getOriginY() * Math.cos(Math.toRadians(degrees)) + y[z].getOriginX() * Math.sin(Math.toRadians(degrees)));
-			y[z].rotate(degrees);
+			a_entarray[z].setOrigin((a_entarray[z].getOriginX() * Math.cos(Math.toRadians(degrees)) - a_entarray[z].getOriginY() * Math.sin(Math.toRadians(degrees)), a_entarray[z].getOriginY() * Math.cos(Math.toRadians(degrees)) + a_entarray[z].getOriginX() * Math.sin(Math.toRadians(degrees)));
+			a_entarray[z].rotate(degrees);
 		}
 	}
 	
