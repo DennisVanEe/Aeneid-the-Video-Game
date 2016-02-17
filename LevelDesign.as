@@ -8,7 +8,7 @@ void step( uint16 milliseconds )
 	
 }
 
-class world()
+class world
 {
 	private array< StaticEntity@ > setobj;
 	private array< AnimatedEntity@ > movingobj;
