@@ -75,14 +75,6 @@ class Aeneas {
 		pos.angle = Math.atan( ( (float) yDif ) / xDif );
 	}
 
-	// Returns a reference to the position of Aeneas
-	const CharPosition@ getPos() {
-		CharPosition@ refPos = pos;
-
-		if (refPos != null ) {  return refPos;  }
-		return CharPosition( 0, 0, 0 );
-	}
-
 	// Tell Aeneas to move in a certain direction based on W, A, S, D or a combo of that
 	void move() {
 		
@@ -125,6 +117,28 @@ class Aeneas {
 	// A function for when Aeneas dies
 	void die() {
 
+	}
+	
+	array< int > getSaveValues() {
+		array< int > a;
+		a.insert( cHealth );
+		a.insert( mHealth );
+		a.insert( cStamina );
+		a.insert( mStamina );
+		a.insert( piety );
+		return a;
+	}
+	
+	double getSpeed() {
+		return walkSpeed;
+	}
+	
+	// Returns a reference to the position of Aeneas
+	const CharPosition@ getPos() {
+		CharPosition@ refPos = pos;
+
+		if (refPos != null ) {  return refPos;  }
+		return CharPosition( 0, 0, 0 );
 	}
 }
 
