@@ -66,10 +66,29 @@ class AIChar : NPC
 		return CharPosition( 0, 0, 0 );
 	}
 
-	void move()
+	//Randomly moves when Aeneas is not around. When Aeneas is within a certain range, will begin to follow and attack 
+	//WORK IN PROGRESS
+	void move(Aeneas ai, int range)
 	{
+		CharPosition@ AeneasPos = ai.getPos();
+		int distanceX = Math.abs(AeneasPos.x - pos.x);
+		int distanceY = Math.abs(AeneasPos.y - pos.y);	
 		
+		if(distanceX < range || distanceY < range){
+			follow(ai);
+			attack(ai);
+		}	
+		else{
+			int changeInX = (int)(Math.random()*50) * (int)(     Math.pow(-1, (int)(Math.random()*50)    ));
+			int changeInY = (int)(Math.random()*50) * (int)(     Math.pow(-1, (int)(Math.random()*50)    ));
+			int newChangeX = pos.getX() + changeInX;
+			int newChangeY = pos.gety() + changeInY;
+			double angle = Math.atan( ( (float) newChangeY ) / newChangeX );
+		
+			updatePos(newChangeX , newChangeY, angle);	
+		}
 	}
+
 
 	void attack( int damage )
 	{
