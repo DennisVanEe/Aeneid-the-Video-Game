@@ -19,22 +19,24 @@ class AIChar : NPC
 	private int mHealth;
 	private CharPosition pos;
 	private double walkSpeed;
+	private bool isHostile;
 
-	AIChar ( int mH, int cH, int x, int y, double angle, double walk, bool inv )
+	AIChar ( int mH, int cH, int x, int y, double angle, double walk, bool inv, bool host )
 	{
 		cHealth = cH;
 		mHealth = mH;
 		pos = new CharPosition ( x, y, angle );
 		walkSpeed = walk;
 		invincibility = inv;
+		isHostile = host;
 	}
 
 	void follow ( AIChar aic )
 	{
 		CharPosition@ rPos = aic.getPos();
 
-		int yDif = pos.getY() - rPos.getY();
-		int xDif = pos.getX() - rPos.getX();
+		int yDif = pos.y - rPos.y(); // updated to public variable
+		int xDif = pos.x - rPos.x(); //updated to public variable
 
 		double angle = Math.atan( ( (float) yDif ) / xDif );
 		float distance = Math.sqrt( yDif*yDif + xDif*xDif );
@@ -66,8 +68,20 @@ class AIChar : NPC
 		return CharPosition( 0, 0, 0 );
 	}
 
-	void move()
+	//Randomly moves when Aeneas is not around
+	//When Aeneas is within a certain range, will begin to follow and attack 
+	// ROUGH EDIT, PLEASE REVIEW
+	void move(Aeneas ai)
 	{
+		int changeInX = (int)(Math.random()*50) * (int)(     Math.pow(-1, (int)(Math.random()*50)    ));
+		int changeInY = (int)(Math.random()*50) * (int)(     Math.pow(-1, (int)(Math.random()*50)    ));
+		
+		int newChangeX = pos.getX() + changeInX;
+		int newChangeY = pos.gety() + changeInY;
+		double angle = Math.atan( ( (float) yDif ) / xDif )
+		
+		updatePos(
+		
 		
 	}
 
