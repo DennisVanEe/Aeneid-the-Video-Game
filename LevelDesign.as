@@ -7,6 +7,8 @@ void step( uint16 milliseconds )
 {
 	
 }
+ 
+#include "NPCInterface.as";
 
 class world
 {
@@ -29,5 +31,26 @@ class world
 	{
 		setobj.insert( x );
 		addEntityToRender( relativelayer + layer, x, name );
+	}
+}
+
+
+class Checkpoint
+{
+	private StaticEntity@ checkpoint;
+	private array< int > arr;
+	private CharPosition@ position;
+	private double speed;
+	
+	Checkpoint( int x, int y )
+	{
+		CharPosition checkpointpos = new CharPosition( x, y, 0 );
+	}
+	
+	void save( Aeneas character )
+	{
+		arr = character.getSaveValues();
+		position = character.getPos();
+		speed = character.getSpeed();
 	}
 }
