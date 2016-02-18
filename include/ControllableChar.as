@@ -1,15 +1,14 @@
+// Name: ControllableChar.as
+// Author(s):
+// version 0.1
+// --------------------------------------
+// This class defines an entity that can be
+// controlled by the user through system 
+// inputs
 
-// NOTES:
-// Add on "/sdk/add_on/scriptmath" for complex math functions
-// Implement step function for Aeneas module
-// Implement animation switch with master sprite sheet
-// Implement damage calculations and health reduction as well as stamina reduction
-// Implement position change and angle change (preferably through updatePos() function)
-// Find out what the hell we need to do
+#include "Character.as"
 
-#include "NPCInterface.as";
-
-class Aeneas : NPC {
+class ControllableChar : Character {
 	private int cHealth; // Current Health
 	private int mHealth; // Maximum Health
 	private int cStamina; // Current Stamina
@@ -19,17 +18,17 @@ class Aeneas : NPC {
 	private double walkSpeed; // Walk speed
 
 	// Default Constructor
-	Aeneas () {
-		Aeneas ( 0, 0, 0 );
+	ControllableChar () {
+		ControllableChar ( 0, 0, 0 );
 	}
 
 	// Constructor with default base values
-	Aeneas ( int x, int y, double angle ) {
-		Aeneas ( 100, 100, 100, 100, 0, x, y, angle, 100 );
+	ControllableChar ( int x, int y, double angle ) {
+		ControllableChar ( 100, 100, 100, 100, 0, x, y, angle, 100 );
 	}
 
 	// Constructor with custom values for everything
-	Aeneas ( int mH, int cH, int cS, int mS, int p, int x, int y, double angle, double walk ) {
+	ControllableChar ( int mH, int cH, int cS, int mS, int p, int x, int y, double angle, double walk ) {
 		mHealth = mH;
 		cHealth = cH;
 		cStamina = cS;
@@ -95,24 +94,6 @@ class Aeneas : NPC {
 	void talk() {
 
 	}
-}
-
-// ----------------------------------------------------------------------------------------------------------------------
-
-void initialize () {
-	// Retrieve data from the save files and figure out what to do from there
-}
-
-// ----------------------------------------------------------------------------------------------------------------------
-
-void step ( uint16 milliseconds ) {
-	// Update health, stamina, piety points
-	// Update position
-	// Update directionality
-	// Update state (attack, walking, etc.)
-	// Update animation
-	// Update armor, weapons
-	// Interact with picking up weapons
 }
 
 

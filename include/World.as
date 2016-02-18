@@ -1,22 +1,17 @@
-void initialize()
-{
-	
-}
+// Name: World.as
+// Author(s):
+// version 0.1
+// --------------------------------------
+// These classes are used to define the 
+// world the other assets will be in
 
-void step( uint16 milliseconds )
-{
-	
-}
- 
-#include "NPCInterface.as";
-
-class world
+class World
 {
 	private array< StaticEntity@ > setobj;
 	private array< AnimatedEntity@ > movingobj;
 	private int layer;
 
-	world( uint x )
+	World( uint x )
 	{
 		layer = x
 	}
@@ -33,7 +28,6 @@ class world
 		addEntityToRender( relativelayer + layer, x, name );
 	}
 }
-
 
 class Checkpoint
 {

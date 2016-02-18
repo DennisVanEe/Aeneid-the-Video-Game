@@ -1,17 +1,14 @@
+// Name: AIChar.as
+// Author(s):
+// version 0.1
+// --------------------------------------
+// This class is designed to be an NPC 
+// that is AI controlled (like followers
+// or enemies)
 
-#include "NPCInterface.as";
+#include "Character.as"
 
-void initialize()
-{
-	AIChar bob = new AIChar(10, 10)
-}
-
-void step( uint16 milliseconds )
-{
-	bob.rotate( milliseconds );
-}
-
-class AIChar : NPC
+class AIChar : Character
 {
 	final double rotationSpeed = 10; // to be set later after testing. degree per seconds
 	private bool invincibility;
