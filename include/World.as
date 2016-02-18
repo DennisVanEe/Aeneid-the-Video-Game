@@ -32,19 +32,18 @@ class World
 class Checkpoint
 {
 	private StaticEntity@ checkpoint;
-	private array< int > arr;
 	private CharPosition@ position;
-	private double speed;
+	private Request@ posX;
+	private Request@ posY;
+	private Request@ posAngle;
 	
 	Checkpoint( int x, int y )
 	{
 		CharPosition checkpointpos = new CharPosition( x, y, 0 );
 	}
 	
-	void save( Aeneas character )
+	void save()
 	{
-		arr = character.getSaveValues();
-		position = character.getPos();
-		speed = character.getSpeed();
+		posX = Request( 
 	}
 }
