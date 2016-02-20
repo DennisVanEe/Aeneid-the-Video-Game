@@ -23,6 +23,11 @@ public class Button
 		ent.setFrame(1);
 		return false;
 	}
+
+	String getButtonName()
+	{
+		return name;
+	}
 	
 	~Button()
 	{
