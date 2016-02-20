@@ -34,5 +34,5 @@ void step ( uint16 milliseconds ) {
 	// Interact with picking up weapons
 
 	aeneas.setRotation();
-	aeneas.checkInputs();
+	aeneas.checkInputs( milliseconds );
 }

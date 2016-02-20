@@ -15,9 +15,10 @@ class ControllableChar : Character {
 	private int mStamina; // Maximum Stamina
 	private int piety; // Piety points
 	private CharPosition pos; // Position
-	private double walkSpeed; // Walk speed
+	private double walkSpeed; // Walk speed in pixels per second
 
 	// Default Constructor
+	// Sooryun is awesome
 	ControllableChar () {
 		ControllableChar ( 0, 0, 0 );
 	}
@@ -61,6 +62,22 @@ class ControllableChar : Character {
 		pos.setAngle( ang );
 	}
 
+	// Checks for inputs
+	// if-statements must be listed in order of priority
+	void checkInputs( uint16 milliseconds ) {
+		if( isKeyPressed( W ) || isKeyPressed( A ) || isKeyPressed( S ) || isKeyPressed( D ) )
+			move( milliseconds );
+		// If clicking on NPC
+		// Make sure that mouse is on NPC
+		if ( isButtonPressed( Left ) && ifMouseOnNPC() ) {
+			// See who to talk to who
+			AIChar aic = new AIChar();
+			talk( aic );
+		}
+		if( isButtonPressed( Left ) )
+			attack();
+	}
+
 	// Rotates Aeneas to follow the Mouse
 	void setRotation () {
 		int xMouse = getXPosMouse();
@@ -73,24 +90,19 @@ class ControllableChar : Character {
 	}
 
 	// Tell Aeneas to move in a certain direction based on W, A, S, D or a combo of that
-	void move() {
-		
+	void move( uint16 milliseconds ) {
+		// Play movement animations
+		// Shift position of character
+		double angle = pos.angle;
+		int displacement = (int) walkSpeed * milliseconds / 1000;
+		int x = displacement * Math.acos(angle);
+		int y = displacement * Math.asin(angle);
+
+		Aeneas.updatePos( pos.x + x, pos.y + y, angle );
 	}
 
-	// Checks for inputs
-	// if-statements must be listed in order of priority
-	void checkInputs() {
-		if( isKeyPressed( W ) || isKeyPressed( A ) || isKeyPressed( S ) || isKeyPressed( D ) )
-			move();
-		// If clicking on NPC
-		// Make sure that mouse is on NPC
-		if ( isButtonPressed( Left ) && mouseOnNPC ) {
-			// See who to talk to who
-			AIChar aic = new AIChar();
-			talk( aic );
-		}
-		if( isButtonPressed( Left ) )
-			attack();
+	bool ifMouseOnNPC( Character character) {
+		intersect( character.getEntity(), getXPosMouse, getYPosMouse );
 	}
 
 	// Tell Aeneas to attack the AI Character, with a certain amount of damage
@@ -114,7 +126,7 @@ class ControllableChar : Character {
 
 	// A function for when Aeneas dies
 	void die() {
-
+		// Play Game Over animation
 	}
 	
 	// Returns a reference to the position of Aeneas
@@ -123,6 +135,29 @@ class ControllableChar : Character {
 
 		if (refPos != null ) {  return refPos;  }
 			return CharPosition( 0, 0, 0 );
+	}
+	
+	// Finish
+	void requestSaveData() {
+		Request@ cH = Request("aeneasCH", 0, WRITE_DATA, "cHealth", cHealth);
+		Request@ mH = Request("aeneasMH", 0, WRITE_DATA, "mHealth", mHealth);
+		Request@ cS = Request("aeneasCS", 0, WRITE_DATA, "cStamina", cStamina);
+		Request@ mS = Request("aeneasMS", 0, WRITE_DATA, "mStamina", mStamina);
+		Request@ posX = Request("aeneasPosX", 0, WRITE_DATA, "posX", pos.x);
+		Request@ posY = Request("aeneasPosY", 0, WRITE_DATA, "posY", pos.y);
+		Request@ posAngle = Request("aeneasPosAngle", 0, WRITE_DATA, "posAngle", pos.angle);
+		Request@ piety = Request("aeneasPiety", 0, WRITE_DATA, "piety", piety);
+		Request@ walkSpeed = Request("aeneasWalkSpeed", 0, WRITE_DATA, "walkSpeed", walkSpeed);
+
+		addRequest( "aeneas", cH );
+		addRequest( "aeneas", mH );
+		addRequest( "aeneas", cS );
+		addRequest( "aeneas", mS );
+		addRequest( "aeneas", posX );
+		addRequest( "aeneas", posY );
+		addRequest( "aeneas", posAngle );
+		addRequest( "aeneas", piety );
+		addRequest( "aeneas", walkSpeed );
 	}
 }
 
