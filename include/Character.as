@@ -1,7 +1,11 @@
+// Name: NPC.as
+// Author(s):
+// version 0.1
+// --------------------------------------
+// This interface is defined for any 
+// character
 
-// The base NPC abstract
-
-abstract class NPC {
+interface Character {
 	private bool invincibility; // if invinsible or not
 	private int cHealth; // current health
 	private int mHealth; // max health

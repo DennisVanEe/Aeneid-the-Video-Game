@@ -1,17 +1,14 @@
+// Name: AIChar.as
+// Author(s):
+// version 0.1
+// --------------------------------------
+// This class is designed to be an NPC 
+// that is AI controlled (like followers
+// or enemies)
 
-#include "NPCInterface.as";
+#include "Character.as"
 
-void initialize()
-{
-	AIChar bob = new AIChar(10, 10)
-}
-
-void step( uint16 milliseconds )
-{
-	bob.rotate( milliseconds );
-}
-
-class AIChar : NPC
+class AIChar : Character
 {
 	final double rotationSpeed = 10; // to be set later after testing. degree per seconds
 	private bool invincibility;
@@ -68,6 +65,7 @@ class AIChar : NPC
 		return CharPosition( 0, 0, 0 );
 	}
 
+<<<<<<< HEAD:AIChar.as
 	//Randomly moves when Aeneas is not around
 	//When Aeneas is within a certain range, will begin to follow and attack 
 	// ROUGH EDIT, PLEASE REVIEW
@@ -82,8 +80,31 @@ class AIChar : NPC
 		
 		updatePos(
 		
+=======
+	//Randomly moves when Aeneas is not around. When Aeneas is within a certain range, will begin to follow and attack 
+	//WORK IN PROGRESS
+	void move(Aeneas ai, int range)
+	{
+		CharPosition@ AeneasPos = ai.getPos();
+		int distanceX = Math.abs(AeneasPos.x - pos.x);
+		int distanceY = Math.abs(AeneasPos.y - pos.y);	
 		
+		if(distanceX < range || distanceY < range){
+			follow(ai);
+			attack(ai);
+		}	
+		else{
+			int changeInX = (int)(Math.random()*50) * (int)(     Math.pow(-1, (int)(Math.random()*50)    ));
+			int changeInY = (int)(Math.random()*50) * (int)(     Math.pow(-1, (int)(Math.random()*50)    ));
+			int newChangeX = pos.getX() + changeInX;
+			int newChangeY = pos.gety() + changeInY;
+			double angle = Math.atan( ( (float) newChangeY ) / newChangeX );
+>>>>>>> c73acc4c5e2c533a0005bde5d49af39c8cccfd5f:include/AIChar.as
+		
+			updatePos(newChangeX , newChangeY, angle);	
+		}
 	}
+
 
 	void attack( int damage )
 	{

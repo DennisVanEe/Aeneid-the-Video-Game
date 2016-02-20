@@ -1,3 +1,10 @@
+// Name: Vector.as
+// Author(s):
+// version 0.1
+// --------------------------------------
+// This class defines an object that is a 
+// vector. Great for math and position
+
 class Vector
 {
 	public int x, y;
@@ -18,5 +25,4 @@ class Vector
 		x += other.x;
 		y += other.y;
 	}
-		
 }
