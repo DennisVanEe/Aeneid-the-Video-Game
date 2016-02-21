@@ -5,7 +5,15 @@
 // This interface is used to define a class
 // as a menu
 
-interface Menu
+abstract class Menu
 {
-	// TODO: finsih
+	array<Button@> test; 
+	
+	public void addButton(Button@ x)		//need position
+	{
+		test.insertLast(x);
+		
+	}
+	
+	public void step();
 }
