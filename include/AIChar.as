@@ -5,6 +5,7 @@
 // This class is designed to be an NPC 
 // that is AI controlled (like followers
 // or enemies)
+// Renis Penis
 
 #include "Character.as"
 

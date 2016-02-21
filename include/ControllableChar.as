@@ -18,7 +18,8 @@ class ControllableChar : Character {
 	private double walkSpeed; // Walk speed in pixels per second
 
 	// Default Constructor
-	// Sooryun is awesome
+	// Sooryun is awesome :)
+	// Julie is awesome-r :D
 	ControllableChar () {
 		ControllableChar ( 0, 0, 0 );
 	}
