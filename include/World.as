@@ -16,14 +16,12 @@ class World
 		layer = x
 	}
 
-	//adds an animated entity to render
 	void add( AnimatedEntity@ x, uint relativelayer, String name )
 	{
 		movingobj.insert( x );
 		addEntityToRender( relativelayer + layer, x, name );
 	}
 
-	//ads a static entity to render
 	void add( StaticEntity@ x, uint relativelayer, String name )
 	{
 		setobj.insert( x );
@@ -39,7 +37,6 @@ class Checkpoint
 	private Request@ posY;
 	private Request@ posAngle;
 	
-	//creates a checkpoint at x and y coordinate
 	Checkpoint( int x, int y )
 	{
 		CharPosition checkpointpos = new CharPosition( x, y, 0 );
@@ -47,5 +44,6 @@ class Checkpoint
 	
 	void save()
 	{
+		posX = Request( 
 	}
 }
