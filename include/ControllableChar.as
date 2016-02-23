@@ -73,18 +73,25 @@ class ControllableChar : Character {
 	}
 
 	// Tell Aeneas to move in a certain direction based on W, A, S, D or a combo of that
-	void move() {
-		
-	}
+	void move( uint16 milliseconds ) {
+		// Play movement animations
+		// Shift position of character
+		double angle = pos.angle;
+		int displacement = (int) walkSpeed * milliseconds / 1000;
+		int x = displacement * Math.acos(angle);
+		int y = displacement * Math.asin(angle);
+
+		Aeneas.updatePos( pos.x + x, pos.y + y, angle );
+ 	}
 
 	// Checks for inputs
 	// if-statements must be listed in order of priority
-	void checkInputs() {
+	void checkInputs( uint16 milliseconds ) {
 		if( isKeyPressed( W ) || isKeyPressed( A ) || isKeyPressed( S ) || isKeyPressed( D ) )
-			move();
+			move( milliseconds );
 		// If clicking on NPC
 		// Make sure that mouse is on NPC
-		if ( isButtonPressed( Left ) && mouseOnNPC ) {
+		if ( isButtonPressed( Left ) && ifMouseOnNPC() ) {
 			// See who to talk to who
 			AIChar aic = new AIChar();
 			talk( aic );
@@ -92,6 +99,10 @@ class ControllableChar : Character {
 		if( isButtonPressed( Left ) )
 			attack();
 	}
+	
+	bool ifMouseOnNPC( Character character) {
+		intersect( character.getEntity(), getXPosMouse, getYPosMouse );
+ 	}
 
 	// Tell Aeneas to attack the AI Character, with a certain amount of damage
 	void attack( int damage, AIChar@ aic ) {
