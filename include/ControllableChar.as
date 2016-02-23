@@ -124,6 +124,18 @@ class ControllableChar : Character {
 		if (refPos != null ) {  return refPos;  }
 			return CharPosition( 0, 0, 0 );
 	}
+	
+	void saveRequestValues() {
+		addRequest("aeneas", Request("aeneasCH", 0, WRITE_DATA, "cH", cHealth) );
+		addRequest("aeneas", Request("aeneasMH", 0, WRITE_DATA, "mH", mHealth) );
+		addRequest("aeneas", Request("aeneasCS", 0, WRITE_DATA, "cS", cStamina) );
+		addRequest("aeneas", Request("aeneasMS", 0, WRITE_DATA, "mS", mStamina) );
+		addRequest("aeneas", Request("aeneasPiety", 0, WRITE_DATA, "piety", piety) );
+		addRequest("aeneas", Request("aeneasPosX", 0, WRITE_DATA, "posX", pos.x) );
+		addRequest("aeneas", Request("aeneasPosY", 0, WRITE_DATA, "posY", pos.y) );
+		addRequest("aeneas", Request("aeneasPosAngle", 0, WRITE_DATA, "posAngle", pos.angle) );
+		addRequest("aeneas", Request("aeneasWalkSpeed", 0, WRITE_DATA, "walkSpeed", walkSpeed) );
+	}
 }
 
 
