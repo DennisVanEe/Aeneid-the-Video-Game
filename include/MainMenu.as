@@ -17,5 +17,6 @@ public class MainMenu : Menu
 		{
 			//Need function of each button name here
 		}
+		
 	}
 }

@@ -21,5 +21,7 @@ abstract class Menu
 		return true;	
 	}
 	
+	//Need a method for adding graphics (title, side pictures, etc.)
+	
 	public void step();
 }
