@@ -20,6 +20,7 @@ class AIChar : Character
 
 	AIChar ( int mH, int cH, int x, int y, double angle, double walk, bool inv, bool host )
 	{
+		consolePrintLine( "Sets the character stats." );
 		cHealth = cH;
 		mHealth = mH;
 		pos = new CharPosition ( x, y, angle );
@@ -44,6 +45,7 @@ class AIChar : Character
 
 	void updatePos( int iX, int iY, double ang )
 	{
+		consolePrintLine( "Updates the position and angle of the character." );
 		pos.setX( iX );
 		pos.setY( iY );
 		pos.setAngle( ang );
