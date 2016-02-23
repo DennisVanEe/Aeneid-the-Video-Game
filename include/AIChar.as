@@ -16,22 +16,24 @@ class AIChar : Character
 	private int mHealth;
 	private CharPosition pos;
 	private double walkSpeed;
+	private bool isHostile;
 
-	AIChar ( int mH, int cH, int x, int y, double angle, double walk, bool inv )
+	AIChar ( int mH, int cH, int x, int y, double angle, double walk, bool inv, bool host )
 	{
 		cHealth = cH;
 		mHealth = mH;
 		pos = new CharPosition ( x, y, angle );
 		walkSpeed = walk;
 		invincibility = inv;
+		isHostile = host;
 	}
 
 	void follow ( AIChar aic )
 	{
 		CharPosition@ rPos = aic.getPos();
 
-		int yDif = pos.getY() - rPos.getY();
-		int xDif = pos.getX() - rPos.getX();
+		int yDif = pos.y - rPos.y(); // updated to public variable
++		int xDif = pos.x - rPos.x(); //updated to public variable
 
 		double angle = Math.atan( ( (float) yDif ) / xDif );
 		float distance = Math.sqrt( yDif*yDif + xDif*xDif );
@@ -106,6 +108,28 @@ class AIChar : Character
 		{
 			// change image to dead body and kill NPC
 		}
+	}
+	
+	void requestSaveData( int npcNumber ) {
+		Request@ cH = Request( npcNumber + "npcCH", 0, WRITE_DATA, "cHealth", cHealth );
+		Request@ mH = Request( npcNumber + "npcMH", 0, WRITE_DATA, "mHealth", mHealth );
+		Request@ rotationSpeed = Request( npcNumber + "npcRS", 0, WRITE_DATA, "rotationSpeed", rotationSpeed );
+		Request@ isHostile = Request( npcNumber + "npcIsHostile", 0, WRITE_DATA, "isHostile", isHostile );
+		Request@ posX = Request( npcNumber + "npcPosX", 0, WRITE_DATA, "posX", pos.x );
+		Request@ posY = Request( npcNumber + "npcPosY", 0, WRITE_DATA, "posY", pos.y );
+		Request@ posAngle = Request( npcNumber + "npcPosAngle", 0, WRITE_DATA, "posAngle", pos.angle );
+		Request@ invincibility = Request( npcNumber + "npcPiety", 0, WRITE_DATA, "invincibility", invincibility );
+		Request@ walkSpeed = Request( npcNumber + "npcWalkSpeed", 0, WRITE_DATA, "walkSpeed", walkSpeed );
+
+		addRequest( npcNumber + "NPC", cH );
+		addRequest( npcNumber + "NPC", mH );
+		addRequest( npcNumber + "NPC", rotationSpeed );
+		addRequest( npcNumber + "NPC", isHostile );
+		addRequest( npcNumber + "NPC", posX );
+		addRequest( npcNumber + "NPC", posY );
+		addRequest( npcNumber + "NPC", posAngle );
+		addRequest( npcNumber + "NPC", invincibility );
+		addRequest( npcNumber + "NPC", walkSpeed );
 	}
 }
 
