@@ -3,11 +3,21 @@ public class Button
 	private AnimatedEntity@ ent;
 	private string name;
 
-	Button(String &in n)
+	Button(string &in loc, string &in name)
 	{
-		ent = getAnimatedEntity(n);
+		ent = getAnimatedEntity(loc, name);
 		addEntityToRender(0, ent, n);
 		name = n;
+	}
+	
+	Button()
+	{
+		ent = null;
+	}
+	
+	bool isNull()
+	{
+		return ent == null;
 	}
 	
 	bool isPressed()
