@@ -13,17 +13,20 @@ class World
 
 	World( uint x )
 	{
+		consolePrintLine( "Constructor for World. Sets the base layer for World." );
 		layer = x
 	}
 
 	void add( AnimatedEntity@ x, uint relativelayer, String name )
 	{
+		consolePrintLine( "Adds animated entity to movingobj array. Adds object to render at layer input relative to the World Layer." );
 		movingobj.insert( x );
 		addEntityToRender( relativelayer + layer, x, name );
 	}
 
 	void add( StaticEntity@ x, uint relativelayer, String name )
 	{
+		consolePrintLine( "Adds static entity to setobj array. Adds object to render at layer input relative to the World layer. );
 		setobj.insert( x );
 		addEntityToRender( relativelayer + layer, x, name );
 	}
@@ -39,11 +42,13 @@ class Checkpoint
 	
 	Checkpoint( int x, int y )
 	{
+		consolePrintLine( "Creates position for the Checkpoint." );
 		CharPosition checkpointpos = new CharPosition( x, y, 0 );
 	}
 	
 	void save()
 	{
+		consolePrintLine( "Requests for Character position and angle." );
 		posX = Request( 
 	}
 }
