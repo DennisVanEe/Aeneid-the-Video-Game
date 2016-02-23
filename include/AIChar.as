@@ -114,8 +114,10 @@ class Action
 	String movement;
 	int degree;
 	
-	Action() {
-
+	Action( String m, int d ) {
+		movement = m;
+		degree = d;
+		consolePrintLine( //prints out what this is doing );
 	}
 
 }
