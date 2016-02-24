@@ -7,21 +7,19 @@
 
 abstract class Menu
 {
-	array<Button@> test; 
+	array<Button@> buttons; 
 	
 	public bool addButton(const string &in loc, const string &in name)		//need position
 	{
-		test.insertLast(Button(loc, name));
-		if (test[test.size()] == null)
+		buttons.insertLast(Button(loc, name));
+		if (buttons[buttons.size()] == null)
 		{
 			consolePrintLine("[ERROR]: button named " + name + " in container " + loc " is null");
-			test.removeLast(); // remove the null button
+			buttons.removeLast(); // remove the null button
 			return false;
 		}
 		return true;	
 	}
-	
-	//Need a method for adding graphics (title, side pictures, etc.)
 	
 	public void step();
 }
