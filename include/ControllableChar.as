@@ -100,7 +100,7 @@ class ControllableChar : Character {
 			attack();
 	}
 	
-	bool ifMouseOnNPC( Character character) {
+	bool ifMouseOnNPC( Character character ) {
 		intersect( character.getEntity(), getXPosMouse, getYPosMouse );
  	}
 
