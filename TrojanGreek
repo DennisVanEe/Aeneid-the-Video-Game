@@ -14,14 +14,14 @@ void step( uint16 milliseconds ) {
     
 }
 
-boolean requestTrojans() {
+bool requestTrojans() {
     Request@ Foo = Request("read data", 0, READ_DATA, "test double"); // this request will retrieve a double called "test double"
     addRequest("trojans", Foo);
     waitForRequestQueueComp(); // wait and then get data
     double x = Foo.getDouble();
 }
 
-boolean requestGreeks() {
+bool requestGreeks() {
     Request@ Foo = Request("read data", 0, READ_DATA, "test double"); // this request will retrieve a double called "test double"
     addRequest("trojans", Foo);
     waitForRequestQueueComp(); // wait and then get data
