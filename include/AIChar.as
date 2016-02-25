@@ -1,5 +1,5 @@
 // Name: AIChar.as
-// Author(s):
+// Author(s): Jason Wang
 // version 0.1
 // --------------------------------------
 // This class is designed to be an NPC 
@@ -136,7 +136,9 @@ class AIChar : Character
 				Request( npcNumber + "npcWalkSpeed", 0, WRITE_DATA, "walkSpeed", walkSpeed ) ); // walkspeed
 		
 		// Adds request to see how many numbers of AI characters there are
-		addRequest( "numberOfNPCs",  );
+		// updates "number" variable to show how many NPCs there are
+		addRequest( "numberOfNPCs", 
+				Request( "npcNumbeAddition" + npcNumber, 0, WRITE_DATA, "number", npcNumber ) );
 	}
 }
 
