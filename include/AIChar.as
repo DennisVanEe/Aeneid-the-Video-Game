@@ -53,11 +53,13 @@ class AIChar : Character
 
 	void rotate ( uint16 milliseconds )
 	{
+		consolePrintLine( "Rotates angle of the character" );
 		pos.angle += rotationSpeed / 1000 * milliseconds;
 	}
 
 	const CharPosition@ getPos()
 	{
+		consolePrintLine( "Returns the position of the character." );
 		CharPosition@ refPos = pos;
 
 		if (refPos != null )
@@ -71,6 +73,7 @@ class AIChar : Character
 	//WORK IN PROGRESS
 	void move(Aeneas ai, int range)
 	{
+		consolePrintLine( "Randomly moves when Aeneas is not around. When Aeneas is within a certain range, character will begin to follow and attack." );
 		CharPosition@ AeneasPos = ai.getPos();
 		int distanceX = Math.abs(AeneasPos.x - pos.x);
 		int distanceY = Math.abs(AeneasPos.y - pos.y);	
@@ -90,14 +93,14 @@ class AIChar : Character
 		}
 	}
 
-
+	//Please Check this method for me! -Rene Lee
 	void attack( int damage )
 	{
-		if(  )
+		if( )
 	}
 
 	void talk( String phrase )
-	{
+	{	
 		// make text appear on screen
 	}
 
@@ -148,9 +151,9 @@ class Action
 	int degree;
 	
 	Action( String m, int d ) {
+		consolePrintLine( //prints out what this is doing );
 		movement = m;
 		degree = d;
-		consolePrintLine( //prints out what this is doing );
 	}
 
 }
