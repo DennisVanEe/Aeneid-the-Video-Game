@@ -113,25 +113,30 @@ class AIChar : Character
 	}
 	
 	void requestSaveData( int npcNumber ) {
-		Request@ cH = Request( npcNumber + "npcCH", 0, WRITE_DATA, "cHealth", cHealth );
-		Request@ mH = Request( npcNumber + "npcMH", 0, WRITE_DATA, "mHealth", mHealth );
-		Request@ rotationSpeed = Request( npcNumber + "npcRS", 0, WRITE_DATA, "rotationSpeed", rotationSpeed );
-		Request@ isHostile = Request( npcNumber + "npcIsHostile", 0, WRITE_DATA, "isHostile", isHostile );
-		Request@ posX = Request( npcNumber + "npcPosX", 0, WRITE_DATA, "posX", pos.x );
-		Request@ posY = Request( npcNumber + "npcPosY", 0, WRITE_DATA, "posY", pos.y );
-		Request@ posAngle = Request( npcNumber + "npcPosAngle", 0, WRITE_DATA, "posAngle", pos.angle );
-		Request@ invincibility = Request( npcNumber + "npcPiety", 0, WRITE_DATA, "invincibility", invincibility );
-		Request@ walkSpeed = Request( npcNumber + "npcWalkSpeed", 0, WRITE_DATA, "walkSpeed", walkSpeed );
+	
+		// Saves the basic values of the AIChar
 
-		addRequest( npcNumber + "NPC", cH );
-		addRequest( npcNumber + "NPC", mH );
-		addRequest( npcNumber + "NPC", rotationSpeed );
-		addRequest( npcNumber + "NPC", isHostile );
-		addRequest( npcNumber + "NPC", posX );
-		addRequest( npcNumber + "NPC", posY );
-		addRequest( npcNumber + "NPC", posAngle );
-		addRequest( npcNumber + "NPC", invincibility );
-		addRequest( npcNumber + "NPC", walkSpeed );
+		addRequest( npcNumber + "NPC", 
+				Request( npcNumber + "npcCH", 0, WRITE_DATA, "cHealth", cHealth ) ); // current Health
+		addRequest( npcNumber + "NPC", 
+				Request( npcNumber + "npcMH", 0, WRITE_DATA, "mHealth", mHealth ) ); // max health
+		addRequest( npcNumber + "NPC", 
+				Request( npcNumber + "npcRS", 0, WRITE_DATA, "rotationSpeed", rotationSpeed ) ); // rotationSpeed
+		addRequest( npcNumber + "NPC", 
+				Request( npcNumber + "npcIsHostile", 0, WRITE_DATA, "isHostile", isHostile ) ); // isHostile
+		addRequest( npcNumber + "NPC", 
+				Request( npcNumber + "npcPosX", 0, WRITE_DATA, "posX", pos.x ) ); // x position
+		addRequest( npcNumber + "NPC", 
+				Request( npcNumber + "npcPosY", 0, WRITE_DATA, "posY", pos.y ) ); // y position
+		addRequest( npcNumber + "NPC", 
+				Request( npcNumber + "npcPosAngle", 0, WRITE_DATA, "posAngle", pos.angle ) ); // angle
+		addRequest( npcNumber + "NPC", 
+				Request( npcNumber + "npcPiety", 0, WRITE_DATA, "invincibility", invincibility ) ); // invincibility
+		addRequest( npcNumber + "NPC", 
+				Request( npcNumber + "npcWalkSpeed", 0, WRITE_DATA, "walkSpeed", walkSpeed ) ); // walkspeed
+		
+		// Adds request to see how many numbers of AI characters there are
+		addRequest( "numberOfNPCs",  );
 	}
 }
 
