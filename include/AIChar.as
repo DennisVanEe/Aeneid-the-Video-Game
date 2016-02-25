@@ -78,10 +78,12 @@ class AIChar : Character
 		int distanceX = Math.abs(AeneasPos.x - pos.x);
 		int distanceY = Math.abs(AeneasPos.y - pos.y);	
 		
+		//When Aeneas is near.
 		if(distanceX < range || distanceY < range){
 			follow(ai);
 			attack(ai);
 		}	
+		//When Aeneas is not near.
 		else{
 			int changeInX = (int)(Math.random()*50) * (int)(     Math.pow(-1, (int)(Math.random()*50)    ));
 			int changeInY = (int)(Math.random()*50) * (int)(     Math.pow(-1, (int)(Math.random()*50)    ));
