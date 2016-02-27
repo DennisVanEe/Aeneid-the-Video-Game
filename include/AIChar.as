@@ -34,7 +34,7 @@ class AIChar : Character
 		CharPosition@ rPos = aic.getPos();
 
 		int yDif = pos.y - rPos.y(); // updated to public variable
-+		int xDif = pos.x - rPos.x(); //updated to public variable
+		int xDif = pos.x - rPos.x(); //updated to public variable
 
 		double angle = Math.atan( ( (float) yDif ) / xDif );
 		float distance = Math.sqrt( yDif*yDif + xDif*xDif );
@@ -96,7 +96,7 @@ class AIChar : Character
 	}
 
 	//Please Check this method for me! -Rene Lee
-	void attack( int damage )
+	void attack( int damage ) //shouldn't it pass in nothing? (unless "int damage" is how much damage the enemy does) -Andrew
 	{
 		if( )
 	}
@@ -104,6 +104,9 @@ class AIChar : Character
 	void talk( String phrase )
 	{	
 		// make text appear on screen
+		AnimatedEntity text = new AnimatedEntity();
+		addEntitytoRender(0,text,n); //how to add "phrase" onto entity?-Andrew
+		
 	}
 
 	void changeHealth( int difference );

@@ -6,8 +6,8 @@ public class Button
 	Button(string &in loc, string &in name)
 	{
 		ent = getAnimatedEntity(loc, name);
-		addEntityToRender(0, ent, n);
-		name = n;
+		addEntityToRender(0, ent, n); //no "n" declared? -Andrew
+		name = n; //"n" again -Andrew
 	}
 	
 	Button()
