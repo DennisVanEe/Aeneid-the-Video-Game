@@ -79,28 +79,12 @@ class AIChar : Character
 
 	//Randomly moves when Aeneas is not around. When Aeneas is within a certain range, will begin to follow and attack 
 	//WORK IN PROGRESS
-	void move(Aeneas ai, int range)
-	{
-		consolePrintLine( "Randomly moves when Aeneas is not around. When Aeneas is within a certain range, character will begin to follow and attack." );
-		CharPosition@ AeneasPos = ai.getPos();
-		int distanceX = Math.abs(AeneasPos.x - pos.x);
-		int distanceY = Math.abs(AeneasPos.y - pos.y);	
+	void move(uint16 milliseconds)
+	{	
+		updatePos( cos(pos.angle*3.14159/180)*milliseconds*walkSpeed/1000,
+			   sin(pos.angle*3.14159/180)*milliseconds*walkspeed/1000,
+			   angle );
 		
-		//When Aeneas is near.
-		if(distanceX < range || distanceY < range){
-			follow(ai);
-			attack(ai);
-		}	
-		//When Aeneas is not near.
-		else{
-			int changeInX = (int)(Math.random()*50) * (int)(     Math.pow(-1, (int)(Math.random()*50)    ));
-			int changeInY = (int)(Math.random()*50) * (int)(     Math.pow(-1, (int)(Math.random()*50)    ));
-			int newChangeX = pos.getX() + changeInX;
-			int newChangeY = pos.gety() + changeInY;
-			double angle = Math.atan( ( (float) newChangeY ) / newChangeX );
-		
-			updatePos(newChangeX , newChangeY, angle);	
-		}
 	}
 
 	//Please Check this method for me! -Rene Lee
