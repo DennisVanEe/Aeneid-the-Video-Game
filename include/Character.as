@@ -15,7 +15,7 @@ interface Character {
 
 	void setRotation( int degree ); // sets the degree the NPC is facing
 
-	const CharPosition@ getPos(); // gets the position of the NPC
+	const CharPosition @ getPos(); // gets the position of the NPC
 
 	void move( int x, int y ); // moves the NPC to postion (x, y)
 

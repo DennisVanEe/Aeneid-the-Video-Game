@@ -14,7 +14,7 @@ class AIChar : Character
 	private bool invincibility;
 	private int cHealth;
 	private int mHealth;
-	private CharPosition pos;
+	private CharPosition @ pos;
 	private double walkSpeed;
 	private bool isHostile;
 
@@ -29,18 +29,26 @@ class AIChar : Character
 		isHostile = host;
 	}
 
-	void follow ( AIChar aic )
+	void follow ( Character aic, uint16 milliseconds )
 	{
 		CharPosition@ rPos = aic.getPos();
 
 		int yDif = pos.y - rPos.y(); // updated to public variable
 		int xDif = pos.x - rPos.x(); //updated to public variable
 
-		double angle = Math.atan( ( (float) yDif ) / xDif );
-		float distance = Math.sqrt( yDif*yDif + xDif*xDif );
+		double angle = atan( ( (float) yDif ) / xDif );
+		float distance = sqrt( yDif*yDif + xDif*xDif );
+		float bubble = 30; //or 20
 
-		// TODO: Update positions
-		// TODO: Finish follow method
+		updatePos( pos.x, pos.y, angle );
+		if( bubble < distance )
+		{
+			updatePos( pos.x + walkspeed * milliseconds / 1000, 
+					pos.y + walkspeed * milliseconds / 1000, angle );
+		}
+		else
+			updatePos( pos.x, pos.y, angle );
+
 	}
 
 	void updatePos( int iX, int iY, double ang )
@@ -121,32 +129,7 @@ class AIChar : Character
 	}
 	
 	void requestSaveData( int npcNumber ) {
-	
-		// Saves the basic values of the AIChar
 
-		addRequest( npcNumber + "NPC", 
-				Request( npcNumber + "npcCH", 0, WRITE_DATA, "cHealth", cHealth ) ); // current Health
-		addRequest( npcNumber + "NPC", 
-				Request( npcNumber + "npcMH", 0, WRITE_DATA, "mHealth", mHealth ) ); // max health
-		addRequest( npcNumber + "NPC", 
-				Request( npcNumber + "npcRS", 0, WRITE_DATA, "rotationSpeed", rotationSpeed ) ); // rotationSpeed
-		addRequest( npcNumber + "NPC", 
-				Request( npcNumber + "npcIsHostile", 0, WRITE_DATA, "isHostile", isHostile ) ); // isHostile
-		addRequest( npcNumber + "NPC", 
-				Request( npcNumber + "npcPosX", 0, WRITE_DATA, "posX", pos.x ) ); // x position
-		addRequest( npcNumber + "NPC", 
-				Request( npcNumber + "npcPosY", 0, WRITE_DATA, "posY", pos.y ) ); // y position
-		addRequest( npcNumber + "NPC", 
-				Request( npcNumber + "npcPosAngle", 0, WRITE_DATA, "posAngle", pos.angle ) ); // angle
-		addRequest( npcNumber + "NPC", 
-				Request( npcNumber + "npcPiety", 0, WRITE_DATA, "invincibility", invincibility ) ); // invincibility
-		addRequest( npcNumber + "NPC", 
-				Request( npcNumber + "npcWalkSpeed", 0, WRITE_DATA, "walkSpeed", walkSpeed ) ); // walkspeed
-		
-		// Adds request to see how many numbers of AI characters there are
-		// updates "number" variable to show how many NPCs there are
-		addRequest( "numberOfNPCs", 
-				Request( "npcNumbeAddition" + npcNumber, 0, WRITE_DATA, "number", npcNumber ) );
 	}
 }
 
