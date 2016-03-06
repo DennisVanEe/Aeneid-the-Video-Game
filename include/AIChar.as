@@ -155,6 +155,14 @@ class AIChar : Character
 		attack(/*int damage*/, npc); //the current AIChar method does not have the npc second parameter
 }
 
+	bool isHostile()
+	{
+		if( isHostile )
+			return true;
+		else
+			return false;
+	}
+
 	void requestSaveData( int npcNumber ) {
 
 	}
