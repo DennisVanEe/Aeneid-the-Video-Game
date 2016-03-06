@@ -6,7 +6,7 @@
 // that is AI controlled (like followers
 // or enemies)
 
-#include "Character.as"
+#include "include/Character.as"
 
 class AIChar : Character
 {
@@ -138,6 +138,14 @@ class AIChar : Character
 	if(abs(CharPosition().angle - npc.CharPosition().angle)<181 && abs(CharPosition().angle - npc.CharPosition().angle) > 179) //shouldn't be exacty 180 since comparing doubles
 		attack(/*int damage*/, npc); //the current AIChar method does not have the npc second parameter
 }
+
+	bool isHostile()
+	{
+		if( isHostile )
+			return true;
+		else
+			return false;
+	}
 
 	void requestSaveData( int npcNumber ) {
 
