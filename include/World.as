@@ -5,6 +5,7 @@
 // These classes are used to define the 
 // world the other assets will be in
 
+
 class World
 {
 	private array< StaticEntity@ > setobj;
@@ -26,7 +27,7 @@ class World
 
 	void add( StaticEntity@ x, uint relativelayer, String name )
 	{
-		consolePrintLine( "Adds static entity to setobj array. Adds object to render at layer input relative to the World layer. );
+		consolePrintLine( "Adds static entity to setobj array. Adds object to render at layer input relative to the World layer." );
 		setobj.insert( x );
 		addEntityToRender( relativelayer + layer, x, name );
 	}
