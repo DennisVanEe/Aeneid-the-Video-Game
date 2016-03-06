@@ -6,7 +6,7 @@
 // that is AI controlled (like followers
 // or enemies)
 
-#include "Character.as"
+#include "include/Character.as"
 
 class AIChar : Character
 {

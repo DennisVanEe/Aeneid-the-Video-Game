@@ -1,4 +1,4 @@
-#include "include/ControllableChar";
+#include "include/ControllableChar.as";
 
 class SaveAndLoad
 {
@@ -11,13 +11,11 @@ class SaveAndLoad
 	
 	void Save()
 	{
-		Request@ writeReq = Request("write save", 0, WRITE_CONTAINER_FILE, "/saves/save.bin");
-		addRequest("SaveContainer", writeReq );
+		ee::writeToDataCont( "Aeneas", variable name, actual variable itself );
 	}
 	
 	void Load()
 	{
-		Request@ readReq = Request("read save", 0, READ_CONTAINER_FILE, "/loads/load.bin");
-		addRequest("SaveContainer", readReq);
+		ee::readFromDataCont( "Aeneas", variable name, actual variable itself );
 	}
 }
