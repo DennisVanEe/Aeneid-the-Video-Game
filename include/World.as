@@ -5,6 +5,7 @@
 // These classes are used to define the 
 // world the other assets will be in
 
+
 class World
 {
 	private array< StaticEntity@ > setobj;

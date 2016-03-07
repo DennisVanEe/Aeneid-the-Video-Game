@@ -6,7 +6,7 @@
 // that is AI controlled (like followers
 // or enemies)
 
-#include "Character.as"
+#include "include/Character.as"
 
 class AIChar : Character
 {
@@ -14,7 +14,7 @@ class AIChar : Character
 	private bool invincibility;
 	private int cHealth;
 	private int mHealth;
-	private CharPosition pos;
+	private CharPosition @ pos;
 	private double walkSpeed;
 	private bool isHostile;
 
@@ -29,18 +29,26 @@ class AIChar : Character
 		isHostile = host;
 	}
 
-	void follow ( AIChar aic )
+	void follow ( Character aic, uint16 milliseconds )
 	{
 		CharPosition@ rPos = aic.getPos();
 
 		int yDif = pos.y - rPos.y(); // updated to public variable
 		int xDif = pos.x - rPos.x(); //updated to public variable
 
-		double angle = Math.atan( ( (float) yDif ) / xDif );
-		float distance = Math.sqrt( yDif*yDif + xDif*xDif );
+		double angle = atan( ( (float) yDif ) / xDif );
+		float distance = sqrt( yDif*yDif + xDif*xDif );
+		float bubble = 30; //or 20
 
-		// TODO: Update positions
-		// TODO: Finish follow method
+		updatePos( pos.x, pos.y, angle );
+		if( bubble < distance )
+		{
+			updatePos( pos.x + walkspeed * milliseconds / 1000, 
+					pos.y + walkspeed * milliseconds / 1000, angle );
+		}
+		else
+			updatePos( pos.x, pos.y, angle );
+
 	}
 
 	void updatePos( int iX, int iY, double ang )
@@ -71,28 +79,12 @@ class AIChar : Character
 
 	//Randomly moves when Aeneas is not around. When Aeneas is within a certain range, will begin to follow and attack 
 	//WORK IN PROGRESS
-	void move(Aeneas ai, int range)
-	{
-		consolePrintLine( "Randomly moves when Aeneas is not around. When Aeneas is within a certain range, character will begin to follow and attack." );
-		CharPosition@ AeneasPos = ai.getPos();
-		int distanceX = Math.abs(AeneasPos.x - pos.x);
-		int distanceY = Math.abs(AeneasPos.y - pos.y);	
+	void move(uint16 milliseconds)
+	{	
+		updatePos( cos(pos.angle*3.14159/180)*milliseconds*walkSpeed/1000,
+			   sin(pos.angle*3.14159/180)*milliseconds*walkspeed/1000,
+			   angle );
 		
-		//When Aeneas is near.
-		if(distanceX < range || distanceY < range){
-			follow(ai);
-			attack(ai);
-		}	
-		//When Aeneas is not near.
-		else{
-			int changeInX = (int)(Math.random()*50) * (int)(     Math.pow(-1, (int)(Math.random()*50)    ));
-			int changeInY = (int)(Math.random()*50) * (int)(     Math.pow(-1, (int)(Math.random()*50)    ));
-			int newChangeX = pos.getX() + changeInX;
-			int newChangeY = pos.gety() + changeInY;
-			double angle = Math.atan( ( (float) newChangeY ) / newChangeX );
-		
-			updatePos(newChangeX , newChangeY, angle);	
-		}
 	}
 
 	//Please Check this method for me! -Rene Lee
@@ -120,33 +112,43 @@ class AIChar : Character
 		}
 	}
 	
-	void requestSaveData( int npcNumber ) {
+	void fighting(Character npc)
+{
+	if(/*not in range*/)
+		return;
 	
-		// Saves the basic values of the AIChar
+	int nx = npc.CharPosition().x;
+	int ny = npc.CharPosition().y;
+	int cx = CharPosition().x;
+	int cy = CharPosition().y;
+	int angle;
+	
+	if(cx-ny <= 0 && cy-ny <= 0) //lines 12-22 is setting position to face enemy
+		{
+			angle = 180 + (int)atan(abs(cy-ny),abs(cx-nx));
+			setPosition(angle);
+		}
+	else if(cx-nx<=0 && cy-ny>=0)	
+	{
+		angle = 90 + (int)atan(abs(cy-ny),abs(cx-nx));
+		setPosition(angle); //can divide angle by 10 or something so that it doesnt turn instantaneously or use MOVE FUNCTION
+	}
+	else{setRotation((int)atan(abs(cy-ny),abs(cx-nx)));}
+	
+	if(abs(CharPosition().angle - npc.CharPosition().angle)<181 && abs(CharPosition().angle - npc.CharPosition().angle) > 179) //shouldn't be exacty 180 since comparing doubles
+		attack(/*int damage*/, npc); //the current AIChar method does not have the npc second parameter
+}
 
-		addRequest( npcNumber + "NPC", 
-				Request( npcNumber + "npcCH", 0, WRITE_DATA, "cHealth", cHealth ) ); // current Health
-		addRequest( npcNumber + "NPC", 
-				Request( npcNumber + "npcMH", 0, WRITE_DATA, "mHealth", mHealth ) ); // max health
-		addRequest( npcNumber + "NPC", 
-				Request( npcNumber + "npcRS", 0, WRITE_DATA, "rotationSpeed", rotationSpeed ) ); // rotationSpeed
-		addRequest( npcNumber + "NPC", 
-				Request( npcNumber + "npcIsHostile", 0, WRITE_DATA, "isHostile", isHostile ) ); // isHostile
-		addRequest( npcNumber + "NPC", 
-				Request( npcNumber + "npcPosX", 0, WRITE_DATA, "posX", pos.x ) ); // x position
-		addRequest( npcNumber + "NPC", 
-				Request( npcNumber + "npcPosY", 0, WRITE_DATA, "posY", pos.y ) ); // y position
-		addRequest( npcNumber + "NPC", 
-				Request( npcNumber + "npcPosAngle", 0, WRITE_DATA, "posAngle", pos.angle ) ); // angle
-		addRequest( npcNumber + "NPC", 
-				Request( npcNumber + "npcPiety", 0, WRITE_DATA, "invincibility", invincibility ) ); // invincibility
-		addRequest( npcNumber + "NPC", 
-				Request( npcNumber + "npcWalkSpeed", 0, WRITE_DATA, "walkSpeed", walkSpeed ) ); // walkspeed
-		
-		// Adds request to see how many numbers of AI characters there are
-		// updates "number" variable to show how many NPCs there are
-		addRequest( "numberOfNPCs", 
-				Request( "npcNumbeAddition" + npcNumber, 0, WRITE_DATA, "number", npcNumber ) );
+	bool isHostile()
+	{
+		if( isHostile )
+			return true;
+		else
+			return false;
+	}
+
+	void requestSaveData( int npcNumber ) {
+
 	}
 }
 
