@@ -16,6 +16,7 @@ class ControllableChar : Character {
 	private int piety; // Piety points
 	private CharPosition pos; // Position
 	private double walkSpeed; // Walk speed
+	private int damage;
 
 	// Default Constructor
 	ControllableChar () {
@@ -24,11 +25,11 @@ class ControllableChar : Character {
 
 	// Constructor with default base values
 	ControllableChar ( int x, int y, double angle ) {
-		ControllableChar ( 100, 100, 100, 100, 0, x, y, angle, 100 );
+		ControllableChar ( 100, 100, 100, 100, 0, x, y, angle, 100, 50 );
 	}
 
 	// Constructor with custom values for everything
-	ControllableChar ( int mH, int cH, int cS, int mS, int p, int x, int y, double angle, double walk ) {
+	ControllableChar ( int mH, int cH, int cS, int mS, int p, int x, int y, double angle, double walk, int dmg ) {
 		mHealth = mH;
 		cHealth = cH;
 		cStamina = cS;
@@ -36,6 +37,7 @@ class ControllableChar : Character {
 		piety = p;
 		pos = new CharPosition ( x, y, angle );
 		walkSpeed = walk;
+		damage = dmg;
 	}
 
 	// Tells Aeneas to follow a certain AI Character
@@ -45,8 +47,11 @@ class ControllableChar : Character {
 		int yDif = pos.y - rPos.y;
 		int xDif = pos.x - rPos.x;
 
-		double angle = Math.atan( ( (float) yDif ) / xDif );
-		float distance = Math.sqrt( yDif*yDif + xDif*xDif );
+		double angle = atan( ( (float) yDif ) / xDif ); // NOTE: PLEASE DO THIS
+		if( xDif < 0 )
+			angle += 180;
+
+		float distance = sqrt( yDif*yDif + xDif*xDif );
 
 		move();
 
@@ -63,45 +68,47 @@ class ControllableChar : Character {
 
 	// Rotates Aeneas to follow the Mouse
 	void setRotation () {
-		int xMouse = getXPosMouse();
-		int yMouse = getYPosMouse();
+		int yDif = pos.getY() - ee::getYPosMouse;
+		int xDif = pos.getX() - ee::getXPosMouse;
 
-		int yDif = pos.getY() - yMouse;
-		int xDif = pos.getX() - xMouse;
-
-		pos.angle = Math.atan( ( (float) yDif ) / xDif );
+		pos.angle = atan( ( (float) yDif ) / xDif );
+		if( xDif < 0 )
+			angle += 180;
 	}
 
 	// Tell Aeneas to move in a certain direction based on W, A, S, D or a combo of that
 	void move( uint16 milliseconds ) {
 		// Play movement animations
 		// Shift position of character
-		double angle = pos.angle;
 		int displacement = (int) walkSpeed * milliseconds / 1000;
-		int x = displacement * Math.acos(angle);
-		int y = displacement * Math.asin(angle);
+		int x = displacement * acos(pos.angle);
+		int y = displacement * asin(pos.angle);
 
-		Aeneas.updatePos( pos.x + x, pos.y + y, angle );
+		Aeneas.updatePos( pos.x + x, pos.y + y, pos.angle );
  	}
 
 	// Checks for inputs
 	// if-statements must be listed in order of priority
 	void checkInputs( uint16 milliseconds ) {
-		if( isKeyPressed( W ) || isKeyPressed( A ) || isKeyPressed( S ) || isKeyPressed( D ) )
-			move( milliseconds );
 		// If clicking on NPC
 		// Make sure that mouse is on NPC
-		if ( isButtonPressed( Left ) && ifMouseOnNPC() ) {
-			// See who to talk to who
-			AIChar aic = new AIChar();
-			talk( aic );
+		array npcArray = readFromDataCont( "npcList", "npcArray" ); // NOTE: Ask Dennis
+		if ( ee::isButtonPressed( Left ) ) {
+			for( AIChar aic : npcArray ) {
+				if( ifMouseOnNPC( aic ) ) {
+					if( aic.isHostile() )
+						attack( damage, aic );
+					else
+						talk( aic );
+				}
+			}
 		}
-		if( isButtonPressed( Left ) )
-			attack();
+		if( ee::isKeyPressed( W ) || ee::isKeyPressed( A ) || ee::isKeyPressed( S ) || ee::isKeyPressed( D ) )
+			move( milliseconds );
 	}
 	
-	bool ifMouseOnNPC( Character character ) {
-		intersect( character.getEntity(), getXPosMouse, getYPosMouse );
+	bool ifMouseOnNPC( AIChar character ) {
+		ee::intersect( character.getEntity(), ee::getXPosMouse, ee::getYPosMouse ); // NOTE: Must get Entity for character
  	}
 
 	// Tell Aeneas to attack the AI Character, with a certain amount of damage
@@ -125,7 +132,7 @@ class ControllableChar : Character {
 
 	// A function for when Aeneas dies
 	void die() {
-
+		// NOTE: Add something for when Aeneas dies
 	}
 	
 	// Returns a reference to the position of Aeneas
@@ -133,19 +140,22 @@ class ControllableChar : Character {
 		CharPosition@ refPos = pos;
 
 		if (refPos != null ) {  return refPos;  }
-			return CharPosition( 0, 0, 0 );
+		ee::consolePrintLine( "ERROR: Aeneas Position is null." );
+		return CharPosition( 0, 0, 0 );
 	}
 	
 	void saveRequestValues() {
-		addRequest("aeneas", Request("aeneasCH", 0, WRITE_DATA, "cH", cHealth) );
-		addRequest("aeneas", Request("aeneasMH", 0, WRITE_DATA, "mH", mHealth) );
-		addRequest("aeneas", Request("aeneasCS", 0, WRITE_DATA, "cS", cStamina) );
-		addRequest("aeneas", Request("aeneasMS", 0, WRITE_DATA, "mS", mStamina) );
-		addRequest("aeneas", Request("aeneasPiety", 0, WRITE_DATA, "piety", piety) );
-		addRequest("aeneas", Request("aeneasPosX", 0, WRITE_DATA, "posX", pos.x) );
-		addRequest("aeneas", Request("aeneasPosY", 0, WRITE_DATA, "posY", pos.y) );
-		addRequest("aeneas", Request("aeneasPosAngle", 0, WRITE_DATA, "posAngle", pos.angle) );
-		addRequest("aeneas", Request("aeneasWalkSpeed", 0, WRITE_DATA, "walkSpeed", walkSpeed) );
+		// ee:writeToDataCont( "dataContName", "variableName", variable );
+		ee::writeToDataCont( "aeneas", "cH", cHealth );
+		ee::writeToDataCont( "aeneas", "mH", mHealth );
+		ee::writeToDataCont( "aeneas", "cS", cStamina );
+		ee::writeToDataCont( "aeneas", "mS", mStamina );
+		ee::writeToDataCont( "aeneas", "piety", piety );
+		ee::writeToDataCont( "aeneas", "posX", pos.x );
+		ee::writeToDataCont( "aeneas", "posY", pos.y );
+		ee::writeToDataCont( "aeneas", "posAngle", pos.angle );
+		ee::writeToDataCont( "aeneas", "walkSpeed", walkSpeed );
+		ee::writeToDataCont( "aeneas", "damage", damage );
 	}
 }
 
