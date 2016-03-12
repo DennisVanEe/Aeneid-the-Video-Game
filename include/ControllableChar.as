@@ -12,6 +12,7 @@ class ControllableChar : Character {
 
 	private Inventory inv;
 	CharPosition @ pos;
+	CharStats @ stats;
 
 	void addItem( const string &in, Collectible c ) {
 
@@ -23,6 +24,7 @@ class ControllableChar : Character {
 		inv = new Inventory();
 
 		pos = getCharPosition();
+		stats = getStat();
 	}
 
 	// Constructor with all values as parameter
@@ -31,6 +33,7 @@ class ControllableChar : Character {
 		inv = i;
 
 		pos = getCharPosition();
+		stats = getStat();
 	}
 
 	// Tells Aeneas to follow a certain AI Character
@@ -58,23 +61,24 @@ class ControllableChar : Character {
 	// gets Character Position
 	CharPosition @ getCharPosition() { return Character.getPos(); }
 
+	// Calls update for Entity render
 	void update() { Character.update(); }
 
 	// Rotates Aeneas to follow the Mouse
 	void setRotation () {
-		int yDif = pos.getY() - ee::getYPosMouse;
-		int xDif = pos.getX() - ee::getXPosMouse;
+		int yDif = pos.y - ee::getYPosMouse;
+		int xDif = pos.x - ee::getXPosMouse;
 
 		pos.angle = atan( ( (float) yDif ) / xDif );
 		if( xDif < 0 )
-			angle += 180;
+			pos.angle += 180;
 	}
 
 	// Tell Aeneas to move in a certain direction based on W, A, S, D or a combo of that
 	void move( uint16 milliseconds ) {
 		// Play movement animations
 		// Shift position of character
-		int displacement = (int) walkSpeed * milliseconds / 1000;
+		int displacement = (int) stats.getWalkSpeed() * milliseconds / 1000;
 		int x = displacement * acos(pos.angle);
 		int y = displacement * asin(pos.angle);
 
@@ -118,10 +122,9 @@ class ControllableChar : Character {
 
 	// cHealth of the NPC is changed to changedTo. If cHealth is 0, the NPC dies
 	void changeHealth( int difference ) {
-		cHealth -= difference;
-		if( cHealth <= 0 ) {
+		stats.damage( difference );
+		if( stats.getCHealth <= 0 || stats.getCHealth < 1 )
 			die();
-		}
 	}
 
 	// A function for when Aeneas dies
@@ -129,27 +132,8 @@ class ControllableChar : Character {
 		// NOTE: Add something for when Aeneas dies
 	}
 	
-	// Returns a reference to the position of Aeneas
-	const CharPosition@ getPos() {
-		CharPosition@ refPos = pos;
-
-		if (refPos != null ) {  return refPos;  }
-		ee::consolePrintLine( "ERROR: Aeneas Position is null." );
-		return CharPosition( 0, 0, 0 );
-	}
-	
 	void saveRequestValues() {
-		// ee:writeToDataCont( "dataContName", "variableName", variable );
-		ee::writeToDataCont( "aeneas", "cH", cHealth );
-		ee::writeToDataCont( "aeneas", "mH", mHealth );
-		ee::writeToDataCont( "aeneas", "cS", cStamina );
-		ee::writeToDataCont( "aeneas", "mS", mStamina );
-		ee::writeToDataCont( "aeneas", "piety", piety );
-		ee::writeToDataCont( "aeneas", "posX", pos.x );
-		ee::writeToDataCont( "aeneas", "posY", pos.y );
-		ee::writeToDataCont( "aeneas", "posAngle", pos.angle );
-		ee::writeToDataCont( "aeneas", "walkSpeed", walkSpeed );
-		ee::writeToDataCont( "aeneas", "damage", damage );
+		Character.saveRequestValues();
 	}
 }
 
