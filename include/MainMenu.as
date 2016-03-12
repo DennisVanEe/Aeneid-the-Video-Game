@@ -3,17 +3,10 @@
 
 class MainMenu : Menu
 {
-	private dictionary< Button > buttons;
-
-	MainMenu( )
-	{
-
-	}
-
 	void step()
 	{
 		bool buttonIsPressed = false;
-		String nameButtonPressed;
+		string nameButtonPressed;
 		for( int i = 0; i < buttons.length(); i++ )
 		{
 			if( buttons[i].isPressed() )

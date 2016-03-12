@@ -8,6 +8,7 @@ class Inventory
 
 	Inventory()
 	{
+		items = new dictionary< Collectible >();
 		totalweight = 0;
 	}
 

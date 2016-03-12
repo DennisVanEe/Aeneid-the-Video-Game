@@ -1,6 +1,10 @@
 class Button
 {
+<<<<<<< HEAD
+	private ee::AnimatedEntity ent;
+=======
 	private AnimatedEntity ent;
+>>>>>>> d0ca35a60716161300547e7c358167711fcb3e89
 	private string name;
 
 	Button(string &in loc, string &in n)
