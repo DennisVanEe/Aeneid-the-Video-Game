@@ -8,14 +8,14 @@
 // objects.
 
 class Movable {
-	private CharPosition pos;
+	protected CharPosition pos;
 	
 	Movable() {
 		Movable (0, 0, 0);
 	}
 
 	Movable( int x, int y, double a) {
-		pos = new CharPosition( x, y, a );
+		pos = CharPosition( x, y, a );
 	}
 
 	CharPosition @ getPos() {
@@ -32,15 +32,20 @@ class Movable {
 	// multiple times in same frame. Called during step in
 	// order to only render entity once per step.
 	void update() {
-		return null;
+	//must implement
 	}
 }
 
-class CharPosition() {
-	public int x;
-	public int y;
-	public double angle; // measured in degrees (circle)
+class CharPosition {
+    int x; 
+	int y; 
+	double angle; // measured in degrees (circle)
 
+	CharPosition()
+	{
+	 CharPosition(0,0,0);
+	}
+	
 	CharPosition ( int iX, int iY, double ang ) {
 		x = iX;
 		y = iY;

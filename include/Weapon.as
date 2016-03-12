@@ -4,14 +4,14 @@ class Weapon : Collectible
 {
 	private uint damage;
 
-	Weapon( int mass, string name, StaticEntity ent, uint dam )
+	Weapon( float mass, string name, StaticEntity ent, uint dam )
 	{
 		Collectible( mass, name, ent );
 		damage = dam;
 	}
 
-	uint damage()
+	uint damage() const
 	{
-		
+		return damage;
 	}
 }
