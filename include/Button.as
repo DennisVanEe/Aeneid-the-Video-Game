@@ -1,13 +1,16 @@
 class Button
 {
+<<<<<<< HEAD
 	private ee::AnimatedEntity ent;
+=======
+	private AnimatedEntity ent;
+>>>>>>> d0ca35a60716161300547e7c358167711fcb3e89
 	private string name;
 
-	Button(string &in loc, string &in name)
+	Button(string &in loc, string &in n)
 	{
 		ent = getAnimatedEntity(loc, name);
-		addEntityToRender(0, ent, n); //no "n" declared? -Andrew
-		name = n; //"n" again -Andrew
+		name = n;
 	}
 	
 	Button()
@@ -17,7 +20,10 @@ class Button
 	
 	bool isNull()
 	{
-		return ent == null;
+		if( ent == null )
+			return true;
+		else
+			return false
 	}
 	
 	bool isPressed()
@@ -34,14 +40,13 @@ class Button
 		return false;
 	}
 
-	String getButtonName()
+	string getButtonName()
 	{
 		return name;
 	}
 	
 	~Button()
 	{
-		removeEntityToRender(name);
 	}
 	
 	

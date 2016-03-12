@@ -9,7 +9,7 @@ abstract class Menu
 {
 	array<Button@> buttons; 
 	
-	public bool addButton(const string &in loc, const string &in name)		//need position
+	bool addButton(const string &in loc, const string &in name)		//need position
 	{
 		buttons.insertLast(Button(loc, name));
 		if (buttons[buttons.size()] == null)
