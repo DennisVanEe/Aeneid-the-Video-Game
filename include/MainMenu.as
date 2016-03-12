@@ -1,19 +1,29 @@
-public class MainMenu : Menu
+#include "Menu.as"
+#include "Button.as"
+
+class MainMenu : Menu
 {
-	public void step()
+	private dictionary< Button > buttons;
+
+	MainMenu( )
+	{
+
+	}
+
+	void step()
 	{
 		bool buttonIsPressed = false;
 		String nameButtonPressed;
-		for( int i = 0; i < test.length(); i++ )
+		for( int i = 0; i < buttons.length(); i++ )
 		{
-			if( test[i].isPressed() )
+			if( buttons[i].isPressed() )
 			{
 				buttonIsPressed = true;
-				nameButtonPressed = test[i].getButtonName();
+				nameButtonPressed = buttons[i].getButtonName();
 				break;
 			}
 		}
-		if( buttonIsPressed)
+		if( buttonIsPressed )
 		{
 			//Need function of each button name here
 		}
