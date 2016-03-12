@@ -7,7 +7,7 @@
 // positions of various characters and
 // objects.
 
-shared class Movable {
+class Movable {
 	private CharPosition pos;
 	
 	Movable() {
@@ -18,7 +18,7 @@ shared class Movable {
 		pos = new CharPosition( x, y, a );
 	}
 
-	CharPosition getPos() {
+	CharPosition @ getPos() {
 		return pos;
 	}
 
@@ -28,6 +28,9 @@ shared class Movable {
 		pos.angle = a;
 	}
 
+	// Used to make sure engine does not try to render Entity
+	// multiple times in same frame. Called during step in
+	// order to only render entity once per step.
 	void update() {
 		return null;
 	}

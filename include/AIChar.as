@@ -12,6 +12,7 @@ class AIChar : Character
 {
 	AIChar ( int mH, int cH, int x, int y, double angle, double walk, bool inv, bool host )
 	{
+		Character( )
 		consolePrintLine( "Sets the character stats." );
 		cHealth = cH;
 		mHealth = mH;

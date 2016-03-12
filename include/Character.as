@@ -5,8 +5,8 @@
 // This interface is defined for any 
 // character
 
-#include "include/Movable.as"
-#include "include/CharStats.as"
+#include "Movable.as"
+#include "CharStats.as"
 
 // interface Character {
 class Character : Movable {
@@ -33,7 +33,7 @@ class Character : Movable {
 		stats = new CharStats( cH, mH, wS, rS, immunity, hostile );
 	}
 
-	CharPosition getPos() {
+	CharPosition @ getPos() {
 		return Movable.getPos();
 	}
 

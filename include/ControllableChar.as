@@ -11,6 +11,7 @@
 class ControllableChar : Character {
 
 	private Inventory inv;
+	CharPosition @ pos;
 
 	void addItem( const string &in, Collectible c ) {
 
@@ -19,12 +20,21 @@ class ControllableChar : Character {
 	// Default Constructor
 	ControllableChar() {
 		Character();
-		ControllableChar ( new Inventory() );
+		inv = new Inventory();
+
+		pos = getCharPosition();
 	}
 
-	ControllableChar( Inventory i ) {
+	// Constructor with all values as parameter
+	ControllableChar( Inventory i, int x, int y, double angle, int cH, int mH, float wS, int p, float cW, float mCW ) {
+		Character( x, y, angle, cH, mH, wS, p, cW, mCW );
 		inv = i;
+
+		pos = getCharPosition();
 	}
+
+	// gets Character Position
+	CharPosition @ getCharPosition() { return Character.getPos(); }
 
 	// Tells Aeneas to follow a certain AI Character
 	void follow ( AIChar aic ) {
@@ -33,7 +43,7 @@ class ControllableChar : Character {
 		int yDif = pos.y - rPos.y;
 		int xDif = pos.x - rPos.x;
 
-		double angle = atan( ( (float) yDif ) / xDif ); // NOTE: PLEASE DO THIS
+		double angle = atan( ( (float) yDif ) / xDif );
 		if( xDif < 0 )
 			angle += 180;
 
@@ -47,9 +57,11 @@ class ControllableChar : Character {
 
 	// Tells Aeneas to update the position using x, y and angle values
 	void updatePos( int iX, int iY, double ang ) {
-		pos.setX( iX );
-		pos.setY( iY );
-		pos.setAngle( ang );
+		Character.setPos( iX, iY, ang );
+	}
+
+	void update() {
+		Character.update();
 	}
 
 	// Rotates Aeneas to follow the Mouse
