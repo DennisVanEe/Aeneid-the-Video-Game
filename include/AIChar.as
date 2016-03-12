@@ -10,14 +10,6 @@
 
 class AIChar : Character
 {
-	final double rotationSpeed = 10; // to be set later after testing. degree per seconds
-	private bool invincibility;
-	private int cHealth;
-	private int mHealth;
-	private CharPosition @ pos;
-	private double walkSpeed;
-	private bool isHostile;
-
 	AIChar ( int mH, int cH, int x, int y, double angle, double walk, bool inv, bool host )
 	{
 		consolePrintLine( "Sets the character stats." );

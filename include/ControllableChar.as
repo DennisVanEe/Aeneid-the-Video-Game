@@ -1,5 +1,5 @@
 // Name: ControllableChar.as
-// Author(s):
+// Author(s): Jason Wang
 // version 0.1
 // --------------------------------------
 // This class defines an entity that can be
@@ -9,35 +9,21 @@
 #include "Character.as"
 
 class ControllableChar : Character {
-	private int cHealth; // Current Health
-	private int mHealth; // Maximum Health
-	private int cStamina; // Current Stamina
-	private int mStamina; // Maximum Stamina
-	private int piety; // Piety points
-	private CharPosition pos; // Position
-	private double walkSpeed; // Walk speed
-	private int damage;
+
+	private Inventory inv;
+
+	void addItem( const string &in, Collectible c ) {
+
+	}
 
 	// Default Constructor
-	ControllableChar () {
-		ControllableChar ( 0, 0, 0 );
+	ControllableChar() {
+		Character();
+		ControllableChar ( new Inventory() );
 	}
 
-	// Constructor with default base values
-	ControllableChar ( int x, int y, double angle ) {
-		ControllableChar ( 100, 100, 100, 100, 0, x, y, angle, 100, 50 );
-	}
-
-	// Constructor with custom values for everything
-	ControllableChar ( int mH, int cH, int cS, int mS, int p, int x, int y, double angle, double walk, int dmg ) {
-		mHealth = mH;
-		cHealth = cH;
-		cStamina = cS;
-		mStamina = mS;
-		piety = p;
-		pos = new CharPosition ( x, y, angle );
-		walkSpeed = walk;
-		damage = dmg;
+	ControllableChar( Inventory i ) {
+		inv = i;
 	}
 
 	// Tells Aeneas to follow a certain AI Character
