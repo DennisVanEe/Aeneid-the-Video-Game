@@ -4,22 +4,29 @@
 // --------------------------------------
 // This interface is used to define a class
 // as a menu
-
-abstract class Menu
+#include "include/Button.as"
+class Menu
 {
-	array<Button@> buttons; 
+	array<Button> buttons; 
+	private dictionary< Button > buttons;
 	
-	bool addButton(const string &in loc, const string &in name)		//need position
+	Menu( )
 	{
-		buttons.insertLast(Button(loc, name));
-		if (buttons[buttons.size()] == null)
-		{
-			consolePrintLine("[ERROR]: button named " + name + " in container " + loc " is null");
-			buttons.removeLast(); // remove the null button
-			return false;
-		}
-		return true;	
+		buttons = dictionary< Button >();
 	}
 	
-	public void step();
+	void addButton( const string &in name, Button b )
+	{
+		buttons.set( name, b );
+	}
+
+	void removeButton( const string &in name )
+	{
+		if( buttons.exists( name ) )
+		{
+			buttons.delete( name );
+		}
+	}
+	
+	void step();
 }

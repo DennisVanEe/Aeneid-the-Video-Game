@@ -7,7 +7,7 @@ class MainMenu : Menu
 
 	MainMenu( )
 	{
-		buttons = new dictionary< Button >();
+		buttons = dictionary< Button >();
 	}
 
 	void addButton( const string &in name, Button b )
@@ -15,21 +15,18 @@ class MainMenu : Menu
 		buttons.set( name, b );
 	}
 
-	bool removeButton( const string &in name )
+	void removeButton( const string &in name )
 	{
 		if( buttons.exists( name ) )
 		{
 			buttons.delete( name );
-			return true;
 		}
-		else
-			return false;
 	}
 
 	void step()
 	{
 		bool buttonIsPressed = false;
-		String nameButtonPressed;
+		string nameButtonPressed;
 		for( int i = 0; i < buttons.length(); i++ )
 		{
 			if( buttons[i].isPressed() )
