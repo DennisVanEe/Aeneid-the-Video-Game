@@ -1,6 +1,6 @@
-public class Button
+class Button
 {
-	private AnimatedEntity@ ent;
+	private ee::AnimatedEntity ent;
 	private string name;
 
 	Button(string &in loc, string &in name)
