@@ -7,7 +7,23 @@ class MainMenu : Menu
 
 	MainMenu( )
 	{
+		buttons = new dictionary< Button >();
+	}
 
+	void addButton( const string &in name, Button b )
+	{
+		buttons.set( name, b );
+	}
+
+	bool removeButton( const string &in name )
+	{
+		if( buttons.exists( name ) )
+		{
+			buttons.delete( name );
+			return true;
+		}
+		else
+			return false;
 	}
 
 	void step()
