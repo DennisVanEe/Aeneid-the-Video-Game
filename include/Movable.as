@@ -41,14 +41,17 @@ class CharPosition {
 	int y; 
 	double angle; // measured in degrees (circle)
 
-	CharPosition()
-	{
-	 CharPosition(0,0,0);
+	CharPosition() {
+	 	CharPosition(0,0,0);
 	}
 	
 	CharPosition ( int iX, int iY, double ang ) {
 		x = iX;
 		y = iY;
 		angle = ang; // determined by tan-1()
+	}
+
+	double getRadians() {
+		return angle / 180 * 3.14159;
 	}
 }

@@ -10,16 +10,22 @@
 
 class AIChar : Character
 {
-	AIChar ( int mH, int cH, int x, int y, double angle, double walk, bool inv, bool host )
-	{
-		Character( );
-		ee::consolePrintln( "Sets the character stats." );
-		cHealth = cH;
-		mHealth = mH;
-		pos = CharPosition( x, y, angle );
-		walkSpeed = walk;
-		invincibility = inv;
-		isItHostile = host;
+	CharPosition @ pos;
+	CharStats @ stats;
+
+	AIChar() {
+		Character();
+
+		pos = getCharPosition();
+		stats = getStat();
+	}
+
+	// Constructor with all values as parameter
+	AIChar( int x, int y, double angle, int cH, int mH, float wS, float rS, bool immunity, bool hostile ) {
+		Character( x, y, angle, cH, mH, wS, rS, immunity, hostile );
+
+		pos = getCharPosition();
+		stats = getStat();
 	}
 
 	void follow ( Character aic, uint16 milliseconds )
@@ -29,7 +35,12 @@ class AIChar : Character
 		int yDif = pos.y - rPos.y(); // updated to public variable
 		int xDif = pos.x - rPos.x(); //updated to public variable
 
-		double angle = atan( ( float(yDif) ) / xDif );
+		double angle = 180 / PI * atan( ( float(yDif) ) / xDif );
+		if( xDif < 0 ) {
+			angle += 180;
+		}
+
+
 		float distance = sqrt( yDif*yDif + xDif*xDif );
 		float bubble = 30; //or 20
 
@@ -128,7 +139,8 @@ class AIChar : Character
 	}
 	else{setRotation((int)atan(abs(cy-ny),abs(cx-nx)));}
 	
-	if(abs(CharPosition().angle - npc.CharPosition().angle)<181 && abs(CharPosition().angle - npc.CharPosition().angle) > 179) //shouldn't be exacty 180 since comparing doubles
+	//shouldn't be exacty 180 since comparing doubles
+	if(abs(CharPosition().angle - npc.CharPosition().angle)<181 && abs(CharPosition().angle - npc.CharPosition().angle) > 179)
 		attack(/*int damage*/, npc); //the current AIChar method does not have the npc second parameter
 }
 

@@ -6,6 +6,8 @@
 // controlled by the user through system 
 // inputs
 
+// NOTE: Please make sure all angles are correct; atan and tan output / input in radians, must be converted.
+
 #include "Character.as"
 
 class ControllableChar : Character {
