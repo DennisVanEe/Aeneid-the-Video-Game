@@ -6,20 +6,20 @@
 // that is AI controlled (like followers
 // or enemies)
 
-#include "include/Character.as"
+#include "Character.as"
 
 class AIChar : Character
 {
 	AIChar ( int mH, int cH, int x, int y, double angle, double walk, bool inv, bool host )
 	{
-		Character( )
-		consolePrintLine( "Sets the character stats." );
+		Character( );
+		ee::consolePrintln( "Sets the character stats." );
 		cHealth = cH;
 		mHealth = mH;
-		pos = new CharPosition ( x, y, angle );
+		pos = CharPosition( x, y, angle );
 		walkSpeed = walk;
 		invincibility = inv;
-		isHostile = host;
+		isItHostile = host;
 	}
 
 	void follow ( Character aic, uint16 milliseconds )
@@ -29,7 +29,7 @@ class AIChar : Character
 		int yDif = pos.y - rPos.y(); // updated to public variable
 		int xDif = pos.x - rPos.x(); //updated to public variable
 
-		double angle = atan( ( (float) yDif ) / xDif );
+		double angle = atan( ( float(yDif) ) / xDif );
 		float distance = sqrt( yDif*yDif + xDif*xDif );
 		float bubble = 30; //or 20
 
@@ -46,7 +46,7 @@ class AIChar : Character
 
 	void updatePos( int iX, int iY, double ang )
 	{
-		consolePrintLine( "Updates the position and angle of the character." );
+		ee::consolePrintln( "Updates the position and angle of the character." );
 		pos.setX( iX );
 		pos.setY( iY );
 		pos.setAngle( ang );
@@ -54,13 +54,13 @@ class AIChar : Character
 
 	void rotate ( uint16 milliseconds )
 	{
-		consolePrintLine( "Rotates angle of the character" );
+		ee::consolePrintln( "Rotates angle of the character" );
 		pos.angle += rotationSpeed / 1000 * milliseconds;
 	}
 
 	const CharPosition@ getPos()
 	{
-		consolePrintLine( "Returns the position of the character." );
+		ee::consolePrintln( "Returns the position of the character." );
 		CharPosition@ refPos = pos;
 
 		if (refPos != null )
@@ -86,7 +86,7 @@ class AIChar : Character
 		if( )
 	}
 
-	void talk( String phrase )
+	void talk( string phrase )
 	{	
 		// make text appear on screen
 		AnimatedEntity text = new AnimatedEntity();
@@ -94,7 +94,7 @@ class AIChar : Character
 		
 	}
 
-	void changeHealth( int difference );
+	void changeHealth( int difference )
 	{
 		if(invincibility)
 			return;
@@ -118,7 +118,7 @@ class AIChar : Character
 	
 	if(cx-ny <= 0 && cy-ny <= 0) //lines 12-22 is setting position to face enemy
 		{
-			angle = 180 + (int)atan(abs(cy-ny),abs(cx-nx));
+			angle = 180 + int(atan(abs(cy-ny),abs(cx-nx)));
 			setPosition(angle);
 		}
 	else if(cx-nx<=0 && cy-ny>=0)	
@@ -134,7 +134,7 @@ class AIChar : Character
 
 	bool isHostile()
 	{
-		if( isHostile )
+		if( isItHostile )
 			return true;
 		else
 			return false;
@@ -147,11 +147,11 @@ class AIChar : Character
 
 class Action
 {
-	String movement;
+	string movement;
 	int degree;
 	
-	Action( String m, int d ) {
-		consolePrintLine( //prints out what this is doing );
+	Action( string m, int d ) {
+		ee::consolePrintln( /*prints out what this is doing*/ );
 		movement = m;
 		degree = d;
 	}
