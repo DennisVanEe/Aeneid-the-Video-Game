@@ -33,9 +33,6 @@ class ControllableChar : Character {
 		pos = getCharPosition();
 	}
 
-	// gets Character Position
-	CharPosition @ getCharPosition() { return Character.getPos(); }
-
 	// Tells Aeneas to follow a certain AI Character
 	void follow ( AIChar aic ) {
 		CharPosition@ rPos = aic.getPos();
@@ -56,13 +53,12 @@ class ControllableChar : Character {
 	}
 
 	// Tells Aeneas to update the position using x, y and angle values
-	void updatePos( int iX, int iY, double ang ) {
-		Character.setPos( iX, iY, ang );
-	}
+	void updatePos( int iX, int iY, double ang ) { Character.setPos( iX, iY, ang ); }
 
-	void update() {
-		Character.update();
-	}
+	// gets Character Position
+	CharPosition @ getCharPosition() { return Character.getPos(); }
+
+	void update() { Character.update(); }
 
 	// Rotates Aeneas to follow the Mouse
 	void setRotation () {

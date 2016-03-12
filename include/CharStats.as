@@ -5,9 +5,6 @@
 // This class is designed to hold all
 // character's stats.
 
-#include "include/Armor.as";
-#include "include/Weapon.as";
-
 class CharStats {
 	// Universal stats
 	private int cHealth; // Current Health
