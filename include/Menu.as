@@ -4,10 +4,10 @@
 // --------------------------------------
 // This interface is used to define a class
 // as a menu
-#include "include/Button.as"
+#include "Button.as"
+
 class Menu
 {
-	array<Button> buttons; 
 	private dictionary< Button > buttons;
 	
 	Menu( )

@@ -3,26 +3,6 @@
 
 class MainMenu : Menu
 {
-	private dictionary< Button > buttons;
-
-	MainMenu( )
-	{
-		buttons = dictionary< Button >();
-	}
-
-	void addButton( const string &in name, Button b )
-	{
-		buttons.set( name, b );
-	}
-
-	void removeButton( const string &in name )
-	{
-		if( buttons.exists( name ) )
-		{
-			buttons.delete( name );
-		}
-	}
-
 	void step()
 	{
 		bool buttonIsPressed = false;
