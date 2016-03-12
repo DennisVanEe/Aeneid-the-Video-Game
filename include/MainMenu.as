@@ -1,8 +1,15 @@
-#include "Menu"
-#include "Button"
+#include "Menu.as"
+#include "Button.as"
 
 class MainMenu : Menu
 {
+	private dictionary< Button > buttons;
+
+	MainMenu( )
+	{
+
+	}
+
 	void step()
 	{
 		bool buttonIsPressed = false;

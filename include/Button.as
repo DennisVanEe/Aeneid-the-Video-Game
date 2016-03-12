@@ -1,12 +1,12 @@
 class Button
 {
-	private AnimatedEntity@ ent;
+	private AnimatedEntity ent;
 	private string name;
 
 	Button(string &in loc, string &in n)
 	{
 		ent = getAnimatedEntity(loc, name);
-		name = n; //"n" again -Andrew
+		name = n;
 	}
 	
 	Button()
@@ -43,7 +43,6 @@ class Button
 	
 	~Button()
 	{
-		removeEntityToRender(name);
 	}
 	
 	
