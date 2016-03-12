@@ -1,12 +1,11 @@
-public class Button
+class Button
 {
 	private AnimatedEntity@ ent;
 	private string name;
 
-	Button(string &in loc, string &in name)
+	Button(string &in loc, string &in n)
 	{
 		ent = getAnimatedEntity(loc, name);
-		addEntityToRender(0, ent, n); //no "n" declared? -Andrew
 		name = n; //"n" again -Andrew
 	}
 	
@@ -17,7 +16,10 @@ public class Button
 	
 	bool isNull()
 	{
-		return ent == null;
+		if( ent == null )
+			return true;
+		else
+			return false
 	}
 	
 	bool isPressed()
@@ -34,7 +36,7 @@ public class Button
 		return false;
 	}
 
-	String getButtonName()
+	string getButtonName()
 	{
 		return name;
 	}
