@@ -7,16 +7,15 @@
 // or enemies)
 
 #include "Character.as"
+#include "Weapon.as"
 
 class AIChar : Character
 {
-	CharPosition @ pos; //name conflict
-	CharStats @ stats; //name conflict
 
 	AIChar() {
 		Character();
 
-		pos = getCharPosition(); //getCharPosition() unknown cannot find
+		pos = getPos(); 
 		stats = getStat();
 	}
 
@@ -24,7 +23,7 @@ class AIChar : Character
 	AIChar( int x, int y, double angle, int cH, int mH, float wS, float rS, bool immunity, bool hostile ) {
 		Character( x, y, angle, cH, mH, wS, rS, immunity, hostile );
 
-		pos = getCharPosition(); //getCharPosition() unknown cannot find
+		pos = getPos(); 
 		stats = getStat();
 	}
 
@@ -32,23 +31,23 @@ class AIChar : Character
 	{
 		CharPosition@ rPos = aic.getPos();
 
-		int yDif = pos.y - rPos.y(); // y is variable of non-function
-		int xDif = pos.x - rPos.x(); //x is variable of non-function
+		int yDif = pos.getY() - rPos.getY();
+		int xDif = pos.getX() - rPos.getX();
 
-		double angle = 180 / Pi * atan( ( float(yDif) ) / xDif ); //Pi not declared
-		if( xDif < 0 ) {  //if fix line 36, this is fixed
-			angle += 180; //if fix line 38, this is fixed
+		double angle = 180 / (3.14159265) * atan( ( float(yDif) ) / xDif ); //Pi not declared
+		if( xDif < 0 ) {  
+			pos.setAngle(pos.getAngle() + 180); 
 		}
 
 
-		float distance = sqrt( yDif*yDif + xDif*xDif ); //if fix line 35, this is fixed
+		float distance = sqrt( yDif*yDif + xDif*xDif ); 
 		float bubble = 30; //or 20
 
-		updatePos( pos.x, pos.y, angle );
+		updatePos( pos.x, pos.y, pos.getAngle() );
 		if( bubble < distance )
 		{
-			updatePos( pos.x + walkspeed * milliseconds / 1000, //where does walkspeed come from?
-					pos.y + walkspeed * milliseconds / 1000, angle );
+			updatePos( pos.x + stats.walkSpeed * milliseconds / 1000, 
+					pos.y + stats.walkSpeed * milliseconds / 1000, pos.getAngle() );
 		}
 		else
 			updatePos( pos.x, pos.y, angle );
@@ -58,15 +57,16 @@ class AIChar : Character
 	void updatePos( int iX, int iY, double ang )
 	{
 		ee::consolePrintln( "Updates the position and angle of the character." );
-		pos.setX( iX ); //no match to CharPosition::setX(int)
-		pos.setY( iY ); //same as above
-		pos.setAngle( ang ); //same as above
+		pos.setX(iX);
+		pos.setY(iY);
+		pos.setAngle(ang);
+		
 	}
 
 	void rotate ( uint16 milliseconds )
 	{
 		ee::consolePrintln( "Rotates angle of the character" );
-		pos.angle += rotationSpeed / 1000 * milliseconds; //rotationspeed not declared
+		pos.angle += stats.rotationSpeed / 1000 * milliseconds; 
 	}
 
 	const CharPosition@ getPos()
@@ -85,33 +85,35 @@ class AIChar : Character
 	//WORK IN PROGRESS
 	void move(uint16 milliseconds)
 	{	
-		updatePos( cos(pos.angle*3.14159/180)*milliseconds*walkSpeed/1000,  //walkspeed not declared
-			   sin(pos.angle*3.14159/180)*milliseconds*walkspeed/1000, //walkspeed not declared
-			   angle ); //angle not declared (but pos.angle works)
+		updatePos( cos(pos.angle*3.14159/180)*milliseconds*stats.walkSpeed/1000,  //walkspeed not declared
+			   sin(pos.angle*3.14159/180)*milliseconds*stats.walkSpeed/1000, //walkspeed not declared
+			   pos.getAngle() ); //angle not declared (but pos.angle works)
 		
 	}
 
 	//Please Check this method for me! -Rene Lee
-	void attack( int damage ) //shouldn't it pass in nothing? (unless "int damage" is how much damage the enemy does) -Andrew
+	void attack(AIChar npc) //shouldn't it pass in nothing? (unless "int damage" is how much damage the enemy does) -Andrew
 	{
-		if( )
-		//implement
+		int x = getDamage();
+		// DO THE attack animation
+		if(/*intersects with npc.position*/ )
+			npc.changeHealth(getDamage());
 	}
 
 	void talk( string phrase )
 	{	
 		// make text appear on screen
-		AnimatedEntity text = AnimatedEntity(); //errors here (talk to dennis)
+		ee::AnimatedEntity text = ee::AnimatedEntity(); //errors here (talk to dennis)
 		addEntitytoRender(0,text,n); //n not declared
 		
 	}
 
 	void changeHealth( int difference )
 	{
-		if(invincibility) //not declared
+		if(stats.invincibility) 
 			return;
-		cHealth -= difference; //cHealth not declared
-		if(cHealth <= 0)
+		stats.cHealth -= difference; 
+		if(stats.cHealth <= 0)
 		{
 			// change image to dead body and kill NPC
 		}
@@ -135,19 +137,19 @@ class AIChar : Character
 		}
 	else if(cx-nx<=0 && cy-ny>=0)	
 	{
-		angle = 90 + (int)atan(abs(cy-ny),abs(cx-nx)); //problems with brackets
+		angle = 90 + int(atan(abs(cy-ny),abs(cx-nx))); 
 		setPosition(angle); //can divide angle by 10 or something so that it doesnt turn instantaneously or use MOVE FUNCTION
 	}
-	else{setRotation((int)atan(abs(cy-ny),abs(cx-nx)));} //problems with brackets
+	else{setRotation(int(atan(abs(cy-ny),abs(cx-nx))));}
 	
 	//shouldn't be exacty 180 since comparing doubles
 	if(abs(CharPosition().angle - npc.CharPosition().angle)<181 && abs(CharPosition().angle - npc.CharPosition().angle) > 179)
-		attack(/*int damage*/, npc); //the current AIChar method does not have the npc second parameter
+		attack(npc); 
 }
 
 	bool isHostile()
 	{
-		if( isItHostile ) //not declared (i know it extends isItHostilefrom another class but it still doesnt get it)
+		if( stats.isItHostile ) 
 			return true;
 		else
 			return false;

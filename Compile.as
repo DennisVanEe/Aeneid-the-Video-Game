@@ -3,7 +3,7 @@
 #include "include/CharStats.as" */
 
 //#include "include/ControllableChar.as"
-#include "include/Weapon.as"
+#include "include/AIChar.as"
 
 void initialize() {}
 

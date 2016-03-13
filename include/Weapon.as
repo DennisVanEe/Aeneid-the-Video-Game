@@ -10,7 +10,7 @@ class Weapon : Collectible
 		damage = dam; //static entity needs an assign method (dennis...)
 	}
 
-	uint damage() const
+	uint getDamage() const
 	{
 		return damage;
 	}

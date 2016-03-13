@@ -50,6 +50,36 @@ class CharPosition {
 		y = iY;
 		angle = ang; // determined by tan-1()
 	}
+	
+	int getX()
+	{
+	return x;
+	}
+	
+	int getY()
+	{
+	return y;
+	}
+	
+	double getAngle()
+	{
+	return angle;
+	}
+	
+	void setAngle(double x)
+	{
+	angle = x;
+	}
+	
+	void setX(int ix)
+	{
+	x = ix;
+	}
+	
+	void setY(int iy)
+	{
+	y = iy;
+	}
 
 	double getRadians() {
 		return angle / 180 * 3.14159;
