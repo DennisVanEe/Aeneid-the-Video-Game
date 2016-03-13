@@ -1,4 +1,5 @@
 #include "ControllableChar.as"
 
-ControllableChar Aeneas( );
+Inventory i();
+ControllableChar Aeneas( i, 0, 0, 0, 0, 0, 0, 0, 0, 0 );
 
