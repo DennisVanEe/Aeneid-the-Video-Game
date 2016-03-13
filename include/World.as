@@ -4,7 +4,7 @@
 // --------------------------------------
 // These classes are used to define the 
 // world the other assets will be in
-
+#include "Aeneas.as"
 
 class World
 {
@@ -28,18 +28,22 @@ class World
 //checkpoint saves the character, and stuff, when the character runs over the checkpoint
 class Checkpoint
 {
-	private ee::StaticEntity checkpoint; 
-	private ee::CharPosition position;
+	private ee::StaticEntity checkpoint;
+	private CharPosition checkpointpos; 
 	
-	Checkpoint( int x, int y )
+	Checkpoint( int x, int y, ee::StaticEntity check )
 	{
 		consolePrintLine( "Creates position for the Checkpoint." );
-		CharPosition checkpointpos = new CharPosition( x, y, 0 );
+		checkpoint = check;
+		heckpointpos = new CharPosition( x, y, 0 );
 	}
 	
-	void save()
+	void step()
 	{
 		consolePrintLine( "Requests for Character position and angle." );
-		posX = Request( 
+		CharPosition aeneaspos = getPosition();
+		if( aeneaspos.x == checkpointpos.x && aeneaspos.y == checkpointpos.y ) {
+			ee::writeToDataCont( "Aeneas", "CharStats",  )
+		}
 	}
 }

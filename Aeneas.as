@@ -10,12 +10,16 @@
 // #include "include/Weapon.as"
 
 void initialize () {
+	float checkhealth = ee::readFromDataCont( "Aeneas", "CharStats" );
 	// Retrieve data from the save files and figure out what to do from there
-	boolean thereIsASaveGame = false; // Change this
+	bool thereIsASaveGame = false;
+	if( checkhealth != null ) {
+	 	thereIsASaveGame = true;
+	}
 	if( thereIsASaveGame ) {
 		// Then retrieve the ControllableChar object saved
 	} else {
-		ControllableChar aeneas = new ControllableChar();
+		ControllableChar aeneas;
 		// Place Aeneas at the correct position on the map via updatePos;
 	}
 
