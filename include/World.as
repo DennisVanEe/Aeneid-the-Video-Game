@@ -8,36 +8,29 @@
 
 class World
 {
-	private array< StaticEntity@ > setobj;
-	private array< AnimatedEntity@ > movingobj;
+	private array< ee::StaticEntity@ > setobj;  //OBJECT HANDLES NOT SUPPORTED FOR ee::Static and ee::AnimatedEntity
+	private array< ee::AnimatedEntity@ > movingobj;
 	private int layer;
 
 	World( uint x )
 	{
 		consolePrintLine( "Constructor for World. Sets the base layer for World." );
-		layer = x
+		layer = x;
 	}
 
-	void add( AnimatedEntity@ x, uint relativelayer, String name )
-	{
-		consolePrintLine( "Adds animated entity to movingobj array. Adds object to render at layer input relative to the World Layer." );
-		movingobj.insert( x );
-		addEntityToRender( relativelayer + layer, x, name );
-	}
-
-	void add( StaticEntity@ x, uint relativelayer, String name )
-	{
-		consolePrintLine( "Adds static entity to setobj array. Adds object to render at layer input relative to the World layer." );
-		setobj.insert( x );
-		addEntityToRender( relativelayer + layer, x, name );
+	void add( ee::AnimatedEntity@ x, uint relativelayer, string name )
+	{        //object handle not supported for ee::AnimatedEntity
+		ee::consolePrintln( "Adds animated entity to movingobj array. Adds object to render at layer input relative to the World Layer." );
+		movingobj.insert( x ); //no matching signatures with parameters (need movingObj.insert(int, ee::AnimatedEntity&, string&)
+		addEntityToRender( relativelayer + layer, x, name ); //no matching signature
 	}
 }
 
 class Checkpoint
 {
-	private StaticEntity@ checkpoint;
-	private CharPosition@ position;
-	private Request@ posX;
+	private ee::StaticEntity@ checkpoint; //object handles not supported for this type
+	private ee::CharPosition@ position; //same as above
+	private Request@ posX; 
 	private Request@ posY;
 	private Request@ posAngle;
 	

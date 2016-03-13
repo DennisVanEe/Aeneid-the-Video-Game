@@ -7,7 +7,7 @@
 
 class Vector
 {
-	public int x, y;
+	int x, y;
 	
 	Vector()
 	{

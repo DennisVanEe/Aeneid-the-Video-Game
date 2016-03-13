@@ -7,9 +7,9 @@
 
 class Cluster
 {
-	public array<StaticEntity@> s_entarray;
-	public array<AnimatedEntity@> a_entarray;
-	public Vector origin;
+	array<StaticEntity@> s_entarray;
+	array<AnimatedEntity@> a_entarray;
+	Vector origin;
 	
 	Cluster()
 	{

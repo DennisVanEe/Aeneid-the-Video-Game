@@ -13,24 +13,24 @@
 class ControllableChar : Character {
 
 	private Inventory inv;
-	CharPosition @ pos;
-	CharStats @ stats;
+	CharPosition @ pos; //name conflict
+	CharStats @ stats; //name conflict
 
-	void addItem( const string &in, Collectible c ) {
+	void addItem( const string &in, Collectible c ) { //Collectible is not a data type in global namespace
 
 	}
 
 	// Default Constructor
 	ControllableChar() {
 		Character();
-		inv = new Inventory();
+		inv = Inventory();
 
 		pos = getCharPosition();
 		stats = getStat();
 	}
 
 	// Constructor with all values as parameter
-	ControllableChar( Inventory i, int x, int y, double angle, int cH, int mH, float wS, int p, float cW, float mCW ) {
+	ControllableChar( Inventory i, int x, int y, double angle, int cH, int mH, float wS, int p, float cW, float mCW ) { //Inventory is not a data type in global namespace
 		Character( x, y, angle, cH, mH, wS, p, cW, mCW );
 		inv = i;
 
@@ -45,7 +45,7 @@ class ControllableChar : Character {
 		int yDif = pos.y - rPos.y;
 		int xDif = pos.x - rPos.x;
 
-		double angle = atan( ( (float) yDif ) / xDif );
+		double angle = atan( ( (float) yDif ) / xDif ); //problems with brackets
 		if( xDif < 0 )
 			angle += 180;
 
@@ -58,20 +58,20 @@ class ControllableChar : Character {
 	}
 
 	// Tells Aeneas to update the position using x, y and angle values
-	void updatePos( int iX, int iY, double ang ) { Character.setPos( iX, iY, ang ); }
+	void updatePos( int iX, int iY, double ang ) { Character.setPos( iX, iY, ang ); } //Character is not declared
 
 	// gets Character Position
-	CharPosition @ getCharPosition() { return Character.getPos(); }
+	CharPosition @ getCharPosition() { return Character.getPos(); } //Character is not declared
 
 	// Calls update for Entity render
-	void update() { Character.update(); }
+	void update() { Character.update(); } //Character not declared
 
 	// Rotates Aeneas to follow the Mouse
 	void setRotation () {
 		int yDif = pos.y - ee::getYPosMouse;
 		int xDif = pos.x - ee::getXPosMouse;
 
-		pos.angle = atan( ( (float) yDif ) / xDif );
+		pos.angle = atan( ( (float) yDif ) / xDif ); //problems with brackets
 		if( xDif < 0 )
 			pos.angle += 180;
 	}
@@ -80,7 +80,7 @@ class ControllableChar : Character {
 	void move( uint16 milliseconds ) {
 		// Play movement animations
 		// Shift position of character
-		int displacement = (int) stats.getWalkSpeed() * milliseconds / 1000;
+		int displacement = (int) stats.getWalkSpeed() * milliseconds / 1000; //problems with brackets (typecasting done wrong)
 		int x = displacement * acos(pos.angle);
 		int y = displacement * asin(pos.angle);
 
@@ -94,7 +94,7 @@ class ControllableChar : Character {
 		// Make sure that mouse is on NPC
 		array npcArray = readFromDataCont( "npcList", "npcArray" ); // NOTE: Ask Dennis
 		if ( ee::isButtonPressed( Left ) ) {
-			for( AIChar aic : npcArray ) {
+			for( AIChar aic : npcArray ) {  //expected ";"
 				if( ifMouseOnNPC( aic ) ) {
 					if( aic.isHostile() )
 						attack( damage, aic );
@@ -109,7 +109,7 @@ class ControllableChar : Character {
 	
 	bool ifMouseOnNPC( AIChar character ) {
 		ee::intersect( character.getEntity(), ee::getXPosMouse, ee::getYPosMouse ); // NOTE: Must get Entity for character
- 	}
+ 	}   //no matching signatures to AIChar::getEntity()
 
 	// Tell Aeneas to attack the AI Character, with a certain amount of damage
 	void attack( int damage, AIChar@ aic ) {
@@ -125,7 +125,7 @@ class ControllableChar : Character {
 	// cHealth of the NPC is changed to changedTo. If cHealth is 0, the NPC dies
 	void changeHealth( int difference ) {
 		stats.damage( difference );
-		if( stats.getCHealth <= 0 || stats.getCHealth < 1 )
+		if( stats.getCHealth <= 0 || stats.getCHealth < 1 ) //invalid operation on method
 			die();
 	}
 
@@ -135,7 +135,7 @@ class ControllableChar : Character {
 	}
 	
 	void saveRequestValues() {
-		Character.saveRequestValues();
+		Character.saveRequestValues(); //Character not declared
 	}
 }
 

@@ -4,14 +4,14 @@ class Collectible : Movable
 {
 	private float mass;
 	private string name;
-	private StaticEntity entity;
+	private ee::StaticEntity entity; 
 
-	Collectible( float weight, string n, StaticEntity ent )
+	Collectible( float weight, string n, ee::StaticEntity ent ) 
 	{
 		Movable();
 		mass = weight;
 		name = n;
-		entity = ent;
+		entity = ent; //no assign method found in ee::StaticEntity (dennis...)
 	}
 
 	float getMass() const
