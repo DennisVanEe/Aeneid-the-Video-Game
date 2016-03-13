@@ -8,8 +8,8 @@
 
 class World
 {
-	private array< ee::StaticEntity@ > setobj;  //OBJECT HANDLES NOT SUPPORTED FOR ee::Static and ee::AnimatedEntity
-	private array< ee::AnimatedEntity@ > movingobj;
+	private array< ee::StaticEntity > setobj; 
+	private array< ee::AnimatedEntity > movingobj;
 	private int layer;
 
 	World( uint x )
@@ -18,21 +18,18 @@ class World
 		layer = x;
 	}
 
-	void add( ee::AnimatedEntity@ x, uint relativelayer, string name )
-	{        //object handle not supported for ee::AnimatedEntity
+	void add( ee::AnimatedEntity x, uint relativelayer, string name )
+	{
 		ee::consolePrintln( "Adds animated entity to movingobj array. Adds object to render at layer input relative to the World Layer." );
-		movingobj.insert( x ); //no matching signatures with parameters (need movingObj.insert(int, ee::AnimatedEntity&, string&)
-		addEntityToRender( relativelayer + layer, x, name ); //no matching signature
+		movingobj.insert( relative layer, x, name ); //no matching signatures with parameters (need movingObj.insert(int, ee::AnimatedEntity&, string&)
 	}
 }
 
+//checkpoint saves the character, and stuff, when the character runs over the checkpoint
 class Checkpoint
 {
-	private ee::StaticEntity@ checkpoint; //object handles not supported for this type
-	private ee::CharPosition@ position; //same as above
-	private Request@ posX; 
-	private Request@ posY;
-	private Request@ posAngle;
+	private ee::StaticEntity checkpoint; 
+	private ee::CharPosition position;
 	
 	Checkpoint( int x, int y )
 	{
