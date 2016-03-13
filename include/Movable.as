@@ -37,7 +37,7 @@ class Movable {
 }
 
 class CharPosition {
-    	int x; 
+    int x; 
 	int y; 
 	double angle; // measured in degrees (circle)
 
@@ -51,23 +51,19 @@ class CharPosition {
 		angle = ang; // determined by tan-1()
 	}
 	
-	int getX()
-	{
-	return x;
+	int getX() {
+		return x;
 	}
 	
-	int getY()
-	{
+	int getY() {
 	return y;
 	}
 	
-	double getAngle()
-	{
+	double getAngle() {
 	return angle;
 	}
 	
-	void setAngle(double x)
-	{
+	void setAngle(double x) {
 	angle = x;
 	}
 	
