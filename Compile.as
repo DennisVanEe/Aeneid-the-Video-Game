@@ -2,7 +2,8 @@
 #include  "include/Character.as"
 #include "include/CharStats.as" */
 
-#include "include/Button.as"
+//#include "include/ControllableChar.as"
+#include "include/Weapon.as"
 
 void initialize() {}
 

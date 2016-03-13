@@ -2,16 +2,18 @@
 
 class Armor : Collectible
 {
-	private uint protection;
+	private uint protect;
 
-	Armor( float mass, string name, StaticEntity ent, uint pro )
+	
+	Armor( float mass, string name, ee::StaticEntity ent, uint pro ) 
 	{
-		Collectible( mass, name, ent );
-		proection = pro;
+		//need to construct the inherited Collectible object(like super()) or just have a no args default constructor in Collectible
+		super( mass, name, ent );
+		protect = pro;
 	}
 
 	uint protection() const
 	{
-		return protection;
+		return protect;
 	}
 }

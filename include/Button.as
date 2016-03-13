@@ -1,36 +1,32 @@
 class Button
 {
-<<<<<<< HEAD
 	private ee::AnimatedEntity ent;
-=======
-	private AnimatedEntity ent;
->>>>>>> d0ca35a60716161300547e7c358167711fcb3e89
 	private string name;
 
 	Button(string &in loc, string &in n)
 	{
-		ent = getAnimatedEntity(loc, name);
+		ent = getAnimatedEntity(loc, n); //cannot find getAnimatedEntity
 		name = n;
 	}
 	
 	Button()
 	{
-		ent = null;
+		ent = null; //error convert null handle to ee::AnimatedEntity
 	}
 	
 	bool isNull()
 	{
-		if( ent == null )
+		if( ent == null ) //need to be handles
 			return true;
 		else
-			return false
+			return false;
 	}
 	
 	bool isPressed()
 	{
-		if(intersect(ent, getMouseXPosition(), getMouseYPosition()))
+		if(intersect(ent, getMouseXPosition(), getMouseYPosition())) //getMouseX and getMouseY unknown
 		{
-			if(isButtonPressed(LEFT))
+			if(isButtonPressed(LEFT)) //LEFT not declared
 			{
 				ent.setFrame(2);
 				return true;
@@ -48,7 +44,4 @@ class Button
 	~Button()
 	{
 	}
-	
-	
-
 }

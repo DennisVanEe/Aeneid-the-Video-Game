@@ -8,38 +8,28 @@
 
 class World
 {
-	private array< StaticEntity@ > setobj;
-	private array< AnimatedEntity@ > movingobj;
+	private array< ee::StaticEntity > setobj; 
+	private array< ee::AnimatedEntity > movingobj;
 	private int layer;
 
 	World( uint x )
 	{
 		consolePrintLine( "Constructor for World. Sets the base layer for World." );
-		layer = x
+		layer = x;
 	}
 
-	void add( AnimatedEntity@ x, uint relativelayer, String name )
+	void add( ee::AnimatedEntity x, uint relativelayer, string name )
 	{
-		consolePrintLine( "Adds animated entity to movingobj array. Adds object to render at layer input relative to the World Layer." );
-		movingobj.insert( x );
-		addEntityToRender( relativelayer + layer, x, name );
-	}
-
-	void add( StaticEntity@ x, uint relativelayer, String name )
-	{
-		consolePrintLine( "Adds static entity to setobj array. Adds object to render at layer input relative to the World layer." );
-		setobj.insert( x );
-		addEntityToRender( relativelayer + layer, x, name );
+		ee::consolePrintln( "Adds animated entity to movingobj array. Adds object to render at layer input relative to the World Layer." );
+		movingobj.insert( relative layer, x, name ); //no matching signatures with parameters (need movingObj.insert(int, ee::AnimatedEntity&, string&)
 	}
 }
 
+//checkpoint saves the character, and stuff, when the character runs over the checkpoint
 class Checkpoint
 {
-	private StaticEntity@ checkpoint;
-	private CharPosition@ position;
-	private Request@ posX;
-	private Request@ posY;
-	private Request@ posAngle;
+	private ee::StaticEntity checkpoint; 
+	private ee::CharPosition position;
 	
 	Checkpoint( int x, int y )
 	{
