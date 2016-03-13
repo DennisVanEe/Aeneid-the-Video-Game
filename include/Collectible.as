@@ -11,7 +11,7 @@ class Collectible : Movable
 		Movable();
 		mass = weight;
 		name = n;
-		entity = ent; //no assign method found in ee::StaticEntity (dennis...)
+		entity = ent;
 	}
 
 	float getMass() const
