@@ -2,18 +2,18 @@
 
 class Armor : Collectible
 {
-	private uint protection; //name conflict (protection is class method)
+	private uint protect;
 
 	
-	Armor( float mass, string name, StaticEntity ent, uint pro ) //StaticEntity not data type in global namespace
+	Armor( float mass, string name, ee::StaticEntity ent, uint pro ) 
 	{
 		//need to construct the inherited Collectible object(like super()) or just have a no args default constructor in Collectible
-		Collectible( mass, name, ent );
-		protection = pro;
+		super( mass, name, ent );
+		protect = pro;
 	}
 
 	uint protection() const
 	{
-		return protection;
+		return protect;
 	}
 }

@@ -44,7 +44,4 @@ class Button
 	~Button()
 	{
 	}
-	
-	
-
 }

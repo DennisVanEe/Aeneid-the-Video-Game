@@ -78,6 +78,7 @@ class AIChar : Character
 		{
 			return refPos;
 		}
+		ee::consolePrintln( "ERROR: CharPosition of AIChar is null.");
 		return CharPosition( 0, 0, 0 );
 	}
 
