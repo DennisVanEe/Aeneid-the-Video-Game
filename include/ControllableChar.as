@@ -16,6 +16,14 @@ class ControllableChar : Character {
 	CharPosition @ pos; //name conflict
 	CharStats @ stats; //name conflict
 
+	void step(uint milliseconds)
+	{
+		if(ee::isPressed(W))
+		{
+			pos.y += 		
+
+	}
+
 	void addItem( const string &in, Collectible c ) { //Collectible is not a data type in global namespace
 
 	}
@@ -51,7 +59,7 @@ class ControllableChar : Character {
 
 		float distance = sqrt( yDif*yDif + xDif*xDif );
 
-		move();
+		move();		//not going to work right now because it takes it 2 inputs
 
 		// TODO: Update positions
 		// TODO: Finish follow method
@@ -68,24 +76,36 @@ class ControllableChar : Character {
 
 	// Rotates Aeneas to follow the Mouse
 	void setRotation () {
-		int yDif = pos.y - ee::getYPosMouse;
-		int xDif = pos.x - ee::getXPosMouse;
+		int yDif = ee::getYPosMouse - pos.y;
+		int xDif = ee::getXPosMouse - pos.x;
 
-		pos.angle = atan( ( (float) yDif ) / xDif ); //problems with brackets
+		if( xDif != 0)
+			pos.angle = atan( ( (float) yDif ) / xDif ); //problems with brackets
+		else if ( xDif == 0 && yDif > 0 )
+			pos.angle = 90;
+		else
+			pos.angle = -90;
 		if( xDif < 0 )
 			pos.angle += 180;
 	}
 
-	// Tell Aeneas to move in a certain direction based on W, A, S, D or a combo of that
-	void move( uint16 milliseconds ) {
-		// Play movement animations
-		// Shift position of character
-		int displacement = (int) stats.getWalkSpeed() * milliseconds / 1000; //problems with brackets (typecasting done wrong)
-		int x = displacement * acos(pos.angle);
-		int y = displacement * asin(pos.angle);
-
-		Aeneas.updatePos( pos.x + x, pos.y + y, pos.angle );
+	// Tell Aeneas to move in a certain direction based on W, A, S, D 
+	void moveX( uint16 milliseconds, boolean sign ) {		//sign is direction (true = positive)
+		
+		int x = (int) stats.getWalkSpeed() * milliseconds / 1000; //problems with brackets (typecasting done wrong)	
+		if( sign )
+			Aeneas.updatePos( pos.x + x, y, pos.angle );
+		else
+			Aeneas.updatePos( pos.x - x, y, pos.angle );		
  	}
+
+	void moveY( uint16 milliseconds, boolean sign ) {		//sign is direction (true = positive)
+		int y = (int) stats.getWalkSpeed() * milliseconds / 1000; //problems with brackets (typecasting done wrong)	
+		if( sign )
+			Aeneas.updatePos( x, pos.y + y, pos.angle );
+		else
+			Aeneas.updatePos( x, pos.y - y, pos.angle );	
+	}
 
 	// Checks for inputs
 	// if-statements must be listed in order of priority
@@ -103,8 +123,14 @@ class ControllableChar : Character {
 				}
 			}
 		}
-		if( ee::isKeyPressed( W ) || ee::isKeyPressed( A ) || ee::isKeyPressed( S ) || ee::isKeyPressed( D ) )
-			move( milliseconds );
+		if( ee::isKeyPressed( W ) )
+			moveY( milliseconds, true );
+		else if( ee::isKeyPressed( S ) ) 
+			moveY( milliseconds, false );
+		else if( ee::isKeyPressed( D ) )
+			moveX( milliseconds, true );
+		else
+			moveX( milliseconds, false );
 	}
 	
 	bool ifMouseOnNPC( AIChar character ) {

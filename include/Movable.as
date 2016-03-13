@@ -37,7 +37,7 @@ class Movable {
 }
 
 class CharPosition {
-    int x; 
+    	int x; 
 	int y; 
 	double angle; // measured in degrees (circle)
 
@@ -83,5 +83,11 @@ class CharPosition {
 
 	double getRadians() {
 		return angle / 180 * 3.14159;
+	}
+
+	updateCharPosition( int iX, int iY, double ang ){
+		x = iX;
+		y = iY;
+		angle = ang;
 	}
 }
