@@ -10,7 +10,7 @@
 // #include "include/Weapon.as"
 
 void initialize () {
-	float checkhealth = ee::readFromDataCont( "Aeneas", "CharStats" );
+	float checkhealth = ee::readFromDataCont( "Aeneas", "cHealth" );
 	// Retrieve data from the save files and figure out what to do from there
 	bool thereIsASaveGame = false;
 	if( checkhealth != null ) {

@@ -35,15 +35,22 @@ class Checkpoint
 	{
 		consolePrintLine( "Creates position for the Checkpoint." );
 		checkpoint = check;
-		heckpointpos = new CharPosition( x, y, 0 );
+		checkpointpos = new CharPosition( 0, 0, 0 );
 	}
 	
 	void step()
 	{
-		consolePrintLine( "Requests for Character position and angle." );
 		CharPosition aeneaspos = getPosition();
 		if( aeneaspos.x == checkpointpos.x && aeneaspos.y == checkpointpos.y ) {
-			ee::writeToDataCont( "Aeneas", "CharStats",  )
+			ee::writeToDataCont( "Aeneas", "cHealth", getCHealth() );
+			ee::writeToDataCont( "Aeneas", "mHealth", getMHealth() );
+			ee::writeToDataCont( "Aeneas", "walkSpeed", getWalkSpeed() );
+			ee::writeToDataCont( "Aeneas", "piety", getPiety() );
+			ee::writeToDataCont( "Aeneas", "carryWeight", getCarryWeight() );
+			ee::writeToDataCont( "Aeneas", "maxCarryWeight", getMaxCarryWeight() );
+			ee::writeToDataCont( "Aeneas", "rotationSpeed", getRotationSpeed() );
+			ee::writeToDataCont( "Aeneas", "invincibility", getInvincible() );
+			ee::writeToDataCont( "Aeneas", "isItHostile", isHostile() ); 
 		}
 	}
 }
