@@ -166,10 +166,7 @@ class AIChar : Character
 
 	bool isHostile()
 	{
-		if( stats.isHostile() ) 
-			return true;
-		else
-			return false;
+		return stats.isHostile();
 	}
 
 	// Put step logic in here.
