@@ -23,4 +23,10 @@ class Collectible : Movable
 	{
 		return name;
 	}
+
+	// Sets position of the Collectible on the map
+	bool setPos( int x, int y, double angle ) 
+	{
+		setPos( x, y, angle ); // Calls Movable setPos
+	}
 }

@@ -160,8 +160,22 @@ class ControllableChar : Character {
 		// NOTE: Add something for when Aeneas dies
 	}
 	
-	void saveRequestValues() {
-		Character.saveRequestValues(); //Character not declared
+	bool saveRequestValues() {
+		// Saves stats
+		ee::readFromDataCont( "Aeneas", "cHealth", stats.getCHealth() );
+		ee::readFromDataCont( "Aeneas", "mHealth", stats.getMHealth() );
+		ee::readFromDataCont( "Aeneas", "walkSpeed", stats.getWalkSpeed() );
+		ee::readFromDataCont( "Aeneas", "piety", stats.getPiety() );
+		ee::readFromDataCont( "Aeneas", "carryWeight", stats.getCarryWeight() );
+		ee::readFromDataCont( "Aeneas", "maxCarryWeight", stats.getMaxCarryWeight() );
+
+		// Saves position
+		ee::readFromDataCont( "Aeneas", "x", pos.x );
+		ee::readFromDataCont( "Aeneas", "y", pos.y );
+		ee::readFromDataCont( "Aeneas", "angle", pos.angle );
+
+		// Saves inventory
+		// TODO: save inventory
 	}
 }
 

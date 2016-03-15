@@ -169,7 +169,7 @@ class AIChar : Character
 
 	}
 
-	void requestSaveData( string prefix, int npcNumber ) {
+	void requestSaveData( string prefix, int i ) {
 		ee::readFromDataCont( prefix + i, "cHealth", stats.getCHealth() );
 		ee::readFromDataCont( prefix + i, "mHealth", stats.getMHealth() );
 		ee::readFromDataCont( prefix + i, "walkSpeed", stats.getWalkSpeed() );

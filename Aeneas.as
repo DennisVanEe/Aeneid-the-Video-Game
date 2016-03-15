@@ -9,21 +9,53 @@
 // #include "include/Inventory.as"  <-- might add this in the future
 // #include "include/Weapon.as"
 
+final float BASE_WALK_SPEED = 10;
+ControllableChar aeneas;
+
 void initialize () {
-	float checkhealth = ee::readFromDataCont( "Aeneas", "cHealth" );
-	// Retrieve data from the save files and figure out what to do from there
-	bool thereIsASaveGame = false;
-	if( checkhealth != null ) {
-	 	thereIsASaveGame = true;
+	try {
+		// Retrieve data from the save files and figure out what to do from there
+		if( ee::readFromDataCont( "Aeneas", "cHealth" ) != null )
+		 	finishInitialization( true );
+	} catch { // Just in case ee:readFromDataCont( "Aeneas", "cHealth" ) throws error
+		finishInitialization( false );
 	}
+	finishInitialization( false );
+}
+
+void finishInitialization ( bool thereIsASaveGame ) {
 	if( thereIsASaveGame ) {
 		// Then retrieve the ControllableChar object saved
+		int cHealth = ee::readFromDataCont( "Aeneas", "cHealth" );
+		int mHealth = ee::readFromDataCont( "Aeneas", "mHealth" );
+		float walkSpeed = ee::readFromDataCont( "Aeneas", "walkSpeed" );
+		int piety = ee::readFromDataCont( "Aeneas", "piety" );
+		float carryWeight = ee::readFromDataCont( "Aeneas", "carryWeight" );
+		float maxCarryWeight = ee::readFromDataCont( "Aeneas", "maxCarryWeight" );
+
+		int x = ee::readFromDataCont( "Aeneas", "x" );
+		int y = ee::readFromDataCont( "Aeneas", "y" );
+		double angle = ee::readFromDataCont( "Aeneas", "angle" );
+
+		Inventory inventory = Inventory(); // TODO: Inventory saving and loading
+
+		aeneas = ControllableChar( inventory, x, y, angle, cHealth, mHealth, walkSpeed, 
+				piety, carryWeight, maxCarryWeight );
+
+
 	} else {
-		ControllableChar aeneas;
+		aeneas = ControllableChar( Inventory(), 0, 0, 0, 100, 100, BASE_WALK_SPEED, 0, 0.0, 50.0 );
 		// Place Aeneas at the correct position on the map via updatePos;
 	}
+}
 
-	// Finish this
+bool requestSaveData () {
+	try {
+		return aeneas.saveRequestValues();
+	} catch { 
+		ee::consolePrintln( "ERROR: Aeneas.requestSaveData cannot save Aeneas." );
+		return false;
+	}
 }
 
 // ----------------------------------------------------------------------------------------------------------------------
