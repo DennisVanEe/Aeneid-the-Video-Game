@@ -11,6 +11,9 @@
 
 class AIChar : Character
 {
+	final static float PI = 3.14159;
+	CharPosition @ pos;
+	CharStats @ stats;
 
 	AIChar() {
 		Character();
@@ -34,9 +37,9 @@ class AIChar : Character
 		int yDif = pos.getY() - rPos.getY();
 		int xDif = pos.getX() - rPos.getX();
 
-		double angle = 180 / (3.14159265) * atan( ( float(yDif) ) / xDif ); //Pi not declared
-		if( xDif < 0 ) {  
-			pos.setAngle(pos.getAngle() + 180); 
+		double angle = 180 / PI * atan( ( float(yDif) ) / xDif ); // PI not declared
+		if( xDif < 0 ) {
+			pos.setAngle(pos.getAngle() + 180);
 		}
 
 
@@ -86,8 +89,8 @@ class AIChar : Character
 	//WORK IN PROGRESS
 	void move(uint16 milliseconds)
 	{	
-		updatePos( cos(pos.angle*3.14159/180)*milliseconds*stats.walkSpeed/1000,  //walkspeed not declared
-			   sin(pos.angle*3.14159/180)*milliseconds*stats.walkSpeed/1000, //walkspeed not declared
+		updatePos( cos(pos.angle*PI/180)*milliseconds*stats.getWalkSpeed/1000,  //walkspeed not declared
+			   sin(pos.angle*PI/180)*milliseconds*stats.getWalkSpeed/1000, //walkspeed not declared
 			   pos.getAngle() ); //angle not declared (but pos.angle works)
 		
 	}
@@ -97,8 +100,13 @@ class AIChar : Character
 	{
 		int x = getDamage();
 		// DO THE attack animation
-		if(/*intersects with npc.position*/ )
-			npc.changeHealth(getDamage());
+		array npcArray = readFromDataCont( "npcList", "npcArray" );
+		for( AIChar npc : npcArray ) {
+			if(/*intersects with npc.position*/ ) {
+				npc.changeHealth(getDamage());
+				return;
+			}
+		}
 	}
 
 	void talk( string phrase )
@@ -121,32 +129,32 @@ class AIChar : Character
 	}
 	
 	void fighting(Character npc)
-{
-	if(/*not in range*/)
-		return;
-	
-	int nx = npc.CharPosition().x;
-	int ny = npc.CharPosition().y;
-	int cx = CharPosition().x;
-	int cy = CharPosition().y;
-	int angle;
-	
-	if(cx-ny <= 0 && cy-ny <= 0) //lines 12-22 is setting position to face enemy
-		{
-			angle = 180 + int(atan(abs(cy-ny),abs(cx-nx)));
-			setPosition(angle);
-		}
-	else if(cx-nx<=0 && cy-ny>=0)	
 	{
-		angle = 90 + int(atan(abs(cy-ny),abs(cx-nx))); 
-		setPosition(angle); //can divide angle by 10 or something so that it doesnt turn instantaneously or use MOVE FUNCTION
+		if(/*not in range*/)
+			return;
+		
+		int nx = npc.CharPosition().x;
+		int ny = npc.CharPosition().y;
+		int cx = CharPosition().x;
+		int cy = CharPosition().y;
+		int angle;
+		
+		if(cx-ny <= 0 && cy-ny <= 0) //lines 12-22 is setting position to face enemy
+			{
+				angle = 180 + int(atan(abs(cy-ny),abs(cx-nx)));
+				setPosition(angle);
+			}
+		else if(cx-nx<=0 && cy-ny>=0)	
+		{
+			angle = 90 + int(atan(abs(cy-ny),abs(cx-nx))); 
+			setPosition(angle); //can divide angle by 10 or something so that it doesnt turn instantaneously or use MOVE FUNCTION
+		}
+		else{setRotation(int(atan(abs(cy-ny),abs(cx-nx))));}
+		
+		//shouldn't be exacty 180 since comparing doubles
+		if( abs( pos.angle - npc.pos.angle )<181 && abs( pos.angle - npc.pos.angle ) > 179 )
+			attack(npc); 
 	}
-	else{setRotation(int(atan(abs(cy-ny),abs(cx-nx))));}
-	
-	//shouldn't be exacty 180 since comparing doubles
-	if(abs(CharPosition().angle - npc.CharPosition().angle)<181 && abs(CharPosition().angle - npc.CharPosition().angle) > 179)
-		attack(npc); 
-}
 
 	bool isHostile()
 	{
