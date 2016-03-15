@@ -30,7 +30,7 @@ class AIChar : Character
 		stats = getStat();
 	}
 
-	void follow ( Character aic, uint16 milliseconds )
+	void follow ( Character aic, uint32 milliseconds )
 	{
 		CharPosition@ rPos = aic.getPos();
 
@@ -47,10 +47,18 @@ class AIChar : Character
 		float bubble = 30; //or 20
 
 		updatePos( pos.x, pos.y, pos.getAngle() );
+
+		// NOTE: Changed this so that it actually moves DIRECTLY towards AIChar being followed
+		// with the correct speeds (using cos and sin)
 		if( bubble < distance )
 		{
+			/*
 			updatePos( pos.x + stats.walkSpeed * milliseconds / 1000, 
 					pos.y + stats.walkSpeed * milliseconds / 1000, pos.getAngle() );
+			*/
+			x = pos.x + walkSpeed * milliseconds / 1000 * cos( PI / 1000 * angle );
+			y = pos.y + walkSpeed * milliseconds / 1000 * sin( PI / 1000 * angle );
+			updatePos( x, y, angle );
 		}
 		else
 			updatePos( pos.x, pos.y, angle );
@@ -59,22 +67,22 @@ class AIChar : Character
 
 	void updatePos( int iX, int iY, double ang )
 	{
-		ee::consolePrintln( "Updates the position and angle of the character." );
+		// ee::consolePrintln( "Updates the position and angle of the character." );
 		pos.setX(iX);
 		pos.setY(iY);
 		pos.setAngle(ang);
 		
 	}
 
-	void rotate ( uint16 milliseconds )
+	void rotate ( uint32 milliseconds )
 	{
-		ee::consolePrintln( "Rotates angle of the character" );
+		// ee::consolePrintln( "Rotates angle of the character" );
 		pos.angle += stats.rotationSpeed / 1000 * milliseconds; 
 	}
 
 	const CharPosition@ getPos()
 	{
-		ee::consolePrintln( "Returns the position of the character." );
+		// ee::consolePrintln( "Returns the position of the character." );
 		CharPosition@ refPos = pos;
 
 		if (refPos != null )
@@ -89,24 +97,22 @@ class AIChar : Character
 	//WORK IN PROGRESS
 	void move(uint16 milliseconds)
 	{	
-		updatePos( cos(pos.angle*PI/180)*milliseconds*stats.getWalkSpeed/1000,  //walkspeed not declared
-			   sin(pos.angle*PI/180)*milliseconds*stats.getWalkSpeed/1000, //walkspeed not declared
-			   pos.getAngle() ); //angle not declared (but pos.angle works)
+		// NOTE: Allow for gradual angle changes as well
+		updatePos( cos( pos.angle * PI / 180 ) * milliseconds * stats.getWalkSpeed() / 1000,  //walkspeed not declared
+			   sin( pos.angle * PI / 180 ) * milliseconds * stats.getWalkSpeed() / 1000, //walkspeed not declared
+			   pos.angle ); //angle not declared (but pos.angle works)
 		
 	}
 
 	//Please Check this method for me! -Rene Lee
+	// Checked -Jason Wang
 	void attack(AIChar npc) //shouldn't it pass in nothing? (unless "int damage" is how much damage the enemy does) -Andrew
 	{
-		int x = getDamage();
+		int damage = stats.getDamage();
 		// DO THE attack animation
-		array npcArray = readFromDataCont( "npcList", "npcArray" );
-		for( AIChar npc : npcArray ) {
-			if(/*intersects with npc.position*/ ) {
-				npc.changeHealth(getDamage());
-				return;
-			}
-		}
+		
+		npc.changeHealth( getDamage() );
+				
 	}
 
 	void talk( string phrase )
@@ -119,15 +125,17 @@ class AIChar : Character
 
 	void changeHealth( int difference )
 	{
-		if(stats.invincibility) 
+		if( stats.isInvincible ) 
 			return;
-		stats.cHealth -= difference; 
-		if(stats.cHealth <= 0)
+		stats.damage( difference ); 
+		if(stats.getCHealth <= 0)
 		{
 			// change image to dead body and kill NPC
 		}
 	}
 	
+	// Complex af and confusing to me -Jason Wang
+	// TODO: Please make this either clearer or better. IDK which
 	void fighting(Character npc)
 	{
 		if(/*not in range*/)
@@ -158,7 +166,7 @@ class AIChar : Character
 
 	bool isHostile()
 	{
-		if( stats.isItHostile ) 
+		if( stats.isHostile() ) 
 			return true;
 		else
 			return false;
@@ -166,32 +174,50 @@ class AIChar : Character
 
 	// Put step logic in here.
 	void step( uint32 milliseconds ) {
+		// Fight with nearest individual (follow to individual, attack him)
+		// If Aeneas comes within a certain distance, follow Aeneas and attack him.
+			// All AIChar are invincible UNTIL they engage in combat with Aeneas.
+			// This is done to prevent AIChar from dying before Aeneas comes.
+			// Essentially, if this is not done, AI will die before Aeneas even
+			// reaches them.
 
+		// IF THERE IS TIME:
+			// Figure out a way to make friendly AI (Trojans) talk when clicked upon
+				// This is partially done in ControllableChar class already
+			// Maybe have some random Trojan "gangs" wandering around
 	}
 
 	void requestSaveData( string prefix, int i ) {
-		ee::readFromDataCont( prefix + i, "cHealth", stats.getCHealth() );
-		ee::readFromDataCont( prefix + i, "mHealth", stats.getMHealth() );
-		ee::readFromDataCont( prefix + i, "walkSpeed", stats.getWalkSpeed() );
-		ee::readFromDataCont( prefix + i, "rotationSpeed", stats.getRotationSpeed() );
-		ee::readFromDataCont( prefix + i, "invincibility", stats.isInvincible() );
-		ee::readFromDataCont( prefix + i, "isItHostile", stats.isHostile() );
+		ee::writeToDataCont( prefix + i, "cHealth", stats.getCHealth() );
+		ee::writeToDataCont( prefix + i, "mHealth", stats.getMHealth() );
+		ee::writeToDataCont( prefix + i, "walkSpeed", stats.getWalkSpeed() );
+		ee::writeToDataCont( prefix + i, "rotationSpeed", stats.getRotationSpeed() );
+		ee::writeToDataCont( prefix + i, "invincibility", stats.isInvincible() );
+		ee::writeToDataCont( prefix + i, "isItHostile", stats.isHostile() );
+		ee::writeToDataCont( prefix + i, "damage", stats.getDamage() );
 
-		ee::readFromDataCont( prefix + i, "x", pos.x );
-		ee::readFromDataCont( prefix + i, "y", pos.y );
-		ee::readFromDataCont( prefix + i, "angle", pos.angle );
+		ee::writeToDataCont( prefix + i, "x", pos.x );
+		ee::writeToDataCont( prefix + i, "y", pos.y );
+		ee::writeToDataCont( prefix + i, "angle", pos.angle );
 	}
 }
 
 class Action
 {
+	/*
 	string movement;
 	int degree;
 	
 	Action( string m, int d ) {
-		ee::consolePrintln( /*prints out what this is doing*/ );
+		// ee::consolePrintln( actionName + " is being executed." );
 		movement = m;
 		degree = d;
+	}
+	*/
+	string actionName;
+
+	Action( string aN ) {
+		actionName = aN;
 	}
 
 }

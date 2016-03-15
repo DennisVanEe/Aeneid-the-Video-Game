@@ -17,23 +17,24 @@ class CharStats {
 	float maxCarryWeight; // Done in kilograms
 
 	// NPC-only stats
-	float rotationSpeed = 10; // to be set later after testing. degree per seconds
+	float rotationSpeed; // to be set later after testing. degree per seconds
 	bool invincibility;
 	bool isItHostile;
+	int damage;
 
 	CharStats() {
-		CharStats( 0, 0, 0, 0, 0, 0, 0, false, true );
+		CharStats( 0, 0, 0, 0, 0, 0, 10, false, true, 0 );
 	}
 
 	CharStats( int cH, int mH, float wS, int p, float cW, float mCW ) {
-		CharStats( cH, mH, wS, p, cW, mCW, 0, false, false );
+		CharStats( cH, mH, wS, p, cW, mCW, 0, false, false, 0 );
 	}
 
-	CharStats( int cH, int mH, float wS, float rS, bool immunity, bool hostile ) {
-		CharStats( cH, mH, wS, 0, 0, 3402823466, rS, immunity, hostile );
+	CharStats( int cH, int mH, float wS, float rS, bool immunity, bool hostile, int dmg ) {
+		CharStats( cH, mH, wS, 0, 0, 3402823466, rS, immunity, hostile, dmg );
 	}
 
-	CharStats( int cH, int mH, float wS, int p, float cW, float mCW, float rS, bool immunity, bool hostile ) {
+	CharStats( int cH, int mH, float wS, int p, float cW, float mCW, float rS, bool immunity, bool hostile, int dmg ) {
 		cHealth = cH;
 		mHealth = mH; 
 		walkSpeed = wS;
@@ -43,6 +44,7 @@ class CharStats {
 		rotationSpeed = rS;
 		invincibility = immunity;
 		isItHostile = hostile;
+		damage = dmg;
 	}
 
 	void damage( int dmg ) { cHealth -= dmg; }
@@ -64,6 +66,7 @@ class CharStats {
 
 	void setHostility( bool hostile ) { isItHostile = hostile; }
 	void setInvincibility( bool isInvincible ) { invincibility = isInvincible; }
+	void setDamage( int dmg ) { damage = dmg; }
 
 	int getCHealth() { return cHealth; }
 	int getMHealth() { return mHealth; }
@@ -74,4 +77,5 @@ class CharStats {
 	float getRotationSpeed() { return rotationSpeed; }
 	bool isInvincible() { return invincibility; }
 	bool isHostile() { return isItHostile; }
+	int getDamage() { return damage; }
 }

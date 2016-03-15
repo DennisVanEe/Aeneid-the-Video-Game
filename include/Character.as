@@ -28,10 +28,10 @@ class Character : Movable {
 	}
 
 	// Constructor for AIChar
-	Character( int x, int y, double angle, int cH, int mH, float wS, float rS, bool immunity, bool hostile ) {
+	Character( int x, int y, double angle, int cH, int mH, float wS, float rS, bool immunity, bool hostile, int damage ) {
 		Movable( x, y, angle );
 
-		stats = CharStats( cH, mH, wS, rS, immunity, hostile );
+		stats = CharStats( cH, mH, wS, rS, immunity, hostile, damage );
 	}
 	
 	CharPosition @ getPos() {

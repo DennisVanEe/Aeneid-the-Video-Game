@@ -31,14 +31,14 @@ bool saveAIChars() {
 		for( AIChar trojan: trojans ) {
 			trojan.requestSaveData( "trojan", count );
 			count++;
-			ee::writeToDataCont( "trojanNumber", "number", count );
 		}
+		ee::writeToDataCont( "trojanNumber", "number", count );
 		count = 0;
 		for( AIChar greek: greeks ) {
 			greek.requestSaveData( "greek", count );
 			count++;
-			ee::writeToDataCont( "greekNumber", "number", count );
 		}
+		ee::writeToDataCont( "greekNumber", "number", count );
 		return true;
 	} catch { 
 		ee::consolePrintln( "ERROR: TrojanGreek.saveAIChars does not work." );
@@ -59,13 +59,14 @@ bool requestTrojans() {
 			float rotationSpeed = ee::readFromDataCont( "trojan" + i, "rotationSpeed" );
 			bool invincibility = ee::readFromDataCont( "trojan" + i, "invincibility" );
 			bool isItHostile = ee::readFromDataCont( "trojan" + i, "isItHostile" );
+			int damage = ee::readFromDataCont( "trojan" + i, "damage" );
 
 			int x = ee::readFromDataCont( "trojan" + i, "x" );
 			int y = ee::readFromDataCont( "trojan" + i, "y" );
 			double angle = ee::readFromDataCont( "trojan" + i, "angle" );
 
 			AIChar aic = AIChar( x, y, angle, cHealth, mHealth, walkSpeed, 
-					rotationSpeed, invincibility, isItHostile );
+					rotationSpeed, invincibility, isItHostile, damage );
 
 			trojans.add( aic );
 
@@ -91,15 +92,17 @@ bool requestGreeks() {
 			float rotationSpeed = ee::readFromDataCont( "greek" + i, "rotationSpeed" );
 			bool invincibility = ee::readFromDataCont( "greek" + i, "invincibility" );
 			bool isItHostile = ee::readFromDataCont( "greek" + i, "isItHostile" );
+			int damage = ee::readFromDataCont( "trojan" + i, "damage" );
 
 			int x = ee::readFromDataCont( "greek" + i, "x" );
 			int y = ee::readFromDataCont( "greek" + i, "y" );
 			double angle = ee::readFromDataCont( "greek" + i, "angle" );
 
 			AIChar aic = AIChar( x, y, angle, cHealth, mHealth, walkSpeed, 
-					rotationSpeed, invincibility, isItHostile );
+					rotationSpeed, invincibility, isItHostile, damage );
 
 			greeks.add( aic );
+			
 			return true;
 		}
 	} catch {

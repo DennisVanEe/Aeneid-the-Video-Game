@@ -44,7 +44,7 @@ void finishInitialization ( bool thereIsASaveGame ) {
 
 
 	} else {
-		aeneas = ControllableChar( Inventory(), 0, 0, 0, 100, 100, BASE_WALK_SPEED, 0, 0.0, 50.0 );
+		aeneas = ControllableChar( Inventory(), 0, 0, 0, 100, 100, BASE_WALK_SPEED, 0, 0.0, 50.0, 0 );
 		// Place Aeneas at the correct position on the map via updatePos;
 	}
 }
