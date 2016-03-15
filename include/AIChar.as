@@ -164,8 +164,22 @@ class AIChar : Character
 			return false;
 	}
 
-	void requestSaveData( int npcNumber ) {
+	// Put step logic in here.
+	void step( uint32 milliseconds ) {
 
+	}
+
+	void requestSaveData( string prefix, int npcNumber ) {
+		ee::readFromDataCont( prefix + i, "cHealth", stats.getCHealth() );
+		ee::readFromDataCont( prefix + i, "mHealth", stats.getMHealth() );
+		ee::readFromDataCont( prefix + i, "walkSpeed", stats.getWalkSpeed() );
+		ee::readFromDataCont( prefix + i, "rotationSpeed", stats.getRotationSpeed() );
+		ee::readFromDataCont( prefix + i, "invincibility", stats.isInvincible() );
+		ee::readFromDataCont( prefix + i, "isItHostile", stats.isHostile() );
+
+		ee::readFromDataCont( prefix + i, "x", pos.x );
+		ee::readFromDataCont( prefix + i, "y", pos.y );
+		ee::readFromDataCont( prefix + i, "angle", pos.angle );
 	}
 }
 

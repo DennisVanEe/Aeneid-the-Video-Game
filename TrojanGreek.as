@@ -12,12 +12,38 @@ array<AIChar> greek; // Array of Greeks
 void initialize() {
     // Check savestate for previously saved stuff
     if( !( requestTrojans() && requestGreeks() ) ) {
-        // ERROR HANDLING
+        // Set up trojans and greeks for the first time, in the first map
     }
 }
 
-void step( uint16 milliseconds ) {
-    
+void step( uint32 milliseconds ) {
+    for( AIChar trojan: trojans ) {
+    	trojan.step( milliseconds );
+    }
+    for( AIChar greek: greeks ) {
+    	greek.step( milliseconds );
+    }
+}
+
+bool saveAIChars() {
+	try {
+		int count = 0;
+		for( AIChar trojan: trojans ) {
+			trojan.requestSaveData( "trojan", count );
+			count++;
+			ee::writeToDataCont( "trojanNumber", "number", count );
+		}
+		count = 0;
+		for( AIChar greek: greeks ) {
+			greek.requestSaveData( "greek", count );
+			count++;
+			ee::writeToDataCont( "greekNumber", "number", count );
+		}
+		return true;
+	} catch { 
+		ee::consolePrintln( "ERROR: TrojanGreek.saveAIChars does not work." );
+		return false;
+	}
 }
 
 // Loads Trojans
@@ -42,9 +68,12 @@ bool requestTrojans() {
 					rotationSpeed, invincibility, isItHostile );
 
 			trojans.add( aic );
+
+			return true;
 		}
 	} catch {
 		ee::consolePrintln( "ERROR: TrojanGreek.requestTrojans does not work." );
+		return false;
 	}
 }
 
@@ -71,8 +100,10 @@ bool requestGreeks() {
 					rotationSpeed, invincibility, isItHostile );
 
 			greeks.add( aic );
+			return true;
 		}
 	} catch {
 		ee::consolePrintln( "ERROR: TrojanGreek.requestGreeks does not work." );
+		return false;
 	}
 }
