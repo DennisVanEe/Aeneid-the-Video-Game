@@ -5,7 +5,7 @@
 // This class is designed to hold all
 // character's stats.
 
-class CharStats {
+shared class CharStats {
 	// Universal stats
 	int cHealth; // Current Health //MAKE IT PROTECTED
 	int mHealth; // Maximum Health

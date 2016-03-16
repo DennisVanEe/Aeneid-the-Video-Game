@@ -9,7 +9,7 @@
 #include "Character.as"
 #include "Weapon.as"
 
-class AIChar : Character
+shared class AIChar : Character
 {
 	final static float PI = 3.14159;
 	CharPosition @ pos;
