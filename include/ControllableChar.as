@@ -15,14 +15,15 @@ class ControllableChar : Character {
 	private Inventory inv;
 	CharPosition @ pos; //name conflict
 	CharStats @ stats; //name conflict
+	final float PI = 3.14159;
 
+	// Unnecessary function, since step method is called in Aeneas.as
+	/*
 	void step(uint milliseconds)
 	{
-		if(ee::isPressed(W))
-		{
-			pos.y += 		
-
+		checkInputs();
 	}
+	*/
 
 	void addItem( const string &in, Collectible c ) { //Collectible is not a data type in global namespace
 
@@ -47,29 +48,48 @@ class ControllableChar : Character {
 	}
 
 	// Tells Aeneas to follow a certain AI Character
-	void follow ( AIChar aic ) {
-		CharPosition@ rPos = aic.getPos();
+	bool follow ( AIChar aic, uint32 milliseconds ) {
+		CharPosition @ rPos = aic.getPos();
 
 		int yDif = pos.y - rPos.y;
 		int xDif = pos.x - rPos.x;
 
-		double angle = atan( ( (float) yDif ) / xDif ); //problems with brackets
+		double angle = 180 / PI * atan( ( (float) yDif ) / xDif );
 		if( xDif < 0 )
 			angle += 180;
+		pos.angle = angle;
 
 		float distance = sqrt( yDif*yDif + xDif*xDif );
 
-		move();		//not going to work right now because it takes it 2 inputs
-
 		// TODO: Update positions
-		// TODO: Finish follow method
+		float bubble = 30; //or 20
+
+		updatePos( pos.x, pos.y, pos.angle );
+
+		// NOTE: Changed this so that it actually moves DIRECTLY towards AIChar being followed
+		// with the correct speeds (using cos and sin)
+		if( bubble < distance )
+		{
+			/*
+			updatePos( pos.x + stats.walkSpeed * milliseconds / 1000, 
+					pos.y + stats.walkSpeed * milliseconds / 1000, pos.getAngle() );
+			*/
+			x = pos.x + stats.getWalkSpeed * milliseconds / 1000 * cos( PI / 180 * angle );
+			y = pos.y + stats.getWalkSpeed * milliseconds / 1000 * sin( PI / 180 * angle );
+			updatePos( x, y, angle );
+			return false;
+		}
+		else {
+			updatePos( pos.x, pos.y, angle );
+			return true;
+		}
 	}
 
 	// Tells Aeneas to update the position using x, y and angle values
-	void updatePos( int iX, int iY, double ang ) { Character.setPos( iX, iY, ang ); } //Character is not declared
+	void updatePos( int iX, int iY, double ang ) { setPos( iX, iY, ang ); } //Character is not declared
 
 	// gets Character Position
-	CharPosition @ getCharPosition() { return Character.getPos(); } //Character is not declared
+	CharPosition @ getCharPosition() { return getPos(); } //Character is not declared
 
 	// Calls update for Entity render
 	void update() { Character.update(); } //Character not declared
