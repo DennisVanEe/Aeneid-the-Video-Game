@@ -8,6 +8,7 @@
 
 #include "Character.as"
 #include "Weapon.as"
+import ControllableChar @ getAeneas() from "Aeneas.as";
 
 shared class AIChar : Character
 {
@@ -213,7 +214,7 @@ shared class AIChar : Character
 		//MUST FIRST GET AN AENEAS REFERENCE AND CHECK ITS POSITION TO SEE IF IT SHOULD BE INVINCIBLE AND/OR ATTACK HIM!!! (ASK DENNIS)
 		
 		ControllableChar aeneas = new ControllableChar();
-		aeneas = //ACTUAL AENEAS REFERENCE (ASK DENNIS)
+		aeneas = getAeneas();
 		if(!inRange(aeneas))
 		{stats.setInvincibility(true);
 			
