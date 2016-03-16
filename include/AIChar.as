@@ -167,8 +167,7 @@ class AIChar : Character
 		}
 	}
 	
-	// Complex af and confusing to me -Jason Wang
-	// TODO: Please make this either clearer or better. IDK which
+	//i think this method is unused
 	void fighting(Character npc, uint32 milliseconds)
 	{
 		if(!inRange(npc))
@@ -203,31 +202,43 @@ class AIChar : Character
 		return stats.isHostile();
 	}
 	
-	bool aeneasInRange(/*AENEAS REFERENCE*/)
-	{
+	// bool aeneasInRange(/*AENEAS REFERENCE*/)
+	//{
 		//If Aeneas in range
 		//return true
 		//THIS MUST BE REFERENCED IN step FUNCTION TO DETERMINE IF SHOULD FOLLOW/ATTACK AENEAS AND MOST IMPORTANTLY TO TURN INVINCIBLE
-	}
+	//} 
 
 	void step( uint32 milliseconds, array<AIChar> enemies) {
 		//MUST FIRST GET AN AENEAS REFERENCE AND CHECK ITS POSITION TO SEE IF IT SHOULD BE INVINCIBLE AND/OR ATTACK HIM!!! (ASK DENNIS)
 		
-		bool thereIsEnemy = false;
-		for(int i = 0; i<enemies.length(); i++)
-		{
-		  if(inRange(enemies[i]) 
-			{if(inRangeToAttack(enemies[i]))
-				attack(enemies[i]);
-			else
-				follow(enemies[i], milliseconds);
-			}
-			thereIsEnemy = true;
-			break;
+		ControllableChar aeneas = new ControllableChar();
+		aeneas = //ACTUAL AENEAS REFERENCE (ASK DENNIS)
+		if(!inRange(aeneas))
+		{stats.setInvincibility(true);
+			
+			bool thereIsEnemy = false;
+			for(int i = 0; i<enemies.length(); i++)
+			{
+			if(inRange(enemies[i]) 
+				{if(inRangeToAttack(enemies[i]))
+					attack(enemies[i]);
+				else
+					follow(enemies[i], milliseconds);
+				}
+				thereIsEnemy = true;
+				break;
 			}
 		}
+		else
+		{
+			stats.setInvincibility(false);
+			follow(aeneas, milliseconds);
+			if(inRangeToAttack(aeneas)
+				attack(aeneas);
+		}
 		
-		if(!thereIsEnemy)
+		if(!thereIsEnemy && !inRange(aeneas))
 			move(milliseconds);
 		
 		// If Aeneas comes within a certain distance, follow Aeneas and attack him.
