@@ -9,6 +9,7 @@
 // NOTE: Please make sure all angles are correct; atan and tan output / input in radians, must be converted.
 
 #include "Character.as"
+#include "Collectible.as"
 
 shared class ControllableChar : Character {
 
@@ -27,7 +28,7 @@ shared class ControllableChar : Character {
 	*/
 
 	void addItem( const string &in, Collectible c ) { //Collectible is not a data type in global namespace
-
+		
 	}
 
 	// Default Constructor
