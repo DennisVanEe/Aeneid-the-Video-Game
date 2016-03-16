@@ -18,10 +18,10 @@ void initialize() {
 
 void step( uint32 milliseconds ) {
     for( AIChar trojan: trojans ) {
-    	trojan.step( milliseconds );
+    	trojan.step( milliseconds, greeks);
     }
     for( AIChar greek: greeks ) {
-    	greek.step( milliseconds );
+    	greek.step( milliseconds, trojans);
     }
 }
 
