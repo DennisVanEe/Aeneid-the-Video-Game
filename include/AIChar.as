@@ -268,6 +268,7 @@ class AIChar : Character
 	}
 }
 
+//I don't think we are using this Action class
 class Action
 {
 	/*
