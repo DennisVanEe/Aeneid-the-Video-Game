@@ -32,12 +32,14 @@ class AIChar : Character
 
 	void follow ( Character aic, uint32 milliseconds )
 	{
-		CharPosition@ rPos = aic.getPos();
+		//Andrew made a new inRange function below this that does same function as this whole comment
+		
+		/* CharPosition@ rPos = aic.getPos();
 
 		int yDif = pos.getY() - rPos.getY();
 		int xDif = pos.getX() - rPos.getX();
 
-		double angle = 180 / PI * atan( ( float(yDif) ) / xDif ); // PI not declared
+		double angle = 180 / PI * atan( ( float(yDif) ) / xDif ); 
 		if( xDif < 0 ) {
 			pos.setAngle(pos.getAngle() + 180);
 		}
@@ -46,23 +48,55 @@ class AIChar : Character
 		float distance = sqrt( yDif*yDif + xDif*xDif ); 
 		float bubble = 30; //or 20
 
-		updatePos( pos.x, pos.y, pos.getAngle() );
+		updatePos( pos.getX(), pos.getY(), pos.getAngle() );
 
 		// NOTE: Changed this so that it actually moves DIRECTLY towards AIChar being followed
-		// with the correct speeds (using cos and sin)
-		if( bubble < distance )
+		// with the correct speeds (using cos and sin) */
+		if(inRange(aic))
 		{
 			/*
 			updatePos( pos.x + stats.walkSpeed * milliseconds / 1000, 
 					pos.y + stats.walkSpeed * milliseconds / 1000, pos.getAngle() );
 			*/
-			x = pos.x + walkSpeed * milliseconds / 1000 * cos( PI / 1000 * angle );
-			y = pos.y + walkSpeed * milliseconds / 1000 * sin( PI / 1000 * angle );
+			x = pos.getX() + stats.getWalkSpeed() * milliseconds / 1000 * cos( PI / 1000 * angle );
+			y = pos.getY() + stats.getWalkSpeed() * milliseconds / 1000 * sin( PI / 1000 * angle );
 			updatePos( x, y, angle );
 		}
 		else
-			updatePos( pos.x, pos.y, angle );
+			updatePos( pos.getX(), pos.getY(), pos.getAngle() );
 
+	}
+	
+	bool inRange(Character aic)
+	{
+		CharPosition@ rPos = aic.getPos();
+
+		int yDif = pos.getY() - rPos.getY();
+		int xDif = pos.getX() - rPos.getX();
+
+		float distance = sqrt( yDif*yDif + xDif*xDif ); 
+		float bubble = 30; 
+		
+		if( bubble > distance )
+		return false;
+		else
+		return true;
+	}
+	
+	bool inRangeToAttack(Character aic)
+	{
+	 CharPosition@ rPos = aic.getPos();
+
+		int yDif = pos.getY() - rPos.getY();
+		int xDif = pos.getX() - rPos.getX();
+
+		float distance = sqrt( yDif*yDif + xDif*xDif ); 
+		float bubble = 5; 
+		
+		if( bubble > distance )
+		return false;
+		else
+		return true;
 	}
 
 	void updatePos( int iX, int iY, double ang )
@@ -98,9 +132,9 @@ class AIChar : Character
 	void move(uint16 milliseconds)
 	{	
 		// NOTE: Allow for gradual angle changes as well
-		updatePos( cos( pos.angle * PI / 180 ) * milliseconds * stats.getWalkSpeed() / 1000,  //walkspeed not declared
-			   sin( pos.angle * PI / 180 ) * milliseconds * stats.getWalkSpeed() / 1000, //walkspeed not declared
-			   pos.angle ); //angle not declared (but pos.angle works)
+		updatePos( cos( pos.getAngle() * PI / 180 ) * milliseconds * stats.getWalkSpeed() / 1000, 
+			   sin( pos.getAngle() * PI / 180 ) * milliseconds * stats.getWalkSpeed() / 1000, 
+			   pos.getAngle() ); 
 		
 	}
 
@@ -110,8 +144,7 @@ class AIChar : Character
 	{
 		int damage = stats.getDamage();
 		// DO THE attack animation
-		
-		npc.changeHealth( getDamage() );
+		npc.changeHealth( damage );
 				
 	}
 
@@ -136,12 +169,13 @@ class AIChar : Character
 	
 	// Complex af and confusing to me -Jason Wang
 	// TODO: Please make this either clearer or better. IDK which
-	void fighting(Character npc)
+	void fighting(Character npc, uint32 milliseconds)
 	{
-		if(/*not in range*/)
+		if(!inRange(npc))
 			return;
 		
-		int nx = npc.CharPosition().x;
+		follow(npc, milliseconds);
+		/*int nx = npc.CharPosition().x;
 		int ny = npc.CharPosition().y;
 		int cx = CharPosition().x;
 		int cy = CharPosition().y;
@@ -157,10 +191,10 @@ class AIChar : Character
 			angle = 90 + int(atan(abs(cy-ny),abs(cx-nx))); 
 			setPosition(angle); //can divide angle by 10 or something so that it doesnt turn instantaneously or use MOVE FUNCTION
 		}
-		else{setRotation(int(atan(abs(cy-ny),abs(cx-nx))));}
+		else{setRotation(int(atan(abs(cy-ny),abs(cx-nx))));} */
 		
 		//shouldn't be exacty 180 since comparing doubles
-		if( abs( pos.angle - npc.pos.angle )<181 && abs( pos.angle - npc.pos.angle ) > 179 )
+		if( abs( pos.angle - npc.pos.angle )<181 && abs( pos.angle - npc.pos.angle ) > 179  && inRangeToAttack(npc) )
 			attack(npc); 
 	}
 
