@@ -39,7 +39,8 @@ class ControllableChar : Character {
 	}
 
 	// Constructor with all values as parameter
-	ControllableChar( Inventory i, int x, int y, double angle, int cH, int mH, float wS, int p, float cW, float mCW ) { //Inventory is not a data type in global namespace
+	// PARAMETER ERROR: Inventory is not a data type in global namespace
+	ControllableChar( Inventory i, int x, int y, double angle, int cH, int mH, float wS, int p, float cW, float mCW ) {
 		Character( x, y, angle, cH, mH, wS, p, cW, mCW );
 		inv = i;
 
@@ -153,14 +154,18 @@ class ControllableChar : Character {
 	void checkInputs( uint32 milliseconds ) {
 		// If clicking on NPC
 		// Make sure that mouse is on NPC
-		array npcArray = readFromDataCont( "npcList", "npcArray" ); // NOTE: Ask Dennis
+
+		// NOTE: Ask Dennis how to communicate to get Trojans and Greeks
+		array< AIChar > @ trojans = TrojanGreek.getTrojans();
+		array< AIChar > @ greeks = TrojanGreek.getGreeks();
+		array< AIChar > @ npcArray =  greeks;
 		if ( ee::isButtonPressed( Left ) ) {
-			for( AIChar aic : npcArray ) {  //expected ";"
-				if( ifMouseOnNPC( aic ) ) {
-					if( aic.isHostile() )
-						attack( damage, aic );
+			for( AIChar npc : npcArray ) {  //expected ";"
+				if( ifMouseOnNPC( npc ) ) {
+					if( npc.stats.isHostile() )
+						attack( damage, npc );
 					else
-						talk( aic );
+						talk( npc );
 				}
 			}
 		}
@@ -199,6 +204,8 @@ class ControllableChar : Character {
 	// Tell Aeneas to attack the AI Character, with a certain amount of damage
 	void attack( int damage, AIChar@ aic ) {
 		// Check to see if AI Character is in front of Aeneas
+
+		// NOTE: Need to display animation
 		aic.changeHealth( damage );
 	}
 

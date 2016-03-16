@@ -110,3 +110,7 @@ bool requestGreeks() {
 		return false;
 	}
 }
+
+array< AIChar > @ getTrojans() { return trojans; }
+
+array< AIChar > @ getGreeks() { return greeks; }
