@@ -15,19 +15,19 @@ class World
 	World( uint x )
 	{
 		ee::consolePrintLine( "Constructor for World. Sets the base layer for World." );
-		layer = x;
+		layer = 1000;
 	}
 
 	void add( ee::AnimatedEntity x, uint relativelayer, string name )
 	{
 		ee::consolePrintLine( "Adds animated entity to movingobj array. Adds object to render at layer input relative to the World Layer." );
-		movingobj.insert( relativelayer, x, name ); //no matching signatures with parameters (need movingobj.insert(int, ee::AnimatedEntity&, string&)
+		movingobj.insert( relativelayer, x, name ); //no matching signatures with parameters (need movingobj.insert(int, ee::AnimatedEntity&, string&);
 	}
 
 	void add( ee::StaticEntity x, uint relativelayer, string name )
 	{
 		ee::consolePrintLine( "Adds static entity to movingobj array. Adds object to render at layer input relative to the World Layer." );
-		setobj.insert( relativelayer, x, name ); //no matching signatures with parameters (need setobj.insert(int, ee::AnimatedEntity&, string&)
+		setobj.insert( relativelayer, x, name ); //no matching signatures with parameters (need setobj.insert(int, ee::AnimatedEntity&, string&);
 	}
 }
 
