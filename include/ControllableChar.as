@@ -17,6 +17,7 @@ shared class ControllableChar : Character {
 	CharStats @ stats; //name conflict
 	final float PI = 3.14159;
 
+
 	// Unnecessary function, since step method is called in Aeneas.as
 	/*
 	void step(uint milliseconds)
@@ -156,9 +157,18 @@ shared class ControllableChar : Character {
 		// Make sure that mouse is on NPC
 
 		// NOTE: Ask Dennis how to communicate to get Trojans and Greeks
-		array< AIChar > @ trojans = TrojanGreek.getTrojans();
-		array< AIChar > @ greeks = TrojanGreek.getGreeks();
-		array< AIChar > @ npcArray =  greeks;
+		array< AIChar > @ trojans = setTrojans();
+		array< AIChar > @ greeks = setGreeks();
+		array< AIChar > npcArray;
+
+		// NOTE: Check for intensity of this calculation
+		for( AIChar trojan: trojans ) {
+			npcArray.insertLast( trojan );
+		}
+		for( AIChar greek: greeks ) {
+			npcArray.insertLast( greek );
+		}
+
 		if ( ee::isButtonPressed( Left ) ) {
 			for( AIChar npc : npcArray ) {  //expected ";"
 				if( ifMouseOnNPC( npc ) ) {
@@ -225,6 +235,10 @@ shared class ControllableChar : Character {
 	void die() {
 		// NOTE: Add something for when Aeneas dies
 	}
+
+	array< AIChar > @ setTrojans( array< AIChar > @ trojans ) { return trojans; }
+
+	array< AIChar > @ setGreeks( array< AIChar > @ greeks ) { return greeks; }
 	
 	bool saveRequestValues() {
 		// Saves stats
