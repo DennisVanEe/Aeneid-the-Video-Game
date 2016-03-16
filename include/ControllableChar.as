@@ -54,10 +54,14 @@ class ControllableChar : Character {
 		int yDif = pos.y - rPos.y;
 		int xDif = pos.x - rPos.x;
 
-		double angle = 180 / PI * atan( ( (float) yDif ) / xDif );
+		if( xDif != 0)
+			pos.angle = 180 / PI * atan( ( (float) yDif ) / xDif );
+		else if ( xDif == 0 && yDif > 0 )
+			pos.angle = 90;
+		else
+			pos.angle = -90;
 		if( xDif < 0 )
-			angle += 180;
-		pos.angle = angle;
+			pos.angle += 180;
 
 		float distance = sqrt( yDif*yDif + xDif*xDif );
 
@@ -86,13 +90,13 @@ class ControllableChar : Character {
 	}
 
 	// Tells Aeneas to update the position using x, y and angle values
-	void updatePos( int iX, int iY, double ang ) { setPos( iX, iY, ang ); } //Character is not declared
+	void updatePos( int iX, int iY, double ang ) { setPos( iX, iY, ang ); } 
 
 	// gets Character Position
-	CharPosition @ getCharPosition() { return getPos(); } //Character is not declared
+	CharPosition @ getCharPosition() { return getPos(); }
 
 	// Calls update for Entity render
-	void update() { Character.update(); } //Character not declared
+	void update() { update(); }
 
 	// Rotates Aeneas to follow the Mouse
 	void setRotation () {
@@ -100,7 +104,7 @@ class ControllableChar : Character {
 		int xDif = ee::getXPosMouse - pos.x;
 
 		if( xDif != 0)
-			pos.angle = atan( ( (float) yDif ) / xDif ); //problems with brackets
+			pos.angle = 180 / PI * atan( ( (float) yDif ) / xDif ); //problems with brackets
 		else if ( xDif == 0 && yDif > 0 )
 			pos.angle = 90;
 		else
@@ -110,26 +114,43 @@ class ControllableChar : Character {
 	}
 
 	// Tell Aeneas to move in a certain direction based on W, A, S, D 
-	void moveX( uint16 milliseconds, boolean sign ) {		//sign is direction (true = positive)
+	void moveX( uint32 milliseconds, bool sign ) {		//sign is direction (true = positive)
 		
 		int x = (int) stats.getWalkSpeed() * milliseconds / 1000; //problems with brackets (typecasting done wrong)	
 		if( sign )
-			Aeneas.updatePos( pos.x + x, y, pos.angle );
+			updatePos( pos.x + x, pos.y, pos.angle );
 		else
-			Aeneas.updatePos( pos.x - x, y, pos.angle );		
+			updatePos( pos.x - x, pos.y, pos.angle );		
  	}
 
-	void moveY( uint16 milliseconds, boolean sign ) {		//sign is direction (true = positive)
+	void moveY( uint32 milliseconds, bool sign ) {		//sign is direction (true = positive)
 		int y = (int) stats.getWalkSpeed() * milliseconds / 1000; //problems with brackets (typecasting done wrong)	
 		if( sign )
-			Aeneas.updatePos( x, pos.y + y, pos.angle );
+			updatePos( pos.x, pos.y + y, pos.angle );
 		else
-			Aeneas.updatePos( x, pos.y - y, pos.angle );	
+			updatePos( pos.x, pos.y - y, pos.angle );	
+	}
+
+	void moveXY( uint32 milliseconds, bool xPos, bool yPos ) {
+		int distance = (int) stats.getWalkSpeed() * milliseconds / 1000;
+		if( xPos == true ) {
+			if( yPos == true ) {
+				updatePos( pos.x + distance / sqrt( 2 ), pos.y + distance / sqrt( 2 ), pos.angle );
+			} else {
+				updatePos( pos.x + distance / sqrt( 2 ), pos.y - distance / sqrt( 2 ), pos.angle );
+			}
+		} else {
+			if( yPos == true ) {
+				updatePos( pos.x - distance / sqrt( 2 ), pos.y + distance / sqrt( 2 ), pos.angle );
+			} else {
+				updatePos( pos.x - distance / sqrt( 2 ), pos.y - distance / sqrt( 2 ), pos.angle );	
+			}
+		}
 	}
 
 	// Checks for inputs
 	// if-statements must be listed in order of priority
-	void checkInputs( uint16 milliseconds ) {
+	void checkInputs( uint32 milliseconds ) {
 		// If clicking on NPC
 		// Make sure that mouse is on NPC
 		array npcArray = readFromDataCont( "npcList", "npcArray" ); // NOTE: Ask Dennis
@@ -143,10 +164,28 @@ class ControllableChar : Character {
 				}
 			}
 		}
-		if( ee::isKeyPressed( W ) )
-			moveY( milliseconds, true );
-		else if( ee::isKeyPressed( S ) ) 
-			moveY( milliseconds, false );
+		checkForMove( milliseconds ); // moving logistics moved to checkForMove();
+	}
+
+	void checkForMove( uint32 milliseconds ) {
+		if( ee::isKeyPressed( W ) ) {
+			if( ee::isKeyPressed( A ) ) { // Allows for moving up-left
+				moveXY( milliseconds, false, true );
+			} else if( ee::isKeyPressed( D ) ) { // Allows for moving up-right
+				moveXY( milliseconds, true, true );
+			} else {
+				moveY( milliseconds, true );
+			}
+		}
+		else if( ee::isKeyPressed( S ) ) {
+			if( ee::isKeyPressed( A ) ) { // Allows for moving down-left
+				moveXY( milliseconds, false, false );
+			} else if( ee::isKeyPressed( D ) ) { // Allows for moving down-right
+				moveXY( milliseconds, true, false );
+			} else {
+				moveY( milliseconds, false );
+			}
+		}
 		else if( ee::isKeyPressed( D ) )
 			moveX( milliseconds, true );
 		else
@@ -182,17 +221,17 @@ class ControllableChar : Character {
 	
 	bool saveRequestValues() {
 		// Saves stats
-		ee::readFromDataCont( "Aeneas", "cHealth", stats.getCHealth() );
-		ee::readFromDataCont( "Aeneas", "mHealth", stats.getMHealth() );
-		ee::readFromDataCont( "Aeneas", "walkSpeed", stats.getWalkSpeed() );
-		ee::readFromDataCont( "Aeneas", "piety", stats.getPiety() );
-		ee::readFromDataCont( "Aeneas", "carryWeight", stats.getCarryWeight() );
-		ee::readFromDataCont( "Aeneas", "maxCarryWeight", stats.getMaxCarryWeight() );
+		ee::writeToDataCont( "Aeneas", "cHealth", stats.getCHealth() );
+		ee::writeToDataCont( "Aeneas", "mHealth", stats.getMHealth() );
+		ee::writeToDataCont( "Aeneas", "walkSpeed", stats.getWalkSpeed() );
+		ee::writeToDataCont( "Aeneas", "piety", stats.getPiety() );
+		ee::writeToDataCont( "Aeneas", "carryWeight", stats.getCarryWeight() );
+		ee::writeToDataCont( "Aeneas", "maxCarryWeight", stats.getMaxCarryWeight() );
 
 		// Saves position
-		ee::readFromDataCont( "Aeneas", "x", pos.x );
-		ee::readFromDataCont( "Aeneas", "y", pos.y );
-		ee::readFromDataCont( "Aeneas", "angle", pos.angle );
+		ee::writeToDataCont( "Aeneas", "x", pos.x );
+		ee::writeToDataCont( "Aeneas", "y", pos.y );
+		ee::writeToDataCont( "Aeneas", "angle", pos.angle );
 
 		// Saves inventory
 		// TODO: save inventory
