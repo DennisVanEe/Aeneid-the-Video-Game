@@ -51,6 +51,9 @@ class Checkpoint
 			ee::writeToDataCont( "Aeneas", "rotationSpeed", getRotationSpeed() );
 			ee::writeToDataCont( "Aeneas", "invincibility", getInvincible() );
 			ee::writeToDataCont( "Aeneas", "isItHostile", isHostile() ); 
+			ee::writeToDataCont( "Aeneas", "x", aeneaspos.getX() );
+			ee::writeToDataCont( "Aeneas", "y", aeneaspos.getY() );
+			ee::writeToDataCont( "Aeneas", "angle", aeneaspos.getAngle() );
 		}
 	}
 }

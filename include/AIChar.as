@@ -58,8 +58,8 @@ class AIChar : Character
 			updatePos( pos.x + stats.walkSpeed * milliseconds / 1000, 
 					pos.y + stats.walkSpeed * milliseconds / 1000, pos.getAngle() );
 			*/
-			x = pos.getX() + stats.getWalkSpeed() * milliseconds / 1000 * cos( PI / 1000 * angle );
-			y = pos.getY() + stats.getWalkSpeed() * milliseconds / 1000 * sin( PI / 1000 * angle );
+			x = pos.getX() + stats.getWalkSpeed() * milliseconds / 1000 * cos( PI / 180 * angle );
+			y = pos.getY() + stats.getWalkSpeed() * milliseconds / 1000 * sin( PI / 180 * angle );
 			updatePos( x, y, angle );
 		}
 		else
@@ -129,7 +129,7 @@ class AIChar : Character
 
 	//Randomly moves when Aeneas is not around. When Aeneas is within a certain range, will begin to follow and attack 
 	//WORK IN PROGRESS
-	void move(uint16 milliseconds)
+	void move(uint32 milliseconds)
 	{	
 		// NOTE: Allow for gradual angle changes as well
 		updatePos( cos( pos.getAngle() * PI / 180 ) * milliseconds * stats.getWalkSpeed() / 1000, 
@@ -140,11 +140,11 @@ class AIChar : Character
 
 	//Please Check this method for me! -Rene Lee
 	// Checked -Jason Wang
-	void attack(AIChar npc) //shouldn't it pass in nothing? (unless "int damage" is how much damage the enemy does) -Andrew
+	void attack(Character npc) //shouldn't it pass in nothing? (unless "int damage" is how much damage the enemy does) -Andrew
 	{
-		int damage = stats.getDamage();
+		int damages = stats.getDamage();
 		// DO THE attack animation
-		npc.changeHealth( damage );
+		npc.changeHealth( damages );
 				
 	}
 
@@ -202,10 +202,34 @@ class AIChar : Character
 	{
 		return stats.isHostile();
 	}
+	
+	bool aeneasInRange(/*AENEAS REFERENCE*/)
+	{
+		//If Aeneas in range
+		//return true
+		//THIS MUST BE REFERENCED IN step FUNCTION TO DETERMINE IF SHOULD FOLLOW/ATTACK AENEAS AND MOST IMPORTANTLY TO TURN INVINCIBLE
+	}
 
-	// Put step logic in here.
-	void step( uint32 milliseconds ) {
-		// Fight with nearest individual (follow to individual, attack him)
+	void step( uint32 milliseconds, array<AIChar> enemies) {
+		//MUST FIRST GET AN AENEAS REFERENCE AND CHECK ITS POSITION TO SEE IF IT SHOULD BE INVINCIBLE AND/OR ATTACK HIM!!! (ASK DENNIS)
+		
+		bool thereIsEnemy = false;
+		for(int i = 0; i<enemies.length(); i++)
+		{
+		  if(inRange(enemies[i]) 
+			{if(inRangeToAttack(enemies[i]))
+				attack(enemies[i]);
+			else
+				follow(enemies[i], milliseconds);
+			}
+			thereIsEnemy = true;
+			break;
+			}
+		}
+		
+		if(!thereIsEnemy)
+			move(milliseconds);
+		
 		// If Aeneas comes within a certain distance, follow Aeneas and attack him.
 			// All AIChar are invincible UNTIL they engage in combat with Aeneas.
 			// This is done to prevent AIChar from dying before Aeneas comes.
