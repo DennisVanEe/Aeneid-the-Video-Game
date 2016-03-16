@@ -14,14 +14,14 @@ class World
 
 	World( uint x )
 	{
-		consolePrintLine( "Constructor for World. Sets the base layer for World." );
+		ee::consolePrintLn( "Constructor for World. Sets the base layer for World." );
 		layer = x;
 	}
 
 	void add( ee::AnimatedEntity x, uint relativelayer, string name )
 	{
-		ee::consolePrintln( "Adds animated entity to movingobj array. Adds object to render at layer input relative to the World Layer." );
-		movingobj.insert( relative layer, x, name ); //no matching signatures with parameters (need movingObj.insert(int, ee::AnimatedEntity&, string&)
+		ee::consolePrintLn( "Adds animated entity to movingobj array. Adds object to render at layer input relative to the World Layer." );
+		movingobj.insert( relativelayer, x, name ); //no matching signatures with parameters (need movingObj.insert(int, ee::AnimatedEntity&, string&)
 	}
 }
 
