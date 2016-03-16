@@ -4,10 +4,13 @@
 // --------------------------------------
 // This module sets up the Trojans and Greeks
 
-#include "include/AIChar.as";
+#include "include/AIChar.as"
+
+import ControllableChar @ getAeneas() from "Aeneas.as";
 
 array<AIChar> trojans; // Array of Trojans
 array<AIChar> greek; // Array of Greeks
+ControllableChar @ aeneas;
 
 void initialize() {
     // Check savestate for previously saved stuff
@@ -23,6 +26,10 @@ void step( uint32 milliseconds ) {
     for( AIChar greek: greeks ) {
     	greek.step( milliseconds, trojans);
     }
+}
+
+void retrieveAeneas() {
+	aeneas = getAeneas();
 }
 
 bool saveAIChars() {
@@ -114,3 +121,5 @@ bool requestGreeks() {
 array< AIChar > @ getTrojans() { return trojans; }
 
 array< AIChar > @ getGreeks() { return greeks; }
+
+

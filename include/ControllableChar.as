@@ -10,7 +10,7 @@
 
 #include "Character.as"
 
-class ControllableChar : Character {
+shared class ControllableChar : Character {
 
 	private Inventory inv;
 	CharPosition @ pos; //name conflict

@@ -9,6 +9,9 @@
 // #include "include/Inventory.as"  <-- might add this in the future
 // #include "include/Weapon.as"
 
+import array< AIChar > @ getTrojans() from "TrojanGreek.as";
+import array< AIChar > @ getGreeks() from "TrojanGreek.as";
+
 final float BASE_WALK_SPEED = 10;
 ControllableChar aeneas;
 
@@ -57,6 +60,9 @@ bool requestSaveData () {
 		return false;
 	}
 }
+
+// function to transfer Aeneas to another module
+ControllableChar @ getAeneas() { return aeneas; }
 
 // ----------------------------------------------------------------------------------------------------------------------
 

@@ -10,7 +10,7 @@
 #include "AIChar.as"
 
 // interface Character {
-class Character : Movable {
+shared class Character : Movable {
 
 	protected CharStats stats;
 

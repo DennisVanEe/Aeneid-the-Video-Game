@@ -7,7 +7,7 @@
 // positions of various characters and
 // objects.
 
-class Movable {
+shared class Movable {
 	protected CharPosition pos;
 	
 	Movable() {
