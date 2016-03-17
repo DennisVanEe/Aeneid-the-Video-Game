@@ -9,6 +9,20 @@
 // speeds up and slows down while
 // following Aeneas.
 
+// Notes:
+// To construct, use default constructor
+// void setSensor( int x, int y )
+/*
+		ee::Camera cameraEntity;
+		cameraEntity.setSensor( float x, float y );
+		cameraEntity.rotate( int degrees );
+		cameraEntity.setRotation( int degrees );
+		cameraEntity.setSize( float x, float y );
+		ee::getWindowHeight();
+		ee::getWindowWidth();
+		cameraEntity.setViewPort( float x1, float y1, float x2, float y2 );
+		*/
+
 #include "include/Movable.as"
 import CharPosition @ getAeneasPos() from "Aeneas.as";
 import float @ getAeneasWalkSpeed() from "Aeneas.as";
@@ -35,6 +49,7 @@ shared class Camera : Movable {
 	private CharPosition pos; // Camera position
 	private CharPosition @ aeneasPos; // Aeneas' position; reference, so doesn't need to be updated
 	float @ walkSpeed;
+	ee::Camera cameraEntity;
 
 	Camera() {
 		Movable();
@@ -45,16 +60,21 @@ shared class Camera : Movable {
 			ee::consolePrintLine( "ERROR: Camera.as cannot retrieve Aeneas position." );
 			aeneasPos = CharPosition(0, 0, 0);
 		}
+
+		cameraEntity.setSize( ee::getWindowWidth(), ee::getWindowHeight() );
 	}
 
 	Camera( int x, int y, double angle ) {
 		Movable( x, y, angle );
+		pos = CharPosition();
 		try {
 			aeneasPos = getAeneasPos();
 		} catch {
 			ee::consolePrintLine( "ERROR: Camera.as cannot retrieve Aeneas position." );
 			aeneasPos = CharPosition(0, 0, 0);
 		}
+
+		cameraEntity.setSize( ee::getWindowWidth(), ee::getWindowHeight() );
 	}
 
 	bool setupPosition() {
@@ -75,6 +95,7 @@ shared class Camera : Movable {
 
 	void updatePos( int x, int y, double angle ) {
 		pos.setPos( x, y, angle );
+		cameraEntity.setSensor( x, y, 0 );
 	}
 
 	void update( uint32 milliseconds ) {
@@ -100,8 +121,8 @@ shared class Camera : Movable {
 		if( xDif < 0 )
 			pos.angle += 180;
 
-		updatePos( pos.x + cameraDistance * cos( pos.angle ), 
-					pos.y + cameraDistance * sin( pos.angle ), pos.angle );
+		updatePos( pos.x + (int) (cameraDistance * cos( pos.angle ) ), 
+					pos.y + (int) (cameraDistance * sin( pos.angle ) ), pos.angle );
 	}
 }
 
