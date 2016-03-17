@@ -40,6 +40,9 @@ class MainMenu : Menu
 				//title.clearAllEntityToRender();
 				//text.clearAllEntityToRender();
 				//background.clearAllEntityToRender();
+				title.setVisible(false);
+				text.setVisible(false);
+				background.setVisible(false);
 				
 			}
 			//REMOVE FROM RENDER
