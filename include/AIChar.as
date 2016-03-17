@@ -30,15 +30,32 @@ shared class AIChar : Character
 	// Constructor with all values as parameter
 	AIChar( string contName, string entName, int x, int y, double angle, int cH, int mH, float wS, float rS, bool immunity, bool hostile ) {
 		Character( x, y, angle, cH, mH, wS, rS, immunity, hostile );
-		entity = ee::AnimatedEntity( contName, entName + "Move" ); // CHECK TO SEE IF THIS WORKS
+		entityMove = ee::AnimatedEntity( contName, entName + "Move" ); // CHECK TO SEE IF THIS WORKS
+		entityAttack = ee::AnimatedEntity( contName, entName + "Attack" );
+		entityAttackMove = ee::AnimatedEntity( contName, entName + "AttackMove" );
 		name = entName;
+
+		setEntityVisibilities( true, false, false );
+
+		entityMove.setFrame( 0 );
 
 		pos = getPos(); 
 		stats = getStat();
 	}
 
 	void setAnimationStates( uint32 milliseconds ) {
-		entity.play( milliseconds );
+		if( entityMove.isVisible() )
+			entityMove.play( milliseconds );
+		else if( entityAttack.isVisible() )
+			entityAttack.play( milliseconds );
+		else
+			entityAttackMove.play( milliseconds );
+	}
+
+	void setEntityVisibilities( bool m, bool a, bool am ) {
+		entityMove.setVisible( m );
+		entityAttack.setVisible( a );
+		entityAttackMove.setVisible( am );
 	}
 
 	void follow ( Character aic, uint32 milliseconds )
@@ -72,9 +89,11 @@ shared class AIChar : Character
 			x = pos.getX() + stats.getWalkSpeed() * milliseconds / 1000 * cos( PI / 180 * angle );
 			y = pos.getY() + stats.getWalkSpeed() * milliseconds / 1000 * sin( PI / 180 * angle );
 			updatePos( x, y, angle );
+			entityMove.play( milliseconds );
 		}
 		else
 			updatePos( pos.getX(), pos.getY(), pos.getAngle() );
+			entityMove.setFrame( 0 );
 
 	}
 	
@@ -142,21 +161,33 @@ shared class AIChar : Character
 	//WORK IN PROGRESS
 	void move(uint32 milliseconds)
 	{	
+		int x;
+
+		if( x % 3 == 0 )
+			pos.angle += 0.1 * milliseconds; // 0.1 is pixels of rotation per millisecond
+		else if( x % 3 == 1 )
+			pos.angle -= 0.1 * milliseconds;
+
+		// TODO: Add function for boundary collision and reverse direction immediately
+
 		// NOTE: Allow for gradual angle changes as well
 		updatePos( cos( pos.getAngle() * PI / 180 ) * milliseconds * stats.getWalkSpeed() / 1000, 
 			   sin( pos.getAngle() * PI / 180 ) * milliseconds * stats.getWalkSpeed() / 1000, 
-			   pos.getAngle() ); 
-		
+			   pos.getAngle() );
+		setEntityVisibilities( true, false, false );
+		entityMove.play( milliseconds );
 	}
 
 	//Please Check this method for me! -Rene Lee
 	// Checked -Jason Wang
-	void attack(Character npc) //shouldn't it pass in nothing? (unless "int damage" is how much damage the enemy does) -Andrew
+	void attack(Character npc, uint32 milliseconds ) //shouldn't it pass in nothing? (unless "int damage" is how much damage the enemy does) -Andrew
 	{
 		int damages = stats.getDamage();
 		// DO THE attack animation
 		npc.changeHealth( damages );
-				
+
+		setEntityVisibilities( false, true, false ); // move, attack, attackmove
+		entityAttack.play( milliseconds );
 	}
 
 	void talk( string phrase )
@@ -226,19 +257,20 @@ shared class AIChar : Character
 		ControllableChar aeneas = new ControllableChar();
 		aeneas = getAeneas();
 		if(!inRange(aeneas))
-		{stats.setInvincibility(true);
+		{
+			stats.setInvincibility(true);
 			
 			bool thereIsEnemy = false;
 			for(int i = 0; i<enemies.length(); i++)
 			{
-			if(inRange(enemies[i]) 
-				{if(inRangeToAttack(enemies[i]))
-					attack(enemies[i]);
-				else
-					follow(enemies[i], milliseconds);
-				}
-				thereIsEnemy = true;
-				break;
+				if(inRange(enemies[i]) 
+					{if(inRangeToAttack(enemies[i]))
+						attack(enemies[i], milliseconds);
+					else
+						follow(enemies[i], milliseconds);
+					}
+					thereIsEnemy = true;
+					break;
 			}
 		}
 		else
@@ -246,11 +278,11 @@ shared class AIChar : Character
 			stats.setInvincibility(false);
 			follow(aeneas, milliseconds);
 			if(inRangeToAttack(aeneas)
-				attack(aeneas);
+				attack(aeneas, milliseconds);
 		}
 		
 		if(!thereIsEnemy && !inRange(aeneas))
-			move(milliseconds);
+			move(milliseconds); // Should move randomly
 		
 		// If Aeneas comes within a certain distance, follow Aeneas and attack him.
 			// All AIChar are invincible UNTIL they engage in combat with Aeneas.
