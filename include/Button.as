@@ -1,3 +1,4 @@
+
 class Button
 {
 	private ee::AnimatedEntity ent;
