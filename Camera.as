@@ -138,7 +138,7 @@ shared class Camera : Movable {
 	HUD()
 	{
 		health = h; //HAVE THE STATIC ENTITIES MADE IN THE CONSTRUCTOR
-		health.setPosition(low x value, high y value); //top left
+		health.setPosition(centerCamera.x + getWindowWidth() / 2, centerCamera.y + getWindowHeight() / 2); //top left
 		health.addEntityToRender(0,h,"healthbar");
 		objective = o;
 		objective.setPosition(high x value, high y value); //top right
