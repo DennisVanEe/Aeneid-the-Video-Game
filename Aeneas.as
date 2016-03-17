@@ -84,5 +84,5 @@ void step ( uint32 milliseconds ) {
 	aeneas.setRotation();
 	aeneas.checkInputs( milliseconds );
 
-	}
+}
 	
