@@ -98,7 +98,7 @@ shared class Camera : Movable {
 
 	void updatePos( int x, int y, double angle ) {
 		pos.setPos( x, y, angle );
-		cameraEntity.setSensor( x, y, 0 );
+		cameraEntity.setCenter( x, y, 0 );
 		headsUp.setPosition(x,y);
 	}
 
@@ -125,24 +125,22 @@ shared class Camera : Movable {
 		if( xDif < 0 )
 			pos.angle += 180;
 
-		updatePos( pos.x + int(cameraDistance * cos( pos.angle ) ),  //incorrect typecasting???
-					pos.y + int(cameraDistance * sin( pos.angle ) ), pos.angle );
+		updatePos( centerCamera.x + ee::getWindowWidth() / 2,  //incorrect typecasting???
+					centerCamera.y + ee::getWindowHeight() / 2, pos.angle );
 	}
 }
 
-	class HUD //create a HUD object for Aeneas in this module somewhere 
+	class HUD 
 {
-	ee::StaticEntity health;
-	ee::StaticEntity objective;
+	ee::StaticEntity health("HUD", "health");
+	ee::StaticEntity objective("HUD","objective");
 	
 	HUD()
 	{
 		health = h; //HAVE THE STATIC ENTITIES MADE IN THE CONSTRUCTOR
-		health.setPosition(centerCamera.x + getWindowWidth() / 2, centerCamera.y + getWindowHeight() / 2); //top left
-		health.addEntityToRender(0,h,"healthbar");
+		health.setPosition(centerCamera.x + ee::getWindowWidth() / 2, centerCamera.y + ee::getWindowHeight() / 2); 
 		objective = o;
-		objective.setPosition(high x value, high y value); //top right
-		objective.addEntityToRender(0,o,"objective");
+		objective.setPosition(centerCamera.x + ee::getWindowWidth() / 2, centerCamera.y + ee::getWindowHeight() / 2);
 	}
 	
 	void changeObjective(/*ee::StaticEntity obj*/)
@@ -160,9 +158,9 @@ shared class Camera : Movable {
 		
 	}
 	
-	void changeHealth(int x)
+	void changeHealth()
 	{
-		//something about changing the image/sprite of the health bar DENNIS
+		health.setScale(0.5,getScaleY());//something about changing the image/sprite of the health bar DENNIS
 		//this doesn't change the health statistic, this has to change the animation of the HUD to show visible change
 	}
 	

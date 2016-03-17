@@ -301,7 +301,7 @@ shared class ControllableChar : Character {
 	// cHealth of the NPC is changed to changedTo. If cHealth is 0, the NPC dies
 	void changeHealth( int difference ) {
 		stats.damage( difference );
-		headsUp.changeHealth(difference);
+		headsUp.changeHealth();
 		if( stats.getCHealth <= 0 || stats.getCHealth < 1 ) //invalid operation on method
 			die();
 	}
