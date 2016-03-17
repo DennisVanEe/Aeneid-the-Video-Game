@@ -5,6 +5,7 @@
 // These classes are used to define the 
 // world the other assets will be in
 #include "Aeneas.as"  
+import bool saveAIChars() from "TrojanGreek.as"
 
 class World
 {
@@ -66,6 +67,7 @@ class Checkpoint
 			ee::writeToDataCont( "Aeneas", "x", aeneaspos.getX() );
 			ee::writeToDataCont( "Aeneas", "y", aeneaspos.getY() );
 			ee::writeToDataCont( "Aeneas", "angle", aeneaspos.getAngle() );
+			saveAIChars();
 		}
 	}
 }
