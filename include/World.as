@@ -30,6 +30,14 @@ class World
 		ee::consolePrintLine( "Adds static entity to movingobj array. Adds object to render at layer input relative to the World Layer." );
 		setobj.set( name, x );
 	}
+
+	ee::StaticEntity getStaticEntity( string contName, string entName ) {
+		return ee::StaticEntity( contName, entName );
+	}
+
+	ee::AnimatedEntity getAnimatedEntity( string contName, string entName ) {
+		return ee::AnimatedEntity( contName, entName );
+	}
 }
 
 //checkpoint saves the character, and stuff, when the character runs over the checkpoint
@@ -60,7 +68,7 @@ class Checkpoint
 			ee::writeToDataCont( "Aeneas", "maxCarryWeight", getMaxCarryWeight() );
 			ee::writeToDataCont( "Aeneas", "rotationSpeed", getRotationSpeed() );
 			ee::writeToDataCont( "Aeneas", "invincibility", isInvincible() ); 
-			ee::writeToDataCont( "Aeneas", "isItHostile", isHostile() ); 
+			ee::writeToDataCont( "Aeneas", "isItHostile", isHostile() );
 			ee::writeToDataCont( "Aeneas", "x", aeneaspos.getX() );
 			ee::writeToDataCont( "Aeneas", "y", aeneaspos.getY() );
 			ee::writeToDataCont( "Aeneas", "angle", aeneaspos.getAngle() );
