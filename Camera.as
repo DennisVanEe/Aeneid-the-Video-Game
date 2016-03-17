@@ -41,7 +41,6 @@ void initialize() {
 void step( uint32 milliseconds ) {
 	// To calculate speed of camera, use x^1.5 per distance, with cap of Aeneas' walkSpeed
 	camera.update( milliseconds );
-
 }
 
 shared class Camera : Movable {
