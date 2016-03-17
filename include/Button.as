@@ -4,9 +4,9 @@ class Button
 	private ee::AnimatedEntity ent;
 	private string name;
 
-	Button(string &in loc, string &in n)
+	Button(string &in n)
 	{
-		ent = getAnimatedEntity(loc, n); //cannot find getAnimatedEntity
+		ent = ee::AnimatedEntity("Button", n); //cannot find getAnimatedEntity
 		name = n;
 	}
 	

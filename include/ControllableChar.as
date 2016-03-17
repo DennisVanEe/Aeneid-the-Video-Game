@@ -19,16 +19,9 @@ shared class ControllableChar : Character {
 	CharStats @ stats; //name conflict
 	final float PI = 3.14159;
 	HUD headsUp;
-	private ee::AnimatedEntity entity;
-	private string name;
-
-	// Unnecessary function, since step method is called in Aeneas.as
-	/*
-	void step(uint milliseconds)
-	{
-		checkInputs();
-	}
-	*/
+	private ee::AnimatedEntity entityMove;
+	private ee::AnimatedEntity entityAttack;
+	private ee::AnimatedEntity entityAttackMove;
 
 	void addItem( const string &in, Collectible c ) { //Collectible is not a data type in global namespace
 		
@@ -49,12 +42,137 @@ shared class ControllableChar : Character {
 	ControllableChar( string contName, string entName, Inventory i, int x, int y, double angle, int cH, int mH, float wS, int p, float cW, float mCW) {
 		Character( x, y, angle, cH, mH, wS, p, cW, mCW );   
 		inv = i;											
-		entity = ee::AnimatedEntity( contName, entName ); // CHECK TO SEE IF THIS WORKS
-		name = entName;
+		entityMove = ee::AnimatedEntity( contName, entName + "Move" ); // CHECK TO SEE IF THIS WORKS
+		entityAttack = ee::AnimatedEntity( contName, entName + "Attack" );
+		entityAttackMove = ee::AnimatedEntity( contName, entName + "AttackMove" );
+
+		setEntityVisibilities( true, false, false );
+
+		entityMove.setFrame( 0 );
 
 		pos = getCharPosition();
 		stats = getStat();
 		headsUp = HUD();
+	}
+
+	void playAnimationStates( uint32 milliseconds ) {
+		// entityMove.play( milliseconds );
+		if( entityMove.isVisible() )
+			entityMove.play( milliseconds );
+		else if( entityAttack.isVisible() )
+			entityAttack.play( milliseconds );
+		else
+			entityAttackMove.play( milliseconds );
+	}
+
+	void updateEntityPos() {
+		entityMove.setPosition( pos.x, pos.y );
+		entityMove.setRotation( pos.angle );
+
+		entityAttack.setPosition( pos.x, pos.y );
+		entityAttack.setRotation( pos.angle );
+
+		entityAttackMove.setPosition( pos.x, pos.y );
+		entityAttackMove.setRotation( pos.angle );
+	}
+
+	// Checks for inputs
+	// if-statements must be listed in order of priority
+	void checkInputs( uint32 milliseconds ) {
+		// If clicking on NPC
+		// Make sure that mouse is on NPC
+		updateEntityPos();
+
+		// NOTE: Ask Dennis how to communicate to get Trojans and Greeks
+		array< AIChar > @ trojans = setTrojans();
+		array< AIChar > @ greeks = setGreeks();
+		array< AIChar > npcArray;
+
+		// NOTE: Check for intensity of this calculation
+		for( AIChar trojan: trojans ) {
+			npcArray.insertLast( trojan );
+		}
+		for( AIChar greek: greeks ) {
+			npcArray.insertLast( greek );
+		}
+
+		bool isAttacking = false;
+
+		if ( ee::isButtonPressed( Left ) ) {
+			for( AIChar npc : npcArray ) {  //expected ";"
+				if( ifMouseOnNPC( npc ) ) {
+					if( npc.stats.isHostile() ) {
+						attack( damage, npc );
+						isAttacking = true;
+						break;
+					}
+					else {
+						talk( npc );
+						break;
+					}
+				}
+			}
+		}
+		checkForMove( milliseconds, isAttacking ); // moving logistics moved to checkForMove();
+	}
+
+	void checkForMove( uint32 milliseconds, bool isAttacking ) {
+		if( ee::isKeyPressed( W ) ) { // If button W is pressed
+			if( isAttacking ) // Sets entity visibilities during attack-move or move
+				setEntityVisibilities( false, false, true );
+			else
+				setEntityVisibilities( true, false, false );
+
+			if( ee::isKeyPressed( A ) ) // Allows for moving up-left
+				moveXY( milliseconds, false, true );
+			else if( ee::isKeyPressed( D ) ) // Allows for moving up-right
+				moveXY( milliseconds, true, true );
+			else
+				moveY( milliseconds, true );
+			playAnimationStates( milliseconds );
+			return;
+		}
+		else if( ee::isKeyPressed( S ) ) { // If button S is pressed
+			if( isAttacking ) // Sets entity visibilities during attack-move or move
+				setEntityVisibilities( false, false, true );
+			else
+				setEntityVisibilities( true, false, false );
+
+			if( ee::isKeyPressed( A ) ) // Allows for moving down-left
+				moveXY( milliseconds, false, false );
+			else if( ee::isKeyPressed( D ) ) // Allows for moving down-right
+				moveXY( milliseconds, true, false );
+			else
+				moveY( milliseconds, false );
+			playAnimationStates( milliseconds );
+			return;
+		}
+		else if( ee::isKeyPressed( D ) ) { // If button D is pressed
+			if( isAttacking ) // Sets entity visibilities during attack-move or move
+				setEntityVisibilities( false, false, true );
+			else
+				setEntityVisibilities( true, false, false );
+			moveX( milliseconds, true );
+			playAnimationStates( milliseconds );
+			return;
+		}
+		else { // If button A is pressed
+			if( isAttacking ) // Sets entity visibilities during attack-move or move
+				setEntityVisibilities( false, false, true );
+			else
+				setEntityVisibilities( true, false, false );
+			moveX( milliseconds, false );
+			playAnimationStates( milliseconds );
+			return;
+		}
+		setEntityVisibilities( true, false, false );
+		entityMove.setFrame( 0 );
+	}
+
+	void setEntityVisibilities( bool m, bool a, bool am ) {
+		entityMove.setVisible( m );
+		entityAttack.setVisible( a );
+		entityAttackMove.setVisible( am );
 	}
 
 	// Tells Aeneas to follow a certain AI Character
@@ -227,63 +345,6 @@ shared class ControllableChar : Character {
 		o.move(x,y);
 	}
 } */
-	
-	// Checks for inputs
-	// if-statements must be listed in order of priority
-	void checkInputs( uint32 milliseconds ) {
-		// If clicking on NPC
-		// Make sure that mouse is on NPC
-
-		// NOTE: Ask Dennis how to communicate to get Trojans and Greeks
-		array< AIChar > @ trojans = setTrojans();
-		array< AIChar > @ greeks = setGreeks();
-		array< AIChar > npcArray;
-
-		// NOTE: Check for intensity of this calculation
-		for( AIChar trojan: trojans ) {
-			npcArray.insertLast( trojan );
-		}
-		for( AIChar greek: greeks ) {
-			npcArray.insertLast( greek );
-		}
-
-		if ( ee::isButtonPressed( Left ) ) {
-			for( AIChar npc : npcArray ) {  //expected ";"
-				if( ifMouseOnNPC( npc ) ) {
-					if( npc.stats.isHostile() )
-						attack( damage, npc );
-					else
-						talk( npc );
-				}
-			}
-		}
-		checkForMove( milliseconds ); // moving logistics moved to checkForMove();
-	}
-
-	void checkForMove( uint32 milliseconds ) {
-		if( ee::isKeyPressed( W ) ) {
-			if( ee::isKeyPressed( A ) ) { // Allows for moving up-left
-				moveXY( milliseconds, false, true );
-			} else if( ee::isKeyPressed( D ) ) { // Allows for moving up-right
-				moveXY( milliseconds, true, true );
-			} else {
-				moveY( milliseconds, true );
-			}
-		}
-		else if( ee::isKeyPressed( S ) ) {
-			if( ee::isKeyPressed( A ) ) { // Allows for moving down-left
-				moveXY( milliseconds, false, false );
-			} else if( ee::isKeyPressed( D ) ) { // Allows for moving down-right
-				moveXY( milliseconds, true, false );
-			} else {
-				moveY( milliseconds, false );
-			}
-		}
-		else if( ee::isKeyPressed( D ) )
-			moveX( milliseconds, true );
-		else
-			moveX( milliseconds, false );
-	}
 	
 	bool ifMouseOnNPC( AIChar character ) {
 		ee::intersect( character.getEntity(), ee::getXPosMouse, ee::getYPosMouse ); // NOTE: Must get Entity for character
