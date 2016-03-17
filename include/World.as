@@ -18,16 +18,18 @@ class World
 		layer = 1000;
 	}
 
-	void add( ee::AnimatedEntity x, uint relativelayer, string name )
+	void add( ee::AnimatedEntity x, uint relativelayer, string name ) 
 	{
 		ee::consolePrintLine( "Adds animated entity to movingobj array. Adds object to render at layer input relative to the World Layer." );
 		movingobj.insert( relativelayer, x, name ); //no matching signatures with parameters (need movingobj.insert(int, ee::AnimatedEntity&, string&);
+		movingobj[movingobj.length()-1].addEntityToRender(relativelayer,x,name); //might need to replace second parameter with a handle
 	}
 
 	void add( ee::StaticEntity x, uint relativelayer, string name )
 	{
 		ee::consolePrintLine( "Adds static entity to movingobj array. Adds object to render at layer input relative to the World Layer." );
 		setobj.insert( relativelayer, x, name ); //no matching signatures with parameters (need setobj.insert(int, ee::AnimatedEntity&, string&);
+		setobj[setobj.length()-1].addEntityToRender(relativelayer,x,name); //might need to replace second parameter with a handle
 	}
 }
 
@@ -55,7 +57,7 @@ class Checkpoint
 			ee::writeToDataCont( "Aeneas", "carryWeight", getCarryWeight() );
 			ee::writeToDataCont( "Aeneas", "maxCarryWeight", getMaxCarryWeight() );
 			ee::writeToDataCont( "Aeneas", "rotationSpeed", getRotationSpeed() );
-			ee::writeToDataCont( "Aeneas", "invincibility", getInvincible() );
+			ee::writeToDataCont( "Aeneas", "invincibility", isInvincible() ); 
 			ee::writeToDataCont( "Aeneas", "isItHostile", isHostile() ); 
 			ee::writeToDataCont( "Aeneas", "x", aeneaspos.getX() );
 			ee::writeToDataCont( "Aeneas", "y", aeneaspos.getY() );
