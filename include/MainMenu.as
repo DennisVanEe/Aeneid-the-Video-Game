@@ -4,13 +4,17 @@
 class MainMenu : Menu
 {
 	bool buttonPressed = false;
+
+	MainMenu() {
+		Menu();
+	}
 	
 	void step(uint32 milliseconds)
 	{
 		if(!buttonPressed) {
-		ee::StaticEntity title = ee::StaticEntity( "MainMenu", "title" );
-		ee::StaticEntity text = ee::StaticEntity( "MainMenu", "text" );
-		ee::StaticEntity background = ee::StaticEntity( "MainMenu", "background" );
+			ee::StaticEntity title = ee::StaticEntity( "MainMenu", "title" );
+			ee::StaticEntity text = ee::StaticEntity( "MainMenu", "text" );
+			ee::StaticEntity background = ee::StaticEntity( "MainMenu", "background" );
 		//actually need to make these things and put in the art for the background
 		
 		//title.makeVisible();
@@ -34,7 +38,7 @@ class MainMenu : Menu
 			//Need function of each button name here
 		} */
 		
-		if(isKeyPressed(Key) || isButtonPressed(Button))  //any key or any button
+		if( isKeyPressed( ee::Space ) )  //any key or any button
 			{
 				buttonPressed = true;
 				//title.clearAllEntityToRender();
@@ -43,7 +47,6 @@ class MainMenu : Menu
 				title.setVisible(false);
 				text.setVisible(false);
 				background.setVisible(false);
-				
 			}
 			//REMOVE FROM RENDER
 	}

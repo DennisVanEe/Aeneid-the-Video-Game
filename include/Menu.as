@@ -10,7 +10,7 @@ class Menu
 {
 	private dictionary< Button > buttons;
 	
-	Menu( )
+	Menu()
 	{
 		buttons = dictionary< Button >();
 	}

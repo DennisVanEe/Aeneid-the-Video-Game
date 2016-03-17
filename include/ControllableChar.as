@@ -98,7 +98,7 @@ shared class ControllableChar : Character {
 
 		bool isAttacking = false;
 
-		if ( ee::isButtonPressed( Left ) ) {
+		if ( ee::isButtonPressed( ee::Left ) ) {
 			for( AIChar npc : npcArray ) {  //expected ";"
 				if( ifMouseOnNPC( npc ) ) {
 					if( npc.stats.isHostile() ) {
@@ -117,37 +117,37 @@ shared class ControllableChar : Character {
 	}
 
 	void checkForMove( uint32 milliseconds, bool isAttacking ) {
-		if( ee::isKeyPressed( W ) ) { // If button W is pressed
+		if( ee::isKeyPressed( ee::W ) ) { // If button W is pressed
 			if( isAttacking ) // Sets entity visibilities during attack-move or move
 				setEntityVisibilities( false, false, true );
 			else
 				setEntityVisibilities( true, false, false );
 
-			if( ee::isKeyPressed( A ) ) // Allows for moving up-left
+			if( ee::isKeyPressed( ee::A ) ) // Allows for moving up-left
 				moveXY( milliseconds, false, true );
-			else if( ee::isKeyPressed( D ) ) // Allows for moving up-right
+			else if( ee::isKeyPressed( ee::D ) ) // Allows for moving up-right
 				moveXY( milliseconds, true, true );
 			else
 				moveY( milliseconds, true );
 			playAnimationStates( milliseconds );
 			return;
 		}
-		else if( ee::isKeyPressed( S ) ) { // If button S is pressed
+		else if( ee::isKeyPressed( ee::S ) ) { // If button S is pressed
 			if( isAttacking ) // Sets entity visibilities during attack-move or move
 				setEntityVisibilities( false, false, true );
 			else
 				setEntityVisibilities( true, false, false );
 
-			if( ee::isKeyPressed( A ) ) // Allows for moving down-left
+			if( ee::isKeyPressed( ee::A ) ) // Allows for moving down-left
 				moveXY( milliseconds, false, false );
-			else if( ee::isKeyPressed( D ) ) // Allows for moving down-right
+			else if( ee::isKeyPressed( ee::D ) ) // Allows for moving down-right
 				moveXY( milliseconds, true, false );
 			else
 				moveY( milliseconds, false );
 			playAnimationStates( milliseconds );
 			return;
 		}
-		else if( ee::isKeyPressed( D ) ) { // If button D is pressed
+		else if( ee::isKeyPressed( ee::D ) ) { // If button D is pressed
 			if( isAttacking ) // Sets entity visibilities during attack-move or move
 				setEntityVisibilities( false, false, true );
 			else
