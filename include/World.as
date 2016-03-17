@@ -47,7 +47,11 @@ class Checkpoint
 	void step()
 	{
 		CharPosition aeneaspos = getPosition();
-		if( aeneaspos.x == checkpointpos.x && aeneaspos.y == checkpointpos.y ) {
+		float xdif = abs( aeneaspos.x - checkpointpos.x );
+		float ydif = abs( aeneaspos.y - checkpointpos.y );
+		float difference = pow( xdif, 2 ) + pow( ydif, 2 );
+		float radius = 2500;
+		if( difference < radius ) {
 			ee::writeToDataCont( "Aeneas", "cHealth", getCHealth() );
 			ee::writeToDataCont( "Aeneas", "mHealth", getMHealth() );
 			ee::writeToDataCont( "Aeneas", "walkSpeed", getWalkSpeed() );
