@@ -64,6 +64,9 @@ bool requestSaveData () {
 // function to transfer Aeneas to another module
 ControllableChar @ getAeneas() { return aeneas; }
 
+// function to transfer Aeneas' position to another module
+CharPosition @ getAeneasPos() { return aeneas.getCharPosition(); }
+
 // ----------------------------------------------------------------------------------------------------------------------
 
 void step ( uint16 milliseconds ) {

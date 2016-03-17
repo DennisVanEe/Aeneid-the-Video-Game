@@ -36,7 +36,7 @@ shared class Movable {
 	}
 }
 
-class CharPosition {
+shared class CharPosition {
     int x; 
 	int y; 
 	double angle; // measured in degrees (circle)

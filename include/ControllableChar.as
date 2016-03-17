@@ -128,7 +128,7 @@ shared class ControllableChar : Character {
 
 	void moveY( uint32 milliseconds, bool sign ) {		//sign is direction (true = positive)
 		int y = (int) stats.getWalkSpeed() * milliseconds / 1000; //problems with brackets (typecasting done wrong)	
-		if( sign )
+		if( !sign ) // ! because -y is up, y is down
 			updatePos( pos.x, pos.y + y, pos.angle );
 		else
 			updatePos( pos.x, pos.y - y, pos.angle );	
@@ -137,13 +137,13 @@ shared class ControllableChar : Character {
 	void moveXY( uint32 milliseconds, bool xPos, bool yPos ) {
 		int distance = (int) stats.getWalkSpeed() * milliseconds / 1000;
 		if( xPos == true ) {
-			if( yPos == true ) {
+			if( !(yPos == true) ) { // ! because -y is up, y is down
 				updatePos( pos.x + distance / sqrt( 2 ), pos.y + distance / sqrt( 2 ), pos.angle );
 			} else {
 				updatePos( pos.x + distance / sqrt( 2 ), pos.y - distance / sqrt( 2 ), pos.angle );
 			}
 		} else {
-			if( yPos == true ) {
+			if( !(yPos == true) ) { // ! because -y is up, y is down
 				updatePos( pos.x - distance / sqrt( 2 ), pos.y + distance / sqrt( 2 ), pos.angle );
 			} else {
 				updatePos( pos.x - distance / sqrt( 2 ), pos.y - distance / sqrt( 2 ), pos.angle );	
