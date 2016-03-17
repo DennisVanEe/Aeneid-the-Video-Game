@@ -1,4 +1,4 @@
-#include "include/ControllableChar.as";
+#include "ControllableChar.as";
 
 class SaveAndLoad
 {

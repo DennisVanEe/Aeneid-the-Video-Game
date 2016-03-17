@@ -1,5 +1,5 @@
 #include "Aeneas.as"
-#include "Camera.as"
+#include "include/Camera.as"
 #include "TrojanGreek.as"
 #include "include/AIChar.as"
 #include "include/Armor.as"
