@@ -28,7 +28,7 @@ shared class AIChar : Character
 	// Constructor with all values as parameter
 	AIChar( string contName, string entName, int x, int y, double angle, int cH, int mH, float wS, float rS, bool immunity, bool hostile ) {
 		Character( x, y, angle, cH, mH, wS, rS, immunity, hostile );
-		entity = ee::AnimatedEntity( contName, entName ); // CHECK TO SEE IF THIS WORKS
+		entity = ee::AnimatedEntity( contName, entName );
 		name = entName;
 
 		pos = getPos(); 
@@ -157,7 +157,7 @@ shared class AIChar : Character
 	{	
 		// make text appear on screen
 		ee::AnimatedEntity text = ee::AnimatedEntity(); //errors here (talk to dennis)
-		addEntitytoRender(0,text,n); //n not declared
+		text.setVisible(true); //might not use this entire method
 		
 	}
 
