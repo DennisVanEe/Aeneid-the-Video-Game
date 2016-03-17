@@ -15,7 +15,9 @@ shared class AIChar : Character
 	final static float PI = 3.14159;
 	CharPosition @ pos;
 	CharStats @ stats;
-	private ee::AnimatedEntity entity;
+	private ee::AnimatedEntity entityMove;
+	private ee::AnimatedEntity entityAttack;
+	private ee::AnimatedEntity entityAttackMove;
 	private string name;
 
 	AIChar() {
@@ -28,11 +30,15 @@ shared class AIChar : Character
 	// Constructor with all values as parameter
 	AIChar( string contName, string entName, int x, int y, double angle, int cH, int mH, float wS, float rS, bool immunity, bool hostile ) {
 		Character( x, y, angle, cH, mH, wS, rS, immunity, hostile );
-		entity = ee::AnimatedEntity( contName, entName ); // CHECK TO SEE IF THIS WORKS
+		entity = ee::AnimatedEntity( contName, entName + "Move" ); // CHECK TO SEE IF THIS WORKS
 		name = entName;
 
 		pos = getPos(); 
 		stats = getStat();
+	}
+
+	void setAnimationStates( uint32 milliseconds ) {
+		entity.play( milliseconds );
 	}
 
 	void follow ( Character aic, uint32 milliseconds )
