@@ -78,4 +78,6 @@ shared class CharStats {
 	bool isInvincible() { return invincibility; }
 	bool isHostile() { return isItHostile; }
 	int getDamage() { return damage; }
+
+	float @ getWalkSpeedRef() { return walkSpeed; }
 }

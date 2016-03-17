@@ -49,7 +49,7 @@ shared class Character : Movable {
 		// orientation, state, etc.
 	}
 
-	CharStats getStat() { return stats; }
+	CharStats @ getStat() { return stats; }
 	void setStat( CharStats s ) { stats = s; }
 
 	void follow( AIChar aic ){} // the NPC follows another NPC

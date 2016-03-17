@@ -67,9 +67,11 @@ ControllableChar @ getAeneas() { return aeneas; }
 // function to transfer Aeneas' position to another module
 CharPosition @ getAeneasPos() { return aeneas.getCharPosition(); }
 
+float @ getAeneasWalkSpeed() { return aeneas.getStat().getWalkSpeedRef(); }
+
 // ----------------------------------------------------------------------------------------------------------------------
 
-void step ( uint16 milliseconds ) {
+void step ( uint32 milliseconds ) {
 	// Update health, stamina, piety points
 	// Update position
 	// Update directionality

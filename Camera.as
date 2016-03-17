@@ -11,6 +11,9 @@
 
 #include "include/Movable.as"
 import CharPosition @ getAeneasPos() from "Aeneas.as";
+import float @ getAeneasWalkSpeed() from "Aeneas.as";
+
+// -------------------------------------------------------------------------------
 
 Camera camera;
 
@@ -21,34 +24,47 @@ void initialize() {
 	} while ( !b );
 }
 
+void step( uint32 milliseconds ) {
+	// To calculate speed of camera, use x^1.5 per distance, with cap of Aeneas' walkSpeed
+	camera.update( milliseconds );
+
+}
+
 shared class Camera : Movable {
 
-	private CharPosition @ pos;
+	private CharPosition pos; // Camera position
+	private CharPosition @ aeneasPos; // Aeneas' position; reference, so doesn't need to be updated
+	float @ walkSpeed;
 
 	Camera() {
 		Movable();
+		pos = CharPosition();
 		try {
-			pos = getAeneasPos();
+			aeneasPos = getAeneasPos();
 		} catch {
 			ee::consolePrintLine( "ERROR: Camera.as cannot retrieve Aeneas position." );
-			pos = CharPosition(0, 0, 0);
+			aeneasPos = CharPosition(0, 0, 0);
 		}
 	}
 
 	Camera( int x, int y, double angle ) {
 		Movable( x, y, angle );
 		try {
-			pos = getAeneasPos();
+			aeneasPos = getAeneasPos();
 		} catch {
 			ee::consolePrintLine( "ERROR: Camera.as cannot retrieve Aeneas position." );
-			pos = CharPosition(0, 0, 0);
+			aeneasPos = CharPosition(0, 0, 0);
 		}
 	}
 
 	bool setupPosition() {
 		try { 
 			if( getAeneasPos() != null ) {
-				pos = getAeneasPos();
+				aeneasPos = getAeneasPos();
+
+				// WARNING: DO NOT SET POS = AENEASPOS;
+				updatePos( aeneasPos.x, aeneasPos.y, aeneasPos.angle );
+				walkSpeed = getAeneasWalkSpeed();
 				return true;
 			}
 			return false;
@@ -60,4 +76,20 @@ shared class Camera : Movable {
 	void updatePos( int x, int y, double angle ) {
 		pos.setPos( x, y, angle );
 	}
+
+	void update( uint32 milliseconds ) {
+		// To calculate speed of camera, use x^1.5 per distance, with cap of Aeneas' walkSpeed
+		float xDif = ( (float)pos.x ) - aeneasPos.x;
+		float yDif = ( (float)pos.y ) - aeneasPos.y;
+
+		float distance = sqrt( xDif*xDif + yDif*yDif );
+
+		// Arbitrary camera speed (rubber based), complex formula I basically randomly picked
+		float cameraSpeed = walkSpeed * pow( distance * 1.5 / walkSpeed, 1.5 );
+		if( cameraSpeed > walkSpeed )
+			cameraSpeed = walkSpeed;
+
+		updatePos( pos.x + xDif * )
+	}
 }
+

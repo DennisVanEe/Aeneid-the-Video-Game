@@ -98,6 +98,9 @@ shared class ControllableChar : Character {
 	// gets Character Position
 	CharPosition @ getCharPosition() { return getPos(); }
 
+	// gets Character stats
+	CharStats @ getStat() { return getStat(); }
+
 	// Calls update for Entity render
 	void update() { update(); }
 
