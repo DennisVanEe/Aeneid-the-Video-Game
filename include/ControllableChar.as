@@ -10,6 +10,7 @@
 
 #include "Character.as"
 #include "Collectible.as"
+#include "Camera.as"
 
 shared class ControllableChar : Character {
 
@@ -17,6 +18,7 @@ shared class ControllableChar : Character {
 	CharPosition @ pos; //name conflict
 	CharStats @ stats; //name conflict
 	final float PI = 3.14159;
+	HUD headsUp;
 
 	// Unnecessary function, since step method is called in Aeneas.as
 	/*
@@ -37,6 +39,7 @@ shared class ControllableChar : Character {
 
 		pos = getCharPosition();
 		stats = getStat();
+		headsUp = HUD();
 	}
 
 	// Constructor with all values as parameter
@@ -47,6 +50,7 @@ shared class ControllableChar : Character {
 
 		pos = getCharPosition();
 		stats = getStat();
+		headsUp = HUD();
 	}
 
 	// Tells Aeneas to follow a certain AI Character

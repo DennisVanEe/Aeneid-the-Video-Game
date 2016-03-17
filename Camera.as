@@ -55,6 +55,7 @@ shared class Camera : Movable {
 	Camera() {
 		Movable();
 		pos = CharPosition();
+		headsUp = HUD();
 		try {
 			aeneasPos = getAeneasPos();
 		} catch {
@@ -68,6 +69,7 @@ shared class Camera : Movable {
 	Camera( int x, int y, double angle ) {
 		Movable( x, y, angle );
 		pos = CharPosition();
+		headsUp=HUD();
 		try {
 			aeneasPos = getAeneasPos();
 		} catch {
@@ -97,11 +99,12 @@ shared class Camera : Movable {
 	void updatePos( int x, int y, double angle ) {
 		pos.setPos( x, y, angle );
 		cameraEntity.setSensor( x, y, 0 );
+		headsUp.setPosition(x,y);
 	}
 
 	void update( uint32 milliseconds ) {
 		// To calculate speed of camera, use x^1.5 per distance, with cap of Aeneas' walkSpeed
-		float xDif = ( (float)pos.x ) - aeneasPos.x;
+		float xDif = ( (float)pos.x ) - aeneasPos.x; //incorrect typecasting?
 		float yDif = ( (float)pos.y ) - aeneasPos.y;
 
 		float distance = sqrt( xDif*xDif + yDif*yDif );
@@ -122,8 +125,8 @@ shared class Camera : Movable {
 		if( xDif < 0 )
 			pos.angle += 180;
 
-		updatePos( pos.x + (int) (cameraDistance * cos( pos.angle ) ), 
-					pos.y + (int) (cameraDistance * sin( pos.angle ) ), pos.angle );
+		updatePos( pos.x + int(cameraDistance * cos( pos.angle ) ),  //incorrect typecasting???
+					pos.y + int(cameraDistance * sin( pos.angle ) ), pos.angle );
 	}
 }
 
@@ -134,7 +137,7 @@ shared class Camera : Movable {
 	
 	HUD()
 	{
-		health = h; //HAVE THE STATICENTITIES MADE IN THE CONSTRUCTOR
+		health = h; //HAVE THE STATIC ENTITIES MADE IN THE CONSTRUCTOR
 		health.setPosition(low x value, high y value); //top left
 		health.addEntityToRender(0,h,"healthbar");
 		objective = o;
@@ -190,6 +193,11 @@ shared class Camera : Movable {
 	{
 		h.move(x,y);
 		o.move(x,y);
+	}
+	
+	void setPosition(int x, int y)
+	{
+		h.setPosition(float(x),float(y));
 	}
 }
 

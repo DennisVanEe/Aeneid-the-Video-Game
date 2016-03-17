@@ -83,7 +83,6 @@ void step ( uint32 milliseconds ) {
 
 	aeneas.setRotation();
 	aeneas.checkInputs( milliseconds );
-	if(/*the objective has to be changed since aeneas reaches a checkpoint or something like that*/)
-		aeneas.headsUp.changeObjective();
+
 	}
 	
