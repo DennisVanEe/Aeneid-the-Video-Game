@@ -23,14 +23,12 @@ class World
 	{
 		ee::consolePrintLine( "Adds animated entity to movingobj array. Adds object to render at layer input relative to the World Layer." );
 		movingobj.insert( relativelayer, x, name ); //no matching signatures with parameters (need movingobj.insert(int, ee::AnimatedEntity&, string&);
-		movingobj[movingobj.length()-1].addEntityToRender(relativelayer,x,name); //might need to replace second parameter with a handle
 	}
 
 	void add( ee::StaticEntity x, uint relativelayer, string name )
 	{
 		ee::consolePrintLine( "Adds static entity to movingobj array. Adds object to render at layer input relative to the World Layer." );
 		setobj.insert( relativelayer, x, name ); //no matching signatures with parameters (need setobj.insert(int, ee::AnimatedEntity&, string&);
-		setobj[setobj.length()-1].addEntityToRender(relativelayer,x,name); //might need to replace second parameter with a handle
 	}
 }
 
@@ -43,15 +41,14 @@ class Checkpoint
 	Checkpoint( int x, int y, ee::StaticEntity check )
 	{
 		consolePrintLine( "Creates position for the Checkpoint." );
-		checkpoint = check;
-		checkpointpos = new CharPosition( 0, 0, 0 );
+		checkpoint = check;;
 	}
 	
 	void step()
 	{
 		CharPosition aeneaspos = getPosition();
-		float xdif = abs( aeneaspos.x - checkpointpos.x );
-		float ydif = abs( aeneaspos.y - checkpointpos.y );
+		float xdif = abs( aeneaspos.x - checkpoint.getPosX() );
+		float ydif = abs( aeneaspos.y - checkpoint.getPosY() );
 		float difference = pow( xdif, 2 ) + pow( ydif, 2 );
 		float radius = 2500;
 		if( difference < radius ) {
