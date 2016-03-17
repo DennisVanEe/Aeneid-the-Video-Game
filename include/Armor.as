@@ -14,6 +14,7 @@ class Armor : Collectible
 
 	uint protection() const
 	{
+		ee::consolePrintln( "Armor.as/protection: returns the protection of the armor." );
 		return protect;
 	}
 }

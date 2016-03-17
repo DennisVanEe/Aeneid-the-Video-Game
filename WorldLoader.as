@@ -32,7 +32,23 @@ void setUpVillageTown() {
 	world.add( world.getStaticEntity( "VillageTown", "northEastWall" ), "northEastWall" );
 	world.add( world.getStaticEntity( "VillageTown", "northEastWoodRoofHouse" ), "northEastWoodRoofHouse" );
 	world.add( world.getStaticEntity( "VillageTown", "northEastTreeBottom" ), "northEastTreeBottom" );
-	world.add( world.getStaticEntity( "VillageTown", "" ), "" );
-	world.add( world.getStaticEntity( "VillageTown", "" ), "" );
-	
+	world.add( world.getStaticEntity( "VillageTown", "northEastTree" ), "northEastTree" );
+	world.add( world.getStaticEntity( "VillageTown", "rotundaRoof" ), "rotundaRoof" );
+	world.add( world.getStaticEntity( "VillageTown", "sEWall" ), "sEWall" );
+	world.add( world.getStaticEntity( "VillageTown", "sEWoodThatchRoof" ), "sEWoodThatchRoof" );
+	world.add( world.getStaticEntity( "VillageTown", "southTreeCluster" ), "southTreeCluster" );
+	world.add( world.getStaticEntity( "VillageTown", "strawRoof" ), "strawRoof" );
+	world.add( world.getStaticEntity( "VillageTown", "strawRoofEastGrayCross" ), "strawRoofEastGrayCross" );
+	world.add( world.getStaticEntity( "VillageTown", "strawRoofEastGray" ), "strawRoofEastGray" );
+	world.add( world.getStaticEntity( "VillageTown", "sWThatchHouse" ), "sWThatchHouse" );
+	world.add( world.getStaticEntity( "VillageTown", "sWThatchHouse" ), "sWThatchHouse" );
+	world.add( world.getStaticEntity( "VillageTown", "sWWall2" ), "sWWall2" );
+	world.add( world.getStaticEntity( "VillageTown", "sWWall" ), "sWWall" );
+	world.add( world.getStaticEntity( "VillageTown", "thatchRoof" ), "thatchRoof" );
+	world.add( world.getStaticEntity( "VillageTown", "topTreeBottom" ), "topTreeBottom" );
+	world.add( world.getStaticEntity( "VillageTown", "topTree" ), "topTree" );
+	world.add( world.getStaticEntity( "VillageTown", "treetops" ), "treetops" );
+	world.add( world.getStaticEntity( "VillageTown", "wall" ), "wall" );
+	world.add( world.getStaticEntity( "VillageTown", "westTreeCluster" ), "westTreeCluster" );
+	world.add( world.getStaticEntity( "VillageTown", "westTree" ), "westTree" );
 }
