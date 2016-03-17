@@ -50,6 +50,7 @@ shared class Camera : Movable {
 	private CharPosition @ aeneasPos; // Aeneas' position; reference, so doesn't need to be updated
 	float @ walkSpeed;
 	ee::Camera cameraEntity;
+	HUD headsUp;
 
 	Camera() {
 		Movable();
@@ -123,6 +124,72 @@ shared class Camera : Movable {
 
 		updatePos( pos.x + (int) (cameraDistance * cos( pos.angle ) ), 
 					pos.y + (int) (cameraDistance * sin( pos.angle ) ), pos.angle );
+	}
+}
+
+	class HUD //create a HUD object for Aeneas in this module somewhere 
+{
+	ee::StaticEntity health;
+	ee::StaticEntity objective;
+	
+	HUD()
+	{
+		health = h; //HAVE THE STATICENTITIES MADE IN THE CONSTRUCTOR
+		health.setPosition(low x value, high y value); //top left
+		health.addEntityToRender(0,h,"healthbar");
+		objective = o;
+		objective.setPosition(high x value, high y value); //top right
+		objective.addEntityToRender(0,o,"objective");
+	}
+	
+	void changeObjective(/*ee::StaticEntity obj*/)
+	{
+		//CAN HARD CODE IN STRING OBJECTIVES WITH IF STATEMENTS HERE TO PRINT OUT
+		/*bool doit = objective.removeEntityToRender("objective");
+		objective = obj;
+		objective.addEntityToRender(0,h,"objective"); */
+		this is what i mean
+		if(first checkpoint reached)
+		    objective.addEntityToRender(0,ADDENTITY HERE, "whatever");
+		if(second checkpoint reached)
+			objective.addEntityToRender(0,SECONDENTITYHERE, "whatever");
+		etc...	
+		
+	}
+	
+	void changeHealth(int x)
+	{
+		//something about changing the image/sprite of the health bar DENNIS
+		//this doesn't change the health statistic, this has to change the animation of the HUD to show visible change
+	}
+	
+	StaticEntity @ getHealth()
+	{
+		return health;
+	}
+	
+	StaticEntity @ getObjective()
+	{
+		return objective;
+	}
+	
+	void moveXHUD(int x)
+	{
+		h.move(x,0);
+		o.move(x,0);
+	}
+	
+	void moveYHUD(int y)
+	{
+	
+		h.move(0,y);
+		o.move(0,y);
+	}
+	
+	void moveXYHUD(int x, int y)
+	{
+		h.move(x,y);
+		o.move(x,y);
 	}
 }
 

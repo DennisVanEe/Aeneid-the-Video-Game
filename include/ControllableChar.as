@@ -17,8 +17,6 @@ shared class ControllableChar : Character {
 	CharPosition @ pos; //name conflict
 	CharStats @ stats; //name conflict
 	final float PI = 3.14159;
-	HUD headsUp;
-
 
 	// Unnecessary function, since step method is called in Aeneas.as
 	/*
@@ -43,13 +41,12 @@ shared class ControllableChar : Character {
 
 	// Constructor with all values as parameter
 	// PARAMETER ERROR: Inventory is not a data type in global namespace
-	ControllableChar( Inventory i, int x, int y, double angle, int cH, int mH, float wS, int p, float cW, float mCW, ee::StaticEntity health, ee::StaticEntity objective ) {
-		Character( x, y, angle, cH, mH, wS, p, cW, mCW );   //ADDED TWO NEW PARAMETERS AT END OF CONTROLLABLECHAR FOR STATICENTITIES
-		inv = i;											//health is the entity health bar //objective is the entity of the first objective
+	ControllableChar( Inventory i, int x, int y, double angle, int cH, int mH, float wS, int p, float cW, float mCW) {
+		Character( x, y, angle, cH, mH, wS, p, cW, mCW );   
+		inv = i;											
 
 		pos = getCharPosition();
 		stats = getStat();
-		headsUp = HUD(health, objective);
 	}
 
 	// Tells Aeneas to follow a certain AI Character
@@ -126,21 +123,17 @@ shared class ControllableChar : Character {
 		
 		int x = (int) stats.getWalkSpeed() * milliseconds / 1000; //problems with brackets (typecasting done wrong)	
 		if( sign )
-			{updatePos( pos.x + x, pos.y, pos.angle );
-			headsUp.moveXHUD(x);}
+			updatePos( pos.x + x, pos.y, pos.angle );
 		else
-			{updatePos( pos.x - x, pos.y, pos.angle );		
-			headsUp.moveXHUD(-x);}
+			updatePos( pos.x - x, pos.y, pos.angle );	
  	}
 
 	void moveY( uint32 milliseconds, bool sign ) {		//sign is direction (true = positive)
 		int y = (int) stats.getWalkSpeed() * milliseconds / 1000; //problems with brackets (typecasting done wrong)	
 		if( !sign ) // ! because -y is up, y is down
-			{updatePos( pos.x, pos.y + y, pos.angle );
-			headsUp.moveYHUD(y);}
+			updatePos( pos.x, pos.y + y, pos.angle );
 		else
-			{updatePos( pos.x, pos.y - y, pos.angle );	
-			headsUp.moveYHUD(-y);}
+			updatePos( pos.x, pos.y - y, pos.angle );	
 			
 	}
 
@@ -148,24 +141,20 @@ shared class ControllableChar : Character {
 		int distance = (int) stats.getWalkSpeed() * milliseconds / 1000;
 		if( xPos == true ) {
 			if( !(yPos == true) ) { // ! because -y is up, y is down
-				{updatePos( pos.x + distance / sqrt( 2 ), pos.y + distance / sqrt( 2 ), pos.angle );
-				headsUp.moveXYHUD(distance / sqrt( 2 ),distance / sqrt( 2 ));}
+				updatePos( pos.x + distance / sqrt( 2 ), pos.y + distance / sqrt( 2 ), pos.angle );
 			} else {
-				{updatePos( pos.x + distance / sqrt( 2 ), pos.y - distance / sqrt( 2 ), pos.angle );
-				headsUp.moveXYHUD(distance / sqrt( 2 ), -(distance / sqrt( 2 )));}
+				updatePos( pos.x + distance / sqrt( 2 ), pos.y - distance / sqrt( 2 ), pos.angle );
 			}
 		} else {
 			if( !(yPos == true) ) { // ! because -y is up, y is down
-				{updatePos( pos.x - distance / sqrt( 2 ), pos.y + distance / sqrt( 2 ), pos.angle );
-				headsUp.moveXYHUD(-(distance / sqrt( 2 )),distance / sqrt( 2 ));}
+				updatePos( pos.x - distance / sqrt( 2 ), pos.y + distance / sqrt( 2 ), pos.angle );
 			} else {
-				{updatePos( pos.x - distance / sqrt( 2 ), pos.y - distance / sqrt( 2 ), pos.angle );	
-				headsUp.moveXYHUD(-(distance / sqrt( 2 )),-(distance / sqrt( 2 )));}
+				updatePos( pos.x - distance / sqrt( 2 ), pos.y - distance / sqrt( 2 ), pos.angle );	
 			}
 		}
 	}
 
-	class HUD //create a HUD object for Aeneas in this module somewhere 
+	/*class HUD //create a HUD object for Aeneas in this module somewhere 
 {
 	ee::StaticEntity health;
 	ee::StaticEntity objective;
@@ -186,7 +175,7 @@ shared class ControllableChar : Character {
 		/*bool doit = objective.removeEntityToRender("objective");
 		objective = obj;
 		objective.addEntityToRender(0,h,"objective"); */
-		this is what i mean
+	/*	this is what i mean
 		if(first checkpoint reached)
 		    objective.addEntityToRender(0,ADDENTITY HERE, "whatever");
 		if(second checkpoint reached)
@@ -229,7 +218,7 @@ shared class ControllableChar : Character {
 		h.move(x,y);
 		o.move(x,y);
 	}
-}
+} */
 	
 	// Checks for inputs
 	// if-statements must be listed in order of priority
