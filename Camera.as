@@ -134,30 +134,28 @@ shared class Camera : Movable {
 {
 	ee::StaticEntity health("HUD", "health");
 	ee::StaticEntity objective("HUD","objective");
+	ee::StaticEntity objective2("HUD","objective2");
+	objective2.setVisible(false);
+	ee::StaticEntity objective3("HUD","objective3");
+	objective3.setVisible(false);
 	
 	HUD()
 	{
-		health = h; //HAVE THE STATIC ENTITIES MADE IN THE CONSTRUCTOR
 		health.setPosition(centerCamera.x + ee::getWindowWidth() / 2, centerCamera.y + ee::getWindowHeight() / 2); 
-		objective = o;
 		objective.setPosition(centerCamera.x + ee::getWindowWidth() / 2, centerCamera.y + ee::getWindowHeight() / 2);
 	}
 	
-	void changeObjective(/*ee::StaticEntity obj*/)
+	void changeObjective2()
 	{
-		//CAN HARD CODE IN STRING OBJECTIVES WITH IF STATEMENTS HERE TO PRINT OUT
-		/*bool doit = objective.removeEntityToRender("objective");
-		objective = obj;
-		objective.addEntityToRender(0,h,"objective"); */
-		this is what i mean
-		if(first checkpoint reached)
-		    objective.addEntityToRender(0,ADDENTITY HERE, "whatever");
-		if(second checkpoint reached)
-			objective.addEntityToRender(0,SECONDENTITYHERE, "whatever");
-		etc...	
-		
+		objective.setVisible(false);
+		objective2.setVisible(true);
 	}
 	
+	void changeObjective3
+	{
+		objective2.setVisible(false);
+		objective3.setVisible(true);
+	}
 	void changeHealth()
 	{
 		health.setScale(0.5,getScaleY());//something about changing the image/sprite of the health bar DENNIS
