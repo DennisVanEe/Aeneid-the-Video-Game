@@ -20,7 +20,8 @@ shared class ControllableChar : Character {
 	final float PI = 3.14159;
 	HUD headsUp;
 	private ee::AnimatedEntity entity;
-	private string name;
+	private ee::AnimatedEntity entity;
+	private ee::AnimatedEntity entity;
 
 	// Unnecessary function, since step method is called in Aeneas.as
 	/*
