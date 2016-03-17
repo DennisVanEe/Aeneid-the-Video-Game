@@ -85,11 +85,23 @@ shared class Camera : Movable {
 		float distance = sqrt( xDif*xDif + yDif*yDif );
 
 		// Arbitrary camera speed (rubber based), complex formula I basically randomly picked
-		float cameraSpeed = walkSpeed * pow( distance * 1.5 / walkSpeed, 1.5 );
+		float cameraSpeed = walkSpeed * pow( distance * 1.25 / walkSpeed, 1.5 );
 		if( cameraSpeed > walkSpeed )
 			cameraSpeed = walkSpeed;
 
-		updatePos( pos.x + xDif * )
+		float cameraDistance = cameraSpeed * milliseconds / 1000;
+
+		if( xDif != 0)
+			pos.angle = 180 / PI * atan( yDif / xDif );
+		else if ( xDif == 0 && yDif > 0 )
+			pos.angle = 90;
+		else
+			pos.angle = -90;
+		if( xDif < 0 )
+			pos.angle += 180;
+
+		updatePos( pos.x + cameraDistance * cos( pos.angle ), 
+					pos.y + cameraDistance * sin( pos.angle ), pos.angle );
 	}
 }
 
