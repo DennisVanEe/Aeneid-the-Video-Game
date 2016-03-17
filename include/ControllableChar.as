@@ -17,6 +17,7 @@ shared class ControllableChar : Character {
 	CharPosition @ pos; //name conflict
 	CharStats @ stats; //name conflict
 	final float PI = 3.14159;
+	HUD headsUp;
 
 
 	// Unnecessary function, since step method is called in Aeneas.as
@@ -42,12 +43,13 @@ shared class ControllableChar : Character {
 
 	// Constructor with all values as parameter
 	// PARAMETER ERROR: Inventory is not a data type in global namespace
-	ControllableChar( Inventory i, int x, int y, double angle, int cH, int mH, float wS, int p, float cW, float mCW ) {
-		Character( x, y, angle, cH, mH, wS, p, cW, mCW );
-		inv = i;
+	ControllableChar( Inventory i, int x, int y, double angle, int cH, int mH, float wS, int p, float cW, float mCW, ee::StaticEntity health, ee::StaticEntity objective ) {
+		Character( x, y, angle, cH, mH, wS, p, cW, mCW );   //ADDED TWO NEW PARAMETERS AT END OF CONTROLLABLECHAR FOR STATICENTITIES
+		inv = i;											//health is the entity health bar //objective is the entity of the first objective
 
 		pos = getCharPosition();
 		stats = getStat();
+		headsUp = HUD(health, objective);
 	}
 
 	// Tells Aeneas to follow a certain AI Character
@@ -124,36 +126,111 @@ shared class ControllableChar : Character {
 		
 		int x = (int) stats.getWalkSpeed() * milliseconds / 1000; //problems with brackets (typecasting done wrong)	
 		if( sign )
-			updatePos( pos.x + x, pos.y, pos.angle );
+			{updatePos( pos.x + x, pos.y, pos.angle );
+			headsUp.moveXHUD(x);}
 		else
-			updatePos( pos.x - x, pos.y, pos.angle );		
+			{updatePos( pos.x - x, pos.y, pos.angle );		
+			headsUp.moveXHUD(-x);}
  	}
 
 	void moveY( uint32 milliseconds, bool sign ) {		//sign is direction (true = positive)
 		int y = (int) stats.getWalkSpeed() * milliseconds / 1000; //problems with brackets (typecasting done wrong)	
 		if( !sign ) // ! because -y is up, y is down
-			updatePos( pos.x, pos.y + y, pos.angle );
+			{updatePos( pos.x, pos.y + y, pos.angle );
+			headsUp.moveYHUD(y);}
 		else
-			updatePos( pos.x, pos.y - y, pos.angle );	
+			{updatePos( pos.x, pos.y - y, pos.angle );	
+			headsUp.moveYHUD(-y);}
+			
 	}
 
 	void moveXY( uint32 milliseconds, bool xPos, bool yPos ) {
 		int distance = (int) stats.getWalkSpeed() * milliseconds / 1000;
 		if( xPos == true ) {
 			if( !(yPos == true) ) { // ! because -y is up, y is down
-				updatePos( pos.x + distance / sqrt( 2 ), pos.y + distance / sqrt( 2 ), pos.angle );
+				{updatePos( pos.x + distance / sqrt( 2 ), pos.y + distance / sqrt( 2 ), pos.angle );
+				headsUp.moveXYHUD(distance / sqrt( 2 ),distance / sqrt( 2 ));}
 			} else {
-				updatePos( pos.x + distance / sqrt( 2 ), pos.y - distance / sqrt( 2 ), pos.angle );
+				{updatePos( pos.x + distance / sqrt( 2 ), pos.y - distance / sqrt( 2 ), pos.angle );
+				headsUp.moveXYHUD(distance / sqrt( 2 ), -(distance / sqrt( 2 )));}
 			}
 		} else {
 			if( !(yPos == true) ) { // ! because -y is up, y is down
-				updatePos( pos.x - distance / sqrt( 2 ), pos.y + distance / sqrt( 2 ), pos.angle );
+				{updatePos( pos.x - distance / sqrt( 2 ), pos.y + distance / sqrt( 2 ), pos.angle );
+				headsUp.moveXYHUD(-(distance / sqrt( 2 )),distance / sqrt( 2 ));}
 			} else {
-				updatePos( pos.x - distance / sqrt( 2 ), pos.y - distance / sqrt( 2 ), pos.angle );	
+				{updatePos( pos.x - distance / sqrt( 2 ), pos.y - distance / sqrt( 2 ), pos.angle );	
+				headsUp.moveXYHUD(-(distance / sqrt( 2 )),-(distance / sqrt( 2 )));}
 			}
 		}
 	}
 
+	class HUD //create a HUD object for Aeneas in this module somewhere 
+{
+	ee::StaticEntity health;
+	ee::StaticEntity objective;
+	
+	HUD(ee::StaticEntity h, ee::StaticEntity o)
+	{
+		health = h;
+		health.setPosition(low x value, high y value); //top left
+		health.addEntityToRender(0,h,"healthbar");
+		objective = o;
+		objective.setPosition(high x value, high y value); //top right
+		objective.addEntityToRender(0,o,"objective");
+	}
+	
+	void changeObjective(/*ee::StaticEntity obj*/)
+	{
+		//CAN HARD CODE IN STRING OBJECTIVES WITH IF STATEMENTS HERE TO PRINT OUT
+		/*bool doit = objective.removeEntityToRender("objective");
+		objective = obj;
+		objective.addEntityToRender(0,h,"objective"); */
+		this is what i mean
+		if(first checkpoint reached)
+		    objective.addEntityToRender(0,ADDENTITY HERE, "whatever");
+		if(second checkpoint reached)
+			objective.addEntityToRender(0,SECONDENTITYHERE, "whatever");
+		etc...	
+		
+	}
+	
+	void changeHealth(int x)
+	{
+		//something about changing the image/sprite of the health bar DENNIS
+		//this doesn't change the health statistic, this has to change the animation of the HUD to show visible change
+	}
+	
+	StaticEntity @ getHealth()
+	{
+		return health;
+	}
+	
+	StaticEntity @ getObjective()
+	{
+		return objective;
+	}
+	
+	void moveXHUD(int x)
+	{
+		h.move(x,0);
+		o.move(x,0);
+	}
+	
+	void moveYHUD(int y)
+	{
+	
+		h.move(0,y);
+		o.move(0,y);
+	}
+	
+	void moveXYHUD(int x, int y)
+	{
+		h.move(x,y);
+		o.move(x,y);
+	}
+}
+	
 	// Checks for inputs
 	// if-statements must be listed in order of priority
 	void checkInputs( uint32 milliseconds ) {
@@ -231,6 +308,7 @@ shared class ControllableChar : Character {
 	// cHealth of the NPC is changed to changedTo. If cHealth is 0, the NPC dies
 	void changeHealth( int difference ) {
 		stats.damage( difference );
+		headsUp.changeHealth(difference);
 		if( stats.getCHealth <= 0 || stats.getCHealth < 1 ) //invalid operation on method
 			die();
 	}
