@@ -135,14 +135,16 @@ shared class Camera : Movable {
 	ee::StaticEntity health("HUD", "health");
 	ee::StaticEntity objective("HUD","objective");
 	ee::StaticEntity objective2("HUD","objective2");
-	objective2.setVisible(false);
 	ee::StaticEntity objective3("HUD","objective3");
-	objective3.setVisible(false);
+	ee::StaticEntity objective4("HUD","objective4");
 	
 	HUD()
 	{
 		health.setPosition(centerCamera.x + ee::getWindowWidth() / 2, centerCamera.y + ee::getWindowHeight() / 2); 
 		objective.setPosition(centerCamera.x + ee::getWindowWidth() / 2, centerCamera.y + ee::getWindowHeight() / 2);
+		objective2.setVisible(false);
+		objective3.setVisible(false);
+		objective4.setVisible(false);
 	}
 	
 	void changeObjective2()
@@ -155,6 +157,12 @@ shared class Camera : Movable {
 	{
 		objective2.setVisible(false);
 		objective3.setVisible(true);
+	}
+	
+	void changeObjective4()
+	{
+		objective3.setVisible(false);
+		objective4.setVisible(true);
 	}
 	void changeHealth()
 	{
