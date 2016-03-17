@@ -11,6 +11,7 @@ import ControllableChar @ getAeneas() from "Aeneas.as";
 array<AIChar> trojans; // Array of Trojans
 array<AIChar> greek; // Array of Greeks
 ControllableChar @ aeneas;
+final float BASE_WALK_SPEED = 300;
 
 void initialize() {
     // Check savestate for previously saved stuff

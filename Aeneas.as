@@ -12,7 +12,7 @@
 import array< AIChar > @ getTrojans() from "TrojanGreek.as";
 import array< AIChar > @ getGreeks() from "TrojanGreek.as";
 
-final float BASE_WALK_SPEED = 10;
+final float BASE_WALK_SPEED = 300;
 ControllableChar aeneas;
 
 void initialize () {
