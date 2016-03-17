@@ -19,6 +19,8 @@ shared class ControllableChar : Character {
 	CharStats @ stats; //name conflict
 	final float PI = 3.14159;
 	HUD headsUp;
+	private ee::AnimatedEntity entity;
+	private string name;
 
 	// Unnecessary function, since step method is called in Aeneas.as
 	/*
@@ -44,9 +46,11 @@ shared class ControllableChar : Character {
 
 	// Constructor with all values as parameter
 	// PARAMETER ERROR: Inventory is not a data type in global namespace
-	ControllableChar( Inventory i, int x, int y, double angle, int cH, int mH, float wS, int p, float cW, float mCW) {
+	ControllableChar( string contName, string entName, Inventory i, int x, int y, double angle, int cH, int mH, float wS, int p, float cW, float mCW) {
 		Character( x, y, angle, cH, mH, wS, p, cW, mCW );   
 		inv = i;											
+		entity = ee::AnimatedEntity( contName, entName ); // CHECK TO SEE IF THIS WORKS
+		name = entName;
 
 		pos = getCharPosition();
 		stats = getStat();

@@ -17,6 +17,7 @@ void initialize() {
     // Check savestate for previously saved stuff
     if( !( requestTrojans() && requestGreeks() ) ) {
         // Set up trojans and greeks for the first time, in the first map
+
     }
 }
 
@@ -73,7 +74,7 @@ bool requestTrojans() {
 			int y = ee::readFromDataCont( "trojan" + i, "y" );
 			double angle = ee::readFromDataCont( "trojan" + i, "angle" );
 
-			AIChar aic = AIChar( x, y, angle, cHealth, mHealth, walkSpeed, 
+			AIChar aic = AIChar( "Characters", "trojan", x, y, angle, cHealth, mHealth, walkSpeed, 
 					rotationSpeed, invincibility, isItHostile, damage );
 
 			trojans.add( aic );
@@ -106,7 +107,7 @@ bool requestGreeks() {
 			int y = ee::readFromDataCont( "greek" + i, "y" );
 			double angle = ee::readFromDataCont( "greek" + i, "angle" );
 
-			AIChar aic = AIChar( x, y, angle, cHealth, mHealth, walkSpeed, 
+			AIChar aic = AIChar( "Characters", "greek", x, y, angle, cHealth, mHealth, walkSpeed, 
 					rotationSpeed, invincibility, isItHostile, damage );
 
 			greeks.add( aic );
