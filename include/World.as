@@ -41,15 +41,14 @@ class Checkpoint
 	Checkpoint( int x, int y, ee::StaticEntity check )
 	{
 		consolePrintLine( "Creates position for the Checkpoint." );
-		checkpoint = check;
-		checkpointpos = new CharPosition( 0, 0, 0 );
+		checkpoint = check;;
 	}
 	
 	void step()
 	{
 		CharPosition aeneaspos = getPosition();
-		float xdif = abs( aeneaspos.x - checkpointpos.x );
-		float ydif = abs( aeneaspos.y - checkpointpos.y );
+		float xdif = abs( aeneaspos.x - checkpoint.getPosX() );
+		float ydif = abs( aeneaspos.y - checkpoint.getPosY() );
 		float difference = pow( xdif, 2 ) + pow( ydif, 2 );
 		float radius = 2500;
 		if( difference < radius ) {
