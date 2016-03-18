@@ -61,11 +61,11 @@ shared class AIChar : Character //ERROR
 
 	void setAnimationStates( uint32 milliseconds ) {
 		if( entityMove.isVisible() )
-			entityMove.play( (milliseconds) ); //errors 
+			entityMove.playFrame( (milliseconds) ); //errors 
 		else if( entityAttack.isVisible() )
-			entityAttack.play( milliseconds ); //errors
+			entityAttack.playFrame( milliseconds ); //errors
 		else
-			entityAttackMove.play( milliseconds );
+			entityAttackMove.playFrame( milliseconds );
 	}
 
 	void setEntityVisibilities( bool m, bool a, bool am ) {
@@ -106,7 +106,7 @@ shared class AIChar : Character //ERROR
 			int x = pos.getX() + stats.getWalkSpeed() * milliseconds / 1000 * cos( PI / 180 * angle );
 			int y = pos.getY() + stats.getWalkSpeed() * milliseconds / 1000 * sin( PI / 180 * angle );
 			updatePos( x, y, angle );
-			entityMove.play( milliseconds );
+			entityMove.playFrame( milliseconds );
 		}
 		else
 			updatePos( pos.getX(), pos.getY(), pos.getAngle() );
@@ -195,7 +195,7 @@ shared class AIChar : Character //ERROR
 			   sin( pos.getAngle() * PI / 180 ) * milliseconds * stats.getWalkSpeed() / 1000, 
 			   pos.getAngle() );
 		setEntityVisibilities( true, false, false );
-		entityMove.play( milliseconds ); //errors
+		entityMove.playFrame( milliseconds ); //errors
 	}
 
 	//Please Check this method for me! -Rene Lee
@@ -208,7 +208,7 @@ shared class AIChar : Character //ERROR
 		npc.stats.damage( damages );
 
 		setEntityVisibilities( false, true, false ); // move, attack, attackmove
-		entityAttack.play( milliseconds ); //errors
+		entityAttack.playFrame( milliseconds ); //errors
 	}
 
 	void talk( string phrase )
@@ -281,7 +281,7 @@ shared class AIChar : Character //ERROR
 			   sin( pos.getAngle() * PI / 180 ) * milliseconds * stats.getWalkSpeed() / 1000, 
 			   pos.getAngle() );
 		setEntityVisibilities( true, false, false );
-		entityMove.play( milliseconds ); //errors
+		entityMove.playFrame( milliseconds ); //errors
 	}
 	
 	// bool aeneasInRange(/*AENEAS REFERENCE*/)
