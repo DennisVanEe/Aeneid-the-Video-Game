@@ -3,7 +3,7 @@
 								//CONSISTENT problems with contructor syntax
 								//DENNIS centerCamera is not declared in HUD error
 //#include "TrojanGreek.as"
-#include "include/AIChar.as" //DOES NOT RECOGNIZE entityMove.play() JASON
+#include "include/AIChar.as" //DOES NOT RECOGNIZE entityMove.play() DENNIS
 //#include "include/Character.as" //HAVE TO IMPLEMENT LAST METHODS
 //#include "include/ControllableChar.as"  //JASON PROBLEMS WITH eneityMove.play() HERE TOO
 											//DENNIS NO MATCHING SIGNATURESWITH isKeyPressed();
