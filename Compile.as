@@ -1,9 +1,9 @@
 //#include "Aeneas.as"
-//#include "include/Camera.as" //JASON take out a bunch of try catch blocks
+#include "Camera.as" //JASON take out a bunch of try catch blocks
 								//CONSISTENT problems with contructor syntax
 								//DENNIS centerCamera is not declared in HUD error
 //#include "TrojanGreek.as"
-#include "include/AIChar.as" //DOES NOT RECOGNIZE entityMove.play() DENNIS
+//#include "include/AIChar.as" //DOES NOT RECOGNIZE entityMove.play() DENNIS
 							//FIX writeToDataCont THIRD INT PARAMETER
 //#include "include/Character.as" //HAVE TO IMPLEMENT LAST METHODS
 //#include "include/ControllableChar.as"  //JASON PROBLEMS WITH eneityMove.play() HERE TOO

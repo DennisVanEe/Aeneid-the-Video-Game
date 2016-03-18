@@ -23,7 +23,7 @@
 		cameraEntity.setViewPort( float x1, float y1, float x2, float y2 );
 		*/
 
-#include "Movable.as"
+#include "include/Movable.as"
 import CharPosition @ getAeneasPos() from "Aeneas.as";
 import float getAeneasWalkSpeed() from "Aeneas.as";
 
