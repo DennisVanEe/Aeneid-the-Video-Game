@@ -73,7 +73,7 @@ shared class Camera : Movable {
 			aeneasPos = getAeneasPos();
 		} else {
 			ee::consolePrintLine( "ERROR: Camera.as cannot retrieve Aeneas position." );
-			aeneasPos = CharPosition(0, 0, 0);
+			aeneasPos = CharPosition(0, 0, 0); 
 		}
 
 		cameraEntity.setSize( ee::getWindowWidth(), ee::getWindowHeight() );
