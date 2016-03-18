@@ -27,6 +27,21 @@ shared class AIChar : Character
 		stats = getStat();
 	}
 
+	AIChar( string contName, string entName ) {
+		Character();
+
+		entityMove = ee::AnimatedEntity( contName, entName + "Move" ); // CHECK TO SEE IF THIS WORKS
+		entityAttack = ee::AnimatedEntity( contName, entName + "Attack" );
+		entityAttackMove = ee::AnimatedEntity( contName, entName + "AttackMove" );
+		name = entName;
+
+		setEntityVisibilities( true, false, false );
+		entityMove.setFrame( 0 );
+
+		pos = getPos(); 
+		stats = getStat();
+	}
+
 	// Constructor with all values as parameter
 	AIChar( string contName, string entName, int x, int y, double angle, int cH, int mH, float wS, float rS, bool immunity, bool hostile ) {
 		Character( x, y, angle, cH, mH, wS, rS, immunity, hostile );
