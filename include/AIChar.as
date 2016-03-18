@@ -115,14 +115,14 @@ shared class AIChar : Character
 	
 	bool inRange(Character aic)
 	{
-		ee::consolePrintln( "AIChar.as/inRange: checks if another AIChar is within 30 units of this AIChar." );
+		ee::consolePrintln( "AIChar.as/inRange: checks if another AIChar is within 50 units of this AIChar." );
 		CharPosition@ rPos = aic.getPos();
 
 		int yDif = pos.getY() - rPos.getY();
 		int xDif = pos.getX() - rPos.getX();
 
 		float distance = sqrt( yDif*yDif + xDif*xDif ); 
-		float bubble = 30; 
+		float bubble = 50; 
 		
 		if( bubble > distance )
 		return false;

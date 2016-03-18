@@ -18,82 +18,58 @@ void initialize() {
     // Check savestate for previously saved stuff
     if( !( requestTrojans() && requestGreeks() ) ) {
         // Set up trojans and greeks for the first time, in the first map
-        AIChar trojan1 = AIChar();
-        trojan1.updatePos( 682, 896, 270 );
-        trojan1.setHostility( false );
-        AIChar trojan2 = AIChar();
-        trojan2.updatePos( 984, 1287, 180 );
-        trojan2.setHostility( false );
-        AIChar trojan3 = AIChar();
-        trojan3.updatePos( 396, 1166, 0 );
-        trojan3.setHostility( false );
-        AIChar trojan4 = AIChar();
-        trojan4.updatePos( 786, 1677, 180 );
-        trojan4.setHostility( false );
-        AIChar trojan5 = AIChar();
-        trojan5.updatePos( 247, 1804, 45 );
-        trojan5.setHostility( false );
+        setTrojansOnMap( 1, 682, 896, 270 );
+        setTrojansOnMap( 2, 984, 1287, 180 );
+        setTrojansOnMap( 3, 296, 1166, 0 );
+        setTrojansOnMap( 4, 786, 1677, 180 );
+        setTrojansOnMap( 5, 247, 1804, 45 );
+        setTrojansOnMap( 6, 2117, 2117, 315 );
+        setTrojansOnMap( 7, 1958, 2381, 330 );
+        setTrojansOnMap( 8, 2249, 2568, 315 );
+        setTrojansOnMap( 9, 1281, 2832, 225 );
+        setTrojansOnMap( 10, );
+        setTrojansOnMap( 11, );
+        setTrojansOnMap( 12, );
+        setTrojansOnMap( 13, );
+        setTrojansOnMap( 14, );
+        setTrojansOnMap( 15, );
+        setTrojansOnMap( 16, );
+        setTrojansOnMap( 17, );
+        setTrojansOnMap( 18, );
+        setTrojansOnMap( 19, );
+        setTrojansOnMap( 20, );
+        setTrojansOnMap( 21, );
+        setTrojansOnMap( 22, );
+        setTrojansOnMap( 23, );
 
-        AIChar greek1 = AIChar();
-        greek1.updatePos( 682, 870, 90 );
-        AIChar greek2 = AIChar();
-        greek2.updatePos( 797, 1485, 0 );
-        AIChar greek3 = AIChar();
-        greek3.updatePos( 425, 1166, 180 );
-        AIChar greek4 = AIChar();
-        greek4.updatePos( 750, 1677, 0 );
-        AIChar greek5 = AIChar();
-        greek5.updatePos( 423, 1771, 180 );
+		setGreeksOnMap( 1, 682, 870, 90 );
+		setGreeksOnMap( 2, 797, 1485, 0 );
+		setGreeksOnMap( 3, 425, 1166, 180 );
+		setGreeksOnMap( 4, 750, 1677, 0 );
+		setGreeksOnMap( 5, 423, 1771, 180 );
+		setGreeksOnMap( 6, 2277, 2233, 135 );
+		setGreeksOnMap( 7, 2007, 2491, 150 );
+		setGreeksOnMap( 8, 2370, 2651, 135 );
+		setGreeksOnMap( 9, 1210, 2898, 45 );
+		setGreeksOnMap( 10, );
+		setGreeksOnMap( 11, );
+		setGreeksOnMap( 12, );
+		setGreeksOnMap( 13, );
+		setGreeksOnMap( 14, );
+		setGreeksOnMap( 15, );
+		setGreeksOnMap( 16, );
+		setGreeksOnMap( 17, );
+		setGreeksOnMap( 18, );
+		setGreeksOnMap( 19, );
+		setGreeksOnMap( 20, );
+		setGreeksOnMap( 21, );
+		setGreeksOnMap( 22, );
+		setGreeksOnMap( 23, );
+		setGreeksOnMap( 24, );
+		setGreeksOnMap( 25, );
+		setGreeksOnMap( 26, );
+		setGreeksOnMap( 27, );
 
-        AIChar trojan6 = AIChar();
-        trojan6.updatePos( 2117, 2117, 315 );
-        trojan6.setHostility( false );
-        AIChar trojan7 = AIChar();
-        trojan7.updatePos( 1958, 2381, 330 );
-        trojan7.setHostility( false );
-        AIChar trojan8 = AIChar();
-        trojan8.updatePos( 2249, 2568, 315 );
-        trojan8.setHostility( false );
-        AIChar trojan9 = AIChar();
-        trojan9.updatePos( 1281, 2832, 225);
-        trojan9.setHostility( false );
-
-        AIChar greek6 = AIChar();
-        greek6.updatePos( 2277, 2233, 135 );
-        AIChar greek7 = AIChar();
-        greek6.updatePos( 2007, 2491, 150 );
-        AIChar greek8 = AIChar();
-        greek6.updatePos( 2370, 2651, 135 );
-        AIChar greek9 = AIChar();
-        greek6.updatePos( 1210, 2898, 45 );
-
-        AIChar trojan10 = AIChar();
-        trojan10.updatePos();
-        trojan10.setHostility( false );
-        AIChar trojan11 = AIChar();
-        trojan11.updatePos();
-        trojan11
-        AIChar trojan12 = AIChar();
-        trojan12.updatePos();
-        trojan12
-        AIChar trojan13 = AIChar();
-        trojan13
-        trojan13
-        AIChar trojan14 = AIChar();
-        trojan14
-        trojan14
-        AIChar trojan15 = AIChar();
-        trojan15
-        trojan15
-        AIChar trojan16 = AIChar();
-        trojan16
-        trojan16
-        AIChar trojan17 = AIChar();
-        trojan17
-        trojan17
-        AIChar trojan18 = AIChar();
-        AIChar trojan19 = AIChar();
-        AIChar trojan20 = AIChar();
     }
 }
 
@@ -129,6 +105,19 @@ bool saveAIChars() {
 		ee::consolePrintln( "ERROR: TrojanGreek.saveAIChars does not work." );
 		return false;
 	}
+}
+
+void setTrojansOnMap( float num, float x, float y, float degree ){
+	string name = "trojan" + num;
+	AIChar name = AIChar( "Character", name );
+	name.updatePos( x, y, degree );
+	name.setHostility( false );
+}
+
+void setGreeksOnMap( float num, float x, float y, float degree ){
+	string name = "greek" + num;
+	AIChar name = AIChar( "Character", name );
+	name.updatePos( x, y, degree );
 }
 
 // Loads Trojans
@@ -199,5 +188,3 @@ bool requestGreeks() {
 array< AIChar > @ getTrojans() { return trojans; }
 
 array< AIChar > @ getGreeks() { return greeks; }
-
-
