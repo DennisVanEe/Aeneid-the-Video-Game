@@ -1,12 +1,12 @@
 //#include "Aeneas.as"
-//#include "Camera.as" //JASON take out a bunch of try catch blocks
+//#include "Camera.as" 
 								//CONSISTENT problems with contructor syntax
 								//DENNIS centerCamera is not declared in HUD error
 //#include "TrojanGreek.as"
-//#include "include/AIChar.as" //DOES NOT RECOGNIZE entityMove.play() DENNIS
-							//FIX writeToDataCont THIRD INT PARAMETER
+//#include "include/AIChar.as" 
+							//FIX writeToDataCont THIRD INT PARAMETER dennis will fix this
 //#include "include/Character.as" //HAVE TO IMPLEMENT LAST METHODS
-#include "include/ControllableChar.as"  //JASON PROBLEMS WITH eneityMove.play() HERE TOO
+#include "include/ControllableChar.as"  
 											//DENNIS NO MATCHING SIGNATURESWITH isKeyPressed();
 											//DENNIS no for each loop support in angelscript???
 											//JASON CHANGE FOR EACH LOOPS TO FOR LOOPS

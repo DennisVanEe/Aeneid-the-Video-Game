@@ -207,8 +207,8 @@ shared class ControllableChar : Character {
 			updatePos( pos.x + stats.walkSpeed * milliseconds / 1000, 
 					pos.y + stats.walkSpeed * milliseconds / 1000, pos.getAngle() );
 			*/
-			x = pos.x + stats.getWalkSpeed * milliseconds / 1000 * cos( PI / 180 * angle );
-			y = pos.y + stats.getWalkSpeed * milliseconds / 1000 * sin( PI / 180 * angle );
+			int x = pos.x + stats.getWalkSpeed * milliseconds / 1000 * cos( PI / 180 * angle );
+			int y = pos.y + stats.getWalkSpeed * milliseconds / 1000 * sin( PI / 180 * angle );
 			updatePos( x, y, angle );
 			return false;
 		}
