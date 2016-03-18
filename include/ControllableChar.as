@@ -395,6 +395,7 @@ shared class ControllableChar : Character {
 		ee::writeToDataCont( "Aeneas", "y", pos.y );
 		ee::writeToDataCont( "Aeneas", "angle", pos.angle );
 
+		return true;
 		// Saves inventory
 		// TODO: save inventory
 	}

@@ -6,6 +6,8 @@
 // world the other assets will be in
 #include "Aeneas.as"  
 import bool saveAIChars() from "TrojanGreek.as"
+import bool saveCitizens() from "Citizen.as"
+import bool requestSaveData() from "Aeneas.as"
 
 class World
 {
@@ -60,19 +62,9 @@ class Checkpoint
 		float difference = pow( xdif, 2 ) + pow( ydif, 2 );
 		float radius = 2500;
 		if( difference < radius ) {
-			ee::writeToDataCont( "Aeneas", "cHealth", getCHealth() );
-			ee::writeToDataCont( "Aeneas", "mHealth", getMHealth() );
-			ee::writeToDataCont( "Aeneas", "walkSpeed", getWalkSpeed() );
-			ee::writeToDataCont( "Aeneas", "piety", getPiety() );
-			ee::writeToDataCont( "Aeneas", "carryWeight", getCarryWeight() );
-			ee::writeToDataCont( "Aeneas", "maxCarryWeight", getMaxCarryWeight() );
-			ee::writeToDataCont( "Aeneas", "rotationSpeed", getRotationSpeed() );
-			ee::writeToDataCont( "Aeneas", "invincibility", isInvincible() ); 
-			ee::writeToDataCont( "Aeneas", "isItHostile", isHostile() );
-			ee::writeToDataCont( "Aeneas", "x", aeneaspos.getX() );
-			ee::writeToDataCont( "Aeneas", "y", aeneaspos.getY() );
-			ee::writeToDataCont( "Aeneas", "angle", aeneaspos.getAngle() );
+			requestSaveData();
 			saveAIChars();
+			saveCitizens();
 		}
 	}
 }

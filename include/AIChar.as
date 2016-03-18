@@ -249,8 +249,23 @@ shared class AIChar : Character
 
 	bool isHostile()
 	{
-		ee::consolePrintln( "AIChar.as/isHostile: returns tru if the Character is hostile." );
+		ee::consolePrintln( "AIChar.as/isHostile: returns true if the Character is hostile." );
 		return stats.isHostile();
+	}
+
+	// Panicked citizen runs around in circles
+	void citizenMove( uint32 milliseconds ) {
+		ee::consolePrintln( "AIChar.as/citizenMove: makes the citizen run in panicked circles." );
+		
+		pos.angle += 0.1 * milliseconds; // 0.1 is pixels of rotation per millisecond
+
+		// TODO: Add function for boundary collision and reverse direction immediately
+
+		updatePos( cos( pos.getAngle() * PI / 180 ) * milliseconds * stats.getWalkSpeed() / 1000, 
+			   sin( pos.getAngle() * PI / 180 ) * milliseconds * stats.getWalkSpeed() / 1000, 
+			   pos.getAngle() );
+		setEntityVisibilities( true, false, false );
+		entityMove.play( milliseconds );
 	}
 	
 	// bool aeneasInRange(/*AENEAS REFERENCE*/)
