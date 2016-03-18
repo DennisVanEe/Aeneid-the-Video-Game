@@ -12,7 +12,7 @@ import ControllableChar @ getAeneas() from "Aeneas.as";
 
 shared class AIChar : Character
 {
-	final static float PI = 3.14159;
+	float PI = 3.14159;
 	CharPosition @ pos;
 	CharStats @ stats;
 	private ee::AnimatedEntity entityMove;

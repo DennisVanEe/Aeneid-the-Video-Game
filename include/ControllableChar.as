@@ -17,11 +17,11 @@ shared class ControllableChar : Character {
 	private Inventory inv;
 	CharPosition @ pos; //name conflict
 	CharStats @ stats; //name conflict
-	final float PI = 3.14159;
+	const float PI = 3.14159;
 	HUD headsUp;
-	private ee::AnimatedEntity entityMove;
-	private ee::AnimatedEntity entityAttack;
-	private ee::AnimatedEntity entityAttackMove;
+	protected ee::AnimatedEntity entityMove;
+	protected ee::AnimatedEntity entityAttack;
+	protected ee::AnimatedEntity entityAttackMove;
 
 	void addItem( const string &in name, Collectible c ) { 
 		ee::consolePrintln( "ControllableChar.as/addItem: adds a collectible item" );
@@ -296,8 +296,9 @@ shared class ControllableChar : Character {
 		objective.addEntityToRender(0,o,"objective");
 	}
 	
-	void changeObjective(/*ee::StaticEntity obj*/)
-	{
+	void changeObjective(/*ee::StaticEntity obj*/
+	
+	
 		//CAN HARD CODE IN STRING OBJECTIVES WITH IF STATEMENTS HERE TO PRINT OUT
 		/*bool doit = objective.removeEntityToRender("objective");
 		objective = obj;

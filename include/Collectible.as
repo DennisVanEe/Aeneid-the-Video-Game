@@ -27,7 +27,7 @@ class Collectible : Movable
 	}
 
 	// Sets position of the Collectible on the map
-	bool setPos( int x, int y, double angle ) 
+	void setPos( int x, int y, double angle ) 
 	{
 		ee::consolePrintln( "Collectible.as/setPos: sets the position of the collectible." );
 		setPos( x, y, angle ); // Calls Movable setPos

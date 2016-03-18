@@ -25,7 +25,7 @@
 
 #include "Movable.as"
 import CharPosition @ getAeneasPos() from "Aeneas.as";
-import float @ getAeneasWalkSpeed() from "Aeneas.as";
+import float getAeneasWalkSpeed() from "Aeneas.as";
 
 // -------------------------------------------------------------------------------
 
@@ -47,7 +47,7 @@ shared class Camera : Movable {
 
 	private CharPosition pos; // Camera position
 	private CharPosition @ aeneasPos; // Aeneas' position; reference, so doesn't need to be updated
-	float @ walkSpeed;
+	float walkSpeed;
 	ee::Camera cameraEntity;
 	HUD headsUp;
 
@@ -55,7 +55,7 @@ shared class Camera : Movable {
 		Movable();
 		pos = CharPosition();
 		headsUp = HUD();
-		try {
+		try { //take out try catch block
 			aeneasPos = getAeneasPos();
 		} catch {
 			ee::consolePrintLine( "ERROR: Camera.as cannot retrieve Aeneas position." );
@@ -69,7 +69,7 @@ shared class Camera : Movable {
 		Movable( x, y, angle );
 		pos = CharPosition();
 		headsUp=HUD();
-		try {
+		try {  //take out try catch block 
 			aeneasPos = getAeneasPos();
 		} catch {
 			ee::consolePrintLine( "ERROR: Camera.as cannot retrieve Aeneas position." );
@@ -80,7 +80,7 @@ shared class Camera : Movable {
 	}
 
 	bool setupPosition() {
-		try { 
+		try {   //take out try catch block 
 			if( getAeneasPos() != null ) {
 				aeneasPos = getAeneasPos();
 
@@ -129,7 +129,7 @@ shared class Camera : Movable {
 	}
 }
 
-	class HUD 
+	shared class HUD 
 {
 	ee::StaticEntity health("HUD", "health");
 	ee::StaticEntity objective("HUD","objective");
@@ -169,38 +169,51 @@ shared class Camera : Movable {
 		//this doesn't change the health statistic, this has to change the animation of the HUD to show visible change
 	}
 	
-	StaticEntity @ getHealth()
+	ee::StaticEntity @ getHealth() //error
 	{
 		return health;
 	}
 	
-	StaticEntity @ getObjective()
+	ee::StaticEntity @ getObjective() //error
 	{
 		return objective;
 	}
 	
 	void moveXHUD(int x)
 	{
-		h.move(x,0);
-		o.move(x,0);
+		health.move(x,0);
+		objective.move(x,0);
+		objective2.move(x,0);
+		objective3.move(x,0);
+		objective4.move(x,0);
 	}
 	
 	void moveYHUD(int y)
 	{
 	
-		h.move(0,y);
-		o.move(0,y);
+		health.move(0,y);
+		objective.move(x,0);
+		objective2.move(x,0);
+		objective3.move(x,0);
+		objective4.move(x,0);
 	}
 	
 	void moveXYHUD(int x, int y)
 	{
-		h.move(x,y);
-		o.move(x,y);
+		health.move(x,y);
+		objective.move(x,0);
+		objective2.move(x,0);
+		objective3.move(x,0);
+		objective4.move(x,0);
 	}
 	
 	void setPosition(int x, int y)
 	{
-		h.setPosition(float(x),float(y));
+		health.setPosition(float(x),float(y));
+		objective.setPosition(float(x),float(y));
+		objective2.setPosition(float(x),float(y));
+		objective3.setPosition(float(x),float(y));
+		objective4.setPosition(float(x),float(y));
 	}
 }
 

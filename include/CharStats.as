@@ -6,7 +6,7 @@
 // character's stats.
 
 shared class CharStats {
-	final float BASE_WALK_SPEED = 300;
+	float BASE_WALK_SPEED = 300;
 
 	// Universal stats
 	int cHealth; // Current Health //MAKE IT PROTECTED
@@ -22,7 +22,7 @@ shared class CharStats {
 	float rotationSpeed; // to be set later after testing. degree per seconds
 	bool invincibility;
 	bool isItHostile;
-	int damage;
+	int damages;
 
 	CharStats() {
 		CharStats( 100, 100, BASE_WALK_SPEED, 0, 0, 0, 150, false, true, 0 );
@@ -46,7 +46,7 @@ shared class CharStats {
 		rotationSpeed = rS;
 		invincibility = immunity;
 		isItHostile = hostile;
-		damage = dmg;
+		damages = dmg;
 	}
 
 	void damage( int dmg ) { cHealth -= dmg; }
@@ -68,7 +68,7 @@ shared class CharStats {
 
 	void setHostility( bool hostile ) { isItHostile = hostile; }
 	void setInvincibility( bool isInvincible ) { invincibility = isInvincible; }
-	void setDamage( int dmg ) { damage = dmg; }
+	void setDamage( int dmg ) { damages = dmg; }
 
 	int getCHealth() { return cHealth; }
 	int getMHealth() { return mHealth; }
@@ -79,7 +79,7 @@ shared class CharStats {
 	float getRotationSpeed() { return rotationSpeed; }
 	bool isInvincible() { return invincibility; }
 	bool isHostile() { return isItHostile; }
-	int getDamage() { return damage; }
+	int getDamage() { return damages; }
 
-	float @ getWalkSpeedRef() { return walkSpeed; }
+	float getWalkSpeedRef() { return walkSpeed; }
 }

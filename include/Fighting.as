@@ -1,3 +1,5 @@
+#include "Character.as"
+
 void fighting(Character npc) //Character is not a data type in global namespace
 {
 	if(/*not in range*/)

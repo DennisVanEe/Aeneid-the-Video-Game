@@ -3,10 +3,10 @@
 
 class Inventory
 {
-	private dictionary< Collectible > items;
-	private float totalweight;
+	dictionary< Collectible > items; //expected method, found dictionary
+	float totalweight;
 
-	Inventory()
+	Inventory() //expected identifier, instead found (
 	{
 		items = new dictionary< Collectible >();
 		totalweight = 0;
@@ -34,4 +34,4 @@ class Inventory
 		else
 			return false;
 	}
-}
+} //unexpected

@@ -152,7 +152,7 @@ shared class Camera : Movable {
 		objective2.setVisible(true);
 	}
 	
-	void changeObjective3
+	void changeObjective3()
 	{
 		objective2.setVisible(false);
 		objective3.setVisible(true);

@@ -35,7 +35,7 @@ shared class CharPosition {
 	double angle; // measured in degrees (circle)
 
 	CharPosition() {
-	 	CharPosition(0,0,0);
+	 	CharPosition(0,0,0.0);
 	}
 	
 	CharPosition ( int iX, int iY, double ang ) {
@@ -74,7 +74,7 @@ shared class CharPosition {
 		return angle / 180 * 3.14159;
 	}
 
-	updateCharPosition( int iX, int iY, double ang ){
+	void updateCharPosition( int iX, int iY, double ang ){
 		x = iX;
 		y = iY;
 		angle = ang;

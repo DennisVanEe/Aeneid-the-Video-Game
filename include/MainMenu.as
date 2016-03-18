@@ -1,26 +1,27 @@
-#include "Menu.as"
-#include "Button.as"
+//#include "Menu.as"
+//#include "Button.as"
 
-class MainMenu : Menu
+class MainMenu// : Menu
 {
 	bool buttonPressed = false;
-
+	ee::StaticEntity title;
+	ee::StaticEntity text;
+	ee::StaticEntity background;
 	MainMenu() {
-		Menu();
+		//Menu();
+		title = ee::StaticEntity( "MainMenu", "title" );
+		text = ee::StaticEntity( "MainMenu", "text" );
+		background = ee::StaticEntity( "MainMenu", "background" );
 	}
 	
 	void step(uint32 milliseconds)
 	{
-		if(!buttonPressed) {
-			ee::StaticEntity title = ee::StaticEntity( "MainMenu", "title" );
-			ee::StaticEntity text = ee::StaticEntity( "MainMenu", "text" );
-			ee::StaticEntity background = ee::StaticEntity( "MainMenu", "background" );
 		//actually need to make these things and put in the art for the background
 		
 		//title.makeVisible();
 		//text.makeVisible();
 		//background.makeVisible();
-		}
+		
 		//ADD TO RENDER
 		/*bool buttonIsPressed = false;
 		string nameButtonPressed;
