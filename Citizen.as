@@ -30,50 +30,42 @@ void step( uint32 milliseconds ) {
 }
 
 bool saveCitizens() {
-	try {
-		int count = 0;
-		for( AIChar citizen: citizens ) {
-			citizen.requestSaveData( "citizen", count );
-			count++;
-		}
-		ee::writeToDataCont( "citizenNumber", "number", count );
-		return true;
-	} catch { 
-		ee::consolePrintln( "ERROR: TrojanGreek.saveAIChars does not work." );
-		return false;
+	int count = 0;
+	for( AIChar citizen: citizens ) {
+		citizen.requestSaveData( "citizen", count );
+		count++;
 	}
+	bool b = ee::writeToDataCont( "citizenNumber", "number", count );
+	if( !b )
+		ee::consolePrintln( "ERROR: TrojanGreek.saveAIChars does not work." );
+	return b;
 }
 
 // Loads Trojans
 bool requestCitizens() {
-	try {
-		int n = ee::readFromDataCont( "citizenNumber", "number" );
-		for( int i = n; i >= 0; i-- ) {
-			// Logic to get all the parameter / values from each citizen
+	
+	int n = ee::readFromDataCont( "citizenNumber", "number" );
+	for( int i = n; i >= 0; i-- ) {
+		// Logic to get all the parameter / values from each citizen
 
-			int cHealth = ee::readFromDataCont( "citizen" + i, "cHealth" );
-			int mHealth = ee::readFromDataCont( "citizen" + i, "mHealth" );
-			float walkSpeed = ee::readFromDataCont( "citizen" + i, "walkSpeed" );
-			float rotationSpeed = ee::readFromDataCont( "citizen" + i, "rotationSpeed" );
-			bool invincibility = ee::readFromDataCont( "citizen" + i, "invincibility" );
-			bool isItHostile = ee::readFromDataCont( "citizen" + i, "isItHostile" );
-			int damage = ee::readFromDataCont( "citizen" + i, "damage" );
+		int cHealth = ee::readFromDataCont( "citizen" + i, "cHealth" );
+		int mHealth = ee::readFromDataCont( "citizen" + i, "mHealth" );
+		float walkSpeed = ee::readFromDataCont( "citizen" + i, "walkSpeed" );
+		float rotationSpeed = ee::readFromDataCont( "citizen" + i, "rotationSpeed" );
+		bool invincibility = ee::readFromDataCont( "citizen" + i, "invincibility" );
+		bool isItHostile = ee::readFromDataCont( "citizen" + i, "isItHostile" );
+		int damage = ee::readFromDataCont( "citizen" + i, "damage" );
 
-			int x = ee::readFromDataCont( "citizen" + i, "x" );
-			int y = ee::readFromDataCont( "citizen" + i, "y" );
-			double angle = ee::readFromDataCont( "citizen" + i, "angle" );
+		int x = ee::readFromDataCont( "citizen" + i, "x" );
+		int y = ee::readFromDataCont( "citizen" + i, "y" );
+		double angle = ee::readFromDataCont( "citizen" + i, "angle" );
 
-			AIChar aic = AIChar( "Characters", "citizen", x, y, angle, cHealth, mHealth, walkSpeed, 
-					rotationSpeed, invincibility, isItHostile, damage );
+		AIChar aic = AIChar( "Characters", "citizen", x, y, angle, cHealth, mHealth, walkSpeed, 
+				rotationSpeed, invincibility, isItHostile, damage );
 
-			citizens.add( aic );
-
-			return true;
-		}
-	} catch {
-		ee::consolePrintln( "ERROR: Citizen.requestCitizens does not work." );
-		return false;
+		citizens.add( aic );
 	}
+	return true;
 }
 
 

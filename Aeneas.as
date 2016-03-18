@@ -48,12 +48,7 @@ void finishInitialization ( bool thereIsASaveGame ) {
 }
 
 bool requestSaveData () {
-	try {
-		return aeneas.saveRequestValues();
-	} catch { 
-		ee::consolePrintln( "ERROR: Aeneas.requestSaveData cannot save Aeneas." );
-		return false;
-	}
+	return aeneas.saveRequestValues();
 }
 
 // function to transfer Aeneas to another module
