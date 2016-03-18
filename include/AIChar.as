@@ -61,7 +61,7 @@ shared class AIChar : Character //ERROR
 
 	void setAnimationStates( uint32 milliseconds ) {
 		if( entityMove.isVisible() )
-			entityMove.play( milliseconds ); //errors 
+			entityMove.play( (milliseconds) ); //errors 
 		else if( entityAttack.isVisible() )
 			entityAttack.play( milliseconds ); //errors
 		else
@@ -294,7 +294,7 @@ shared class AIChar : Character //ERROR
 	void step( uint32 milliseconds, array<AIChar> enemies) {
 		//MUST FIRST GET AN AENEAS REFERENCE AND CHECK ITS POSITION TO SEE IF IT SHOULD BE INVINCIBLE AND/OR ATTACK HIM!!! (ASK DENNIS)
 		ee::consolePrintln( "AIChar.as/step: step function." );
-		ControllableChar aeneas = new ControllableChar();
+		ControllableChar aeneas = ControllableChar();
 		aeneas = getAeneas();
 		if(!inRange(aeneas))
 		{
