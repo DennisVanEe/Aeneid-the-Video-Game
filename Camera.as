@@ -126,7 +126,7 @@ shared class Camera : Movable {
 	}
 }
 
-	shared class HUD 
+shared class HUD 
 {
 	ee::StaticEntity health("HUD", "health");
 	ee::StaticEntity objective("HUD","objective");
@@ -138,6 +138,9 @@ shared class Camera : Movable {
 	{
 		health.setPosition(centerCamera.x + ee::getWindowWidth() / 2, centerCamera.y + ee::getWindowHeight() / 2); 
 		objective.setPosition(centerCamera.x + ee::getWindowWidth() / 2, centerCamera.y + ee::getWindowHeight() / 2);
+		objective2.setPosition(centerCamera.x + ee::getWindowWidth() / 2, centerCamera.y + ee::getWindowHeight() / 2);
+		objective3.setPosition(centerCamera.x + ee::getWindowWidth() / 2, centerCamera.y + ee::getWindowHeight() / 2);
+		objective4.setPosition(centerCamera.x + ee::getWindowWidth() / 2, centerCamera.y + ee::getWindowHeight() / 2);
 		objective2.setVisible(false);
 		objective3.setVisible(false);
 		objective4.setVisible(false);
