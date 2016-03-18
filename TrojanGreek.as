@@ -35,10 +35,12 @@ void initialize() {
         setTrojansOnMap( 15, );
         setTrojansOnMap( 16, );
         setTrojansOnMap( 17, );
-        setTrojansOnMap( );
-        setTrojansOnMap( );
-        setTrojansOnMap( );
-        setTrojansOnMap( );
+        setTrojansOnMap( 18, );
+        setTrojansOnMap( 19, );
+        setTrojansOnMap( 20, );
+        setTrojansOnMap( 21, );
+        setTrojansOnMap( 22, );
+        setTrojansOnMap( 23, );
 
 		setGreeksOnMap( 1, 682, 870, 90 );
 		setGreeksOnMap( 2, 797, 1485, 0 );
@@ -107,14 +109,14 @@ bool saveAIChars() {
 
 void setTrojansOnMap( float num, float x, float y, float degree ){
 	string name = "trojan" + num;
-	AIChar name = AIChar( "Character", "trojan" );
+	AIChar name = AIChar( "Character", name );
 	name.updatePos( x, y, degree );
 	name.setHostility( false );
 }
 
 void setGreeksOnMap( float num, float x, float y, float degree ){
 	string name = "greek" + num;
-	AIChar name = AIChar( "Character", "greek" );
+	AIChar name = AIChar( "Character", name );
 	name.updatePos( x, y, degree );
 }
 
@@ -186,5 +188,3 @@ bool requestGreeks() {
 array< AIChar > @ getTrojans() { return trojans; }
 
 array< AIChar > @ getGreeks() { return greeks; }
-
-
