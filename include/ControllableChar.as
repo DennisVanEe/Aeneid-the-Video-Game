@@ -59,11 +59,11 @@ shared class ControllableChar : Character {
 	void playAnimationStates( uint32 milliseconds ) {
 		// entityMove.play( milliseconds );
 		if( entityMove.isVisible() )
-			entityMove.play( milliseconds );  //error
+			entityMove.playFrame( milliseconds );  //error
 		else if( entityAttack.isVisible() )
-			entityAttack.play( milliseconds ); //error
+			entityAttack.playFrame( milliseconds ); //error
 		else
-			entityAttackMove.play( milliseconds ); //error
+			entityAttackMove.playFrame( milliseconds ); //error
 	}
 
 	void updateEntityPos() {
