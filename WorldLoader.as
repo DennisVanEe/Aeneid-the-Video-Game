@@ -116,14 +116,26 @@ void setUpPriamAltar() {
 }
 
 void setUpCityThree() {
+	world.add( world.getStaticEntity( "TrojanCity1", "leftColumn" ), "leftColumn" );
+	world.add( world.getStaticEntity( "TrojanCity1", "leftWall" ), "leftWall" );
+	world.add( world.getStaticEntity( "TrojanCity1", "overlapTrees" ), "overlapTrees" );
+	world.add( world.getStaticEntity( "TrojanCity1", "rightColumn" ), "rightColumn" );
+	world.add( world.getStaticEntity( "TrojanCity1", "southernBuilding" ), "southernBuilding" );
+	world.add( world.getStaticEntity( "TrojanCity1", "Trees" ), "Trees" );
 
 }
 
 void setUpCityTwo() {
+	world.add( world.getStaticEntity( "TrojanCity2", "leftColumn" ), "leftColumn" );
+	world.add( world.getStaticEntity( "TrojanCity1", "rightColumn" ), "rightColumn" );
 
 }
 
 void setUpCityOne() {
+	world.add( world.getStaticEntity( "TrojanCity1", "leftColumn" ), "leftColumn" );
+	world.add( world.getStaticEntity( "TrojanCity1", "palaceOverlap" ), "palaceOverlap" );
+	world.add( world.getStaticEntity( "TrojanCity1", "rightColumn" ), "rightColumn" );
+	world.add( world.getStaticEntity( "TrojanCity1", "rightWall" ), "rightWall" );
 
 }
 
