@@ -19,11 +19,7 @@ class World
 	World( string name )
 	{
 		bool checkPointUsed;
-		try {
-			checkPointUsed = ee::readFromDataCont( name, "checkPointUsed" );
-		} catch {
-			checkPointUsed = false;
-		}
+		checkPointUsed = ee::readFromDataCont( name, "checkPointUsed" );
 		ee::consolePrintLine( "Constructor for World. Sets the base layer for World." );
 		layer = 1000;
 		setName( name );
