@@ -260,7 +260,7 @@ shared class AIChar : Character //ERROR
 		
 		//shouldn't be exacty 180 since comparing doubles
 		if( abs( pos.angle - npc.pos.angle )<181 && abs( pos.angle - npc.pos.angle ) > 179  && inRangeToAttack(npc) )
-			attack(npc, milliseconds); 
+			attack(npc, milliseconds);  //illegal access to npc.pos
 	}
 
 	bool isHostile()
@@ -321,7 +321,7 @@ shared class AIChar : Character //ERROR
 				attack(aeneas, milliseconds);
 		}
 		
-		if(!thereIsEnemy && !inRange(aeneas))
+		if(!thereIsEnemy() && !inRange(aeneas))
 			move(milliseconds); // Should move randomly
 		
 		// If Aeneas comes within a certain distance, follow Aeneas and attack him.

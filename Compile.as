@@ -4,9 +4,11 @@
 								//DENNIS centerCamera is not declared in HUD error
 //#include "TrojanGreek.as"
 #include "include/AIChar.as" //DOES NOT RECOGNIZE entityMove.play() DENNIS
+							//FIX writeToDataCont THIRD INT PARAMETER
 //#include "include/Character.as" //HAVE TO IMPLEMENT LAST METHODS
 //#include "include/ControllableChar.as"  //JASON PROBLEMS WITH eneityMove.play() HERE TOO
 											//DENNIS NO MATCHING SIGNATURESWITH isKeyPressed();
+											//DENNIS no for each loop support in angelscript???
 //#include "include/Inventory.as"   //very few errors, dennis look over 
 //#include "include/MainMenu.as"  //find out how to call isKeyPressed properly DENNIS
 //#include "include/SaveAndLoad.as"
