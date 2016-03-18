@@ -13,10 +13,16 @@ void setUpWorld( string contName, string entName ) {
 	world.add( world.getStaticEntity( contName, entName ), entName );
 	world.setName( contName );
 
-	if( contName == "VillageTown" ) )
+	if( contName == "VillageTown" )
 		setUpVillageTown();
-	else if( contName == "PriamAltar" ) )
+	else if( contName == "PriamAltar" )
 		setUpPriamAltar();
+	else if( contName == "cityThree" )
+		setUpCityThree();
+	else if( contName == "cityTwo" )
+		setUpCityTwo();
+	else if( contName == "cityOne" )
+		setUpCityOne();
 }
 
 void step( uint32 milliseconds ) {
@@ -32,21 +38,13 @@ void determineNextWorld( int i ) {
 	if( i == 1 ) {
 		setUpWorld( "VillageTown", "villageTownMap" );
 	} else if( i == 2 ) {
-		setUpWorld( "PriamAltar", "priamAltarMap" );
+		setUpWorld( "cityThree", "cityThreeMap" );
 	} else if( i == 3 ) {
-		setUpWorld( "VillageTown", "villageTownMap" );
+		setUpWorld( "cityTwo", "cityTwoMap" );
 	} else if( i == 4 ) {
-		setUpWorld( "VillageTown", "villageTownMap" );
+		setUpWorld( "cityOne", "cityOneMap" );
 	} else if( i == 5 ) {
-		setUpWorld( "VillageTown", "villageTownMap" );
-	} else if( i == 6 ) {
-		setUpWorld( "VillageTown", "villageTownMap" );
-	} else if( i == 7 ) {
-		setUpWorld( "VillageTown", "villageTownMap" );
-	} else if( i == 8 ) {
-		setUpWorld( "VillageTown", "villageTownMap" );
-	} else if( i == 9 ) {
-		setUpWorld( "VillageTown", "villageTownMap" );
+		setUpWorld( "PriamAltar", "priamAltarMap" );
 	}
 }
 
@@ -117,8 +115,18 @@ void setUpPriamAltar() {
 	world.add( world.getStaticEntity( "PriamAltar", "walls"), "walls" );
 }
 
+void setUpCityThree() {
 
-void setUpBoundary()
-{
+}
+
+void setUpCityTwo() {
+
+}
+
+void setUpCityOne() {
+
+}
+
+void setUpBoundary() {
 	world.add(world.getStaticEntity(""))
 }
