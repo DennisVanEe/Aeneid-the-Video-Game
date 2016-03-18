@@ -8,9 +8,10 @@ void initialize() {
 }
 
 void setUpWorld( string contName, string entName ) {
-	world = World();
+	world = World( contName );
 
 	world.add( world.getStaticEntity( contName, entName ), entName );
+	world.setName( contName );
 
 	if( contName == "VillageTown" ) )
 		setUpVillageTown();
@@ -23,6 +24,7 @@ void step( uint32 milliseconds ) {
 		level++;
 		determineNextWorld( level );
 	}
+	world.step( milliseconds );
 }
 
 // Determines which world will be loaded next
