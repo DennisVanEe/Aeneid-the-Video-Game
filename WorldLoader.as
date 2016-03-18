@@ -110,8 +110,6 @@ void setUpVillageTown() {
 	world.setobj[world.setobj.length()-1].setPosition(178,1136);
 	world.add( world.getStaticEntity( "VillageTown", "westTreeCluster" ), "westTreeCluster" );
 	world.setobj[world.setobj.length()-1].setPosition(24,1936);
-	
-
 	// TODO: Set up world
 }
 
