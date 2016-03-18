@@ -10,7 +10,7 @@
 import ControllableChar @ getAeneas() from "Aeneas.as";
 
 array<AIChar> trojans; // Array of Trojans
-array<AIChar> greek; // Array of Greeks
+array<AIChar> greeks; // Array of Greeks
 ControllableChar @ aeneas;
 float BASE_WALK_SPEED = 300;
 
@@ -23,11 +23,11 @@ void initialize() {
 }
 
 void step( uint32 milliseconds ) {
-    for( AIChar trojan: trojans ) {
-    	trojan.step( milliseconds, greeks);
+	for( int i = 0; i < trojans.length(); i++ ) {
+    	trojans[i].step( milliseconds, greeks );
     }
-    for( AIChar greek: greeks ) {
-    	greek.step( milliseconds, trojans);
+    for( int i = 0; i < greeks.length(); i++) {
+    	greeks[i].step( milliseconds, trojans);
     }
 }
 
@@ -38,14 +38,14 @@ void retrieveAeneas() {
 bool saveAIChars() {
 
 	int count = 0;
-	for( AIChar trojan: trojans ) {
-		trojan.requestSaveData( "trojan", count );
+	for( int i = 0; i < trojans.length(); i++ ) {
+		trojans[i].requestSaveData( "trojan", count );
 		count++;
 	}
 	ee::writeToDataCont( "trojanNumber", "number", count );
 	count = 0;
-	for( AIChar greek: greeks ) {
-		greek.requestSaveData( "greek", count );
+	for( int i = 0; i < greeks.length(); i++) {
+		greeks[i].requestSaveData( "greek", count );
 		count++;
 	}
 	bool b = ee::writeToDataCont( "greekNumber", "number", count );

@@ -24,15 +24,15 @@ void initialize() {
 }
 
 void step( uint32 milliseconds ) {
-    for( AIChar citizen: citizens ) {
-    	citizen.citizenMove( milliseconds );
+	for( int i = 0; i < citizen.length(); i++ ) {
+    	citizens[i].citizenMove( milliseconds );
     }
 }
 
 bool saveCitizens() {
 	int count = 0;
-	for( AIChar citizen: citizens ) {
-		citizen.requestSaveData( "citizen", count );
+	for( int i = 0; i < citizen.length(); i++ ) {
+		citizens[i].requestSaveData( "citizen", count );
 		count++;
 	}
 	bool b = ee::writeToDataCont( "citizenNumber", "number", count );
