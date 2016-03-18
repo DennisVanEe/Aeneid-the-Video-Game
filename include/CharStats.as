@@ -6,6 +6,8 @@
 // character's stats.
 
 shared class CharStats {
+	final float BASE_WALK_SPEED = 300;
+
 	// Universal stats
 	int cHealth; // Current Health //MAKE IT PROTECTED
 	int mHealth; // Maximum Health
@@ -23,7 +25,7 @@ shared class CharStats {
 	int damage;
 
 	CharStats() {
-		CharStats( 0, 0, 0, 0, 0, 0, 10, false, true, 0 );
+		CharStats( 100, 100, BASE_WALK_SPEED, 0, 0, 0, 150, false, true, 0 );
 	}
 
 	CharStats( int cH, int mH, float wS, int p, float cW, float mCW ) {
