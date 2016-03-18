@@ -17,7 +17,7 @@ void initialize() {
     // Check savestate for previously saved stuff
     if( !( requestTrojans() && requestGreeks() ) ) {
         // Set up trojans and greeks for the first time, in the first map
-
+        
     }
 }
 

@@ -320,6 +320,10 @@ shared class AIChar : Character
 			// Maybe have some random Trojan "gangs" wandering around
 	}
 
+	ee::AnimatedEntity getEntity() {
+		return entityMove;
+	}
+
 	void requestSaveData( string prefix, int i ) {
 		ee::writeToDataCont( prefix + i, "cHealth", stats.getCHealth() );
 		ee::writeToDataCont( prefix + i, "mHealth", stats.getMHealth() );
