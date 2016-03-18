@@ -59,11 +59,11 @@ shared class ControllableChar : Character {
 	void playAnimationStates( uint32 milliseconds ) {
 		// entityMove.play( milliseconds );
 		if( entityMove.isVisible() )
-			entityMove.play( milliseconds );
+			entityMove.play( milliseconds );  //error
 		else if( entityAttack.isVisible() )
-			entityAttack.play( milliseconds );
+			entityAttack.play( milliseconds ); //error
 		else
-			entityAttackMove.play( milliseconds );
+			entityAttackMove.play( milliseconds ); //error
 	}
 
 	void updateEntityPos() {
@@ -90,17 +90,17 @@ shared class ControllableChar : Character {
 		array< AIChar > npcArray;
 
 		// NOTE: Check for intensity of this calculation
-		for( AIChar trojan: trojans ) {
+		for( AIChar trojan: trojans ) {   //DOES ANGELSCRIPT SUPPORT FOR EACH? IT FINDS AN ERROR
 			npcArray.insertLast( trojan );
 		}
-		for( AIChar greek: greeks ) {
+		for( AIChar greek: greeks ) {   //same error as line 93
 			npcArray.insertLast( greek );
 		}
 
 		bool isAttacking = false;
 
 		if ( ee::isButtonPressed( ee::Left ) ) {
-			for( AIChar npc : npcArray ) {  //expected ";"
+			for( AIChar npc : npcArray ) {  //same error as line 93
 				if( ifMouseOnNPC( npc ) ) {
 					if( npc.stats.isHostile() ) {
 						attack( damage, npc );
@@ -157,7 +157,7 @@ shared class ControllableChar : Character {
 			playAnimationStates( milliseconds );
 			return;
 		}
-		else { // If button A is pressed
+		else if(ee::isKeyPressed(ee::A)){ 
 			if( isAttacking ) // Sets entity visibilities during attack-move or move
 				setEntityVisibilities( false, false, true );
 			else
@@ -184,7 +184,7 @@ shared class ControllableChar : Character {
 		int xDif = pos.x - rPos.x;
 
 		if( xDif != 0)
-			pos.angle = 180 / PI * atan( ( (float) yDif ) / xDif );
+			pos.angle = 180 / PI * atan( ( float (yDif) ) / xDif );
 		else if ( xDif == 0 && yDif > 0 )
 			pos.angle = 90;
 		else
@@ -236,7 +236,7 @@ shared class ControllableChar : Character {
 		int xDif = ee::getXPosMouse - pos.x;
 
 		if( xDif != 0)
-			pos.angle = 180 / PI * atan( ( (float) yDif ) / xDif ); //problems with brackets
+			pos.angle = 180 / PI * atan( ( float(yDif) ) / xDif ); //problems with brackets
 		else if ( xDif == 0 && yDif > 0 )
 			pos.angle = 90;
 		else
@@ -248,7 +248,7 @@ shared class ControllableChar : Character {
 	// Tell Aeneas to move in a certain direction based on W, A, S, D 
 	void moveX( uint32 milliseconds, bool sign ) {		//sign is direction (true = positive)
 		
-		int x = (int) stats.getWalkSpeed() * milliseconds / 1000; //problems with brackets (typecasting done wrong)	
+		int x = int(stats.getWalkSpeed() * milliseconds / 1000); //problems with brackets (typecasting done wrong)	
 		if( sign )
 			updatePos( pos.x + x, pos.y, pos.angle );
 		else
@@ -256,7 +256,7 @@ shared class ControllableChar : Character {
  	}
 
 	void moveY( uint32 milliseconds, bool sign ) {		//sign is direction (true = positive)
-		int y = (int) stats.getWalkSpeed() * milliseconds / 1000; //problems with brackets (typecasting done wrong)	
+		int y = int(stats.getWalkSpeed() * milliseconds / 1000); //problems with brackets (typecasting done wrong)	
 		if( !sign ) // ! because -y is up, y is down
 			updatePos( pos.x, pos.y + y, pos.angle );
 		else
@@ -265,7 +265,7 @@ shared class ControllableChar : Character {
 	}
 
 	void moveXY( uint32 milliseconds, bool xPos, bool yPos ) {
-		int distance = (int) stats.getWalkSpeed() * milliseconds / 1000;
+		int distance = int(stats.getWalkSpeed() * milliseconds / 1000);
 		if( xPos == true ) {
 			if( !(yPos == true) ) { // ! because -y is up, y is down
 				updatePos( pos.x + distance / sqrt( 2 ), pos.y + distance / sqrt( 2 ), pos.angle );
@@ -368,8 +368,8 @@ shared class ControllableChar : Character {
 	// cHealth of the NPC is changed to changedTo. If cHealth is 0, the NPC dies
 	void changeHealth( int difference ) {
 		stats.damage( difference );
-		headsUp.changeHealth();
-		if( stats.getCHealth <= 0 || stats.getCHealth < 1 ) //invalid operation on method
+		headsUp.changeHealth(); //HUD is non-shared???
+		if( stats.getCHealth() <= 0 || stats.getCHealth() < 1 ) //invalid operation on method
 			die();
 	}
 

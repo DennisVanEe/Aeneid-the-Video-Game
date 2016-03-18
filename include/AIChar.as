@@ -8,13 +8,14 @@
 
 #include "Character.as"
 #include "Weapon.as"
-import ControllableChar @ getAeneas() from "Aeneas.as";
+#include "ControllableChar.as"
+import ControllableChar @ getAeneas() from "Aeneas.as"; //ERROR
 
-shared class AIChar : Character
+shared class AIChar : Character //ERROR
 {
 	float PI = 3.14159;
-	CharPosition @ pos;
-	CharStats @ stats;
+	CharPosition @ pos; //ERROR
+	CharStats @ stats; //ERROR
 	private ee::AnimatedEntity entityMove;
 	private ee::AnimatedEntity entityAttack;
 	private ee::AnimatedEntity entityAttackMove;
@@ -43,8 +44,8 @@ shared class AIChar : Character
 	}
 
 	// Constructor with all values as parameter
-	AIChar( string contName, string entName, int x, int y, double angle, int cH, int mH, float wS, float rS, bool immunity, bool hostile ) {
-		Character( x, y, angle, cH, mH, wS, rS, immunity, hostile );
+	AIChar( string contName, string entName, int x, int y, double angle, int cH, int mH, float wS, float rS, bool immunity, bool hostile, int damage ) {
+		Character( x, y, angle, cH, mH, wS, rS, immunity, hostile, damage );
 
 		entityMove = ee::AnimatedEntity( contName, entName + "Move" ); // CHECK TO SEE IF THIS WORKS
 		entityAttack = ee::AnimatedEntity( contName, entName + "Attack" );
@@ -60,9 +61,9 @@ shared class AIChar : Character
 
 	void setAnimationStates( uint32 milliseconds ) {
 		if( entityMove.isVisible() )
-			entityMove.play( milliseconds );
+			entityMove.play( milliseconds ); //errors 
 		else if( entityAttack.isVisible() )
-			entityAttack.play( milliseconds );
+			entityAttack.play( milliseconds ); //errors
 		else
 			entityAttackMove.play( milliseconds );
 	}
@@ -102,8 +103,8 @@ shared class AIChar : Character
 			updatePos( pos.x + stats.walkSpeed * milliseconds / 1000, 
 					pos.y + stats.walkSpeed * milliseconds / 1000, pos.getAngle() );
 			*/
-			x = pos.getX() + stats.getWalkSpeed() * milliseconds / 1000 * cos( PI / 180 * angle );
-			y = pos.getY() + stats.getWalkSpeed() * milliseconds / 1000 * sin( PI / 180 * angle );
+			int x = pos.getX() + stats.getWalkSpeed() * milliseconds / 1000 * cos( PI / 180 * angle );
+			int y = pos.getY() + stats.getWalkSpeed() * milliseconds / 1000 * sin( PI / 180 * angle );
 			updatePos( x, y, angle );
 			entityMove.play( milliseconds );
 		}
@@ -194,7 +195,7 @@ shared class AIChar : Character
 			   sin( pos.getAngle() * PI / 180 ) * milliseconds * stats.getWalkSpeed() / 1000, 
 			   pos.getAngle() );
 		setEntityVisibilities( true, false, false );
-		entityMove.play( milliseconds );
+		entityMove.play( milliseconds ); //errors
 	}
 
 	//Please Check this method for me! -Rene Lee
@@ -204,10 +205,10 @@ shared class AIChar : Character
 		ee::consolePrintln( "AIChar.as/attack: attacks another Character." ); 
 		int damages = stats.getDamage();
 		// DO THE attack animation
-		npc.changeHealth( damages );
+		npc.stats.damage( damages );
 
 		setEntityVisibilities( false, true, false ); // move, attack, attackmove
-		entityAttack.play( milliseconds );
+		entityAttack.play( milliseconds ); //errors
 	}
 
 	void talk( string phrase )
@@ -222,10 +223,10 @@ shared class AIChar : Character
 	void changeHealth( int difference )
 	{
 		ee::consolePrintln( "AIChar.as/changeHealth: changes the health of this Character." );
-		if( stats.isInvincible ) 
+		if( stats.isInvincible() ) 
 			return;
 		stats.damage( difference ); 
-		if(stats.getCHealth <= 0)
+		if(stats.getCHealth() <= 0)
 		{
 			// change image to dead body and kill NPC
 		}
@@ -259,7 +260,7 @@ shared class AIChar : Character
 		
 		//shouldn't be exacty 180 since comparing doubles
 		if( abs( pos.angle - npc.pos.angle )<181 && abs( pos.angle - npc.pos.angle ) > 179  && inRangeToAttack(npc) )
-			attack(npc); 
+			attack(npc, milliseconds); 
 	}
 
 	bool isHostile()
@@ -280,7 +281,7 @@ shared class AIChar : Character
 			   sin( pos.getAngle() * PI / 180 ) * milliseconds * stats.getWalkSpeed() / 1000, 
 			   pos.getAngle() );
 		setEntityVisibilities( true, false, false );
-		entityMove.play( milliseconds );
+		entityMove.play( milliseconds ); //errors
 	}
 	
 	// bool aeneasInRange(/*AENEAS REFERENCE*/)
@@ -302,7 +303,7 @@ shared class AIChar : Character
 			bool thereIsEnemy = false;
 			for(int i = 0; i<enemies.length(); i++)
 			{
-				if(inRange(enemies[i]) 
+				if(inRange(enemies[i])) 
 					{if(inRangeToAttack(enemies[i]))
 						attack(enemies[i], milliseconds);
 					else
@@ -316,7 +317,7 @@ shared class AIChar : Character
 		{
 			stats.setInvincibility(false);
 			follow(aeneas, milliseconds);
-			if(inRangeToAttack(aeneas)
+			if(inRangeToAttack(aeneas))
 				attack(aeneas, milliseconds);
 		}
 		
@@ -340,6 +341,7 @@ shared class AIChar : Character
 	}
 
 	void requestSaveData( string prefix, int i ) {
+		//HAVE TO MAKE A THIRD PARAMETER FOR AN INTEGER LIKE DENNIS SAID
 		ee::writeToDataCont( prefix + i, "cHealth", stats.getCHealth() );
 		ee::writeToDataCont( prefix + i, "mHealth", stats.getMHealth() );
 		ee::writeToDataCont( prefix + i, "walkSpeed", stats.getWalkSpeed() );

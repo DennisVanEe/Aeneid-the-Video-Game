@@ -12,7 +12,7 @@
 // interface Character {
 shared class Character : Movable {
 
-	protected CharStats stats;
+	CharStats stats;
 
 	Character() {
 		Movable( 0, 0, 0 );

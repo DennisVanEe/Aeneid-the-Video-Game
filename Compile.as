@@ -1,11 +1,14 @@
 //#include "Aeneas.as"
 //#include "include/Camera.as" //JASON take out a bunch of try catch blocks
+								//CONSISTENT problems with contructor syntax
+								//DENNIS centerCamera is not declared in HUD error
 //#include "TrojanGreek.as"
-//#include "include/AIChar.as"
-//#include "include/Character.as"
-//#include "include/ControllableChar.as"
+#include "include/AIChar.as" //DOES NOT RECOGNIZE entityMove.play() JASON
+//#include "include/Character.as" //HAVE TO IMPLEMENT LAST METHODS
+//#include "include/ControllableChar.as"  //JASON PROBLEMS WITH eneityMove.play() HERE TOO
+											//DENNIS NO MATCHING SIGNATURESWITH isKeyPressed();
 //#include "include/Inventory.as"   //very few errors, dennis look over 
-//#include "include/MainMenu.as"  //find out how to call isKeyPressed properly
+//#include "include/MainMenu.as"  //find out how to call isKeyPressed properly DENNIS
 //#include "include/SaveAndLoad.as"
 //#include "include/World.as"
 void initialize() {}
