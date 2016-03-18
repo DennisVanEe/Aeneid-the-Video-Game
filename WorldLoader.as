@@ -22,13 +22,6 @@ void step( uint32 milliseconds ) {
 // Put in art assets LOL
 void setUpVillageTown() {
 	world.add( world.getStaticEntity( "VillageTown", "brickRoof"), "brickRoof" );
-<<<<<<< HEAD
-}
-
-void setUpBoundary()
-{
-	world.add(world.getStaticEntity(""))
-=======
 	world.add( world.getStaticEntity( "VillageTown", "clayPot" ), "clayPot" );
 	world.add( world.getStaticEntity( "VillageTown", "eastCrossThatchRoof" ), "eastCrossThatchRoof" );
 	world.add( world.getStaticEntity( "VillageTown", "fourHouseNE" ), "fourHouseNE" );
@@ -58,5 +51,10 @@ void setUpBoundary()
 	world.add( world.getStaticEntity( "VillageTown", "wall" ), "wall" );
 	world.add( world.getStaticEntity( "VillageTown", "westTreeCluster" ), "westTreeCluster" );
 	world.add( world.getStaticEntity( "VillageTown", "westTree" ), "westTree" );
->>>>>>> e35d16c661719285082bb7f196831f7c0d29256b
+}
+
+
+void setUpBoundary()
+{
+	world.add(world.getStaticEntity(""))
 }
