@@ -55,9 +55,9 @@ shared class Camera : Movable {
 		Movable();
 		pos = CharPosition();
 		headsUp = HUD();
-		try { //take out try catch block
+		if( getAeneasPos() != null ) {
 			aeneasPos = getAeneasPos();
-		} catch {
+		} else {
 			ee::consolePrintLine( "ERROR: Camera.as cannot retrieve Aeneas position." );
 			aeneasPos = CharPosition(0, 0, 0);
 		}
@@ -69,9 +69,9 @@ shared class Camera : Movable {
 		Movable( x, y, angle );
 		pos = CharPosition();
 		headsUp=HUD();
-		try {  //take out try catch block 
+		if( getAeneasPos() != null ) {
 			aeneasPos = getAeneasPos();
-		} catch {
+		} else {
 			ee::consolePrintLine( "ERROR: Camera.as cannot retrieve Aeneas position." );
 			aeneasPos = CharPosition(0, 0, 0);
 		}
@@ -80,19 +80,16 @@ shared class Camera : Movable {
 	}
 
 	bool setupPosition() {
-		try {   //take out try catch block 
-			if( getAeneasPos() != null ) {
-				aeneasPos = getAeneasPos();
+		if( getAeneasPos() != null ) {
+			aeneasPos = getAeneasPos();
 
-				// WARNING: DO NOT SET POS = AENEASPOS;
-				updatePos( aeneasPos.x, aeneasPos.y, aeneasPos.angle );
-				walkSpeed = getAeneasWalkSpeed();
-				return true;
-			}
-			return false;
-		} catch {
-			return false;
+			// WARNING: DO NOT SET POS = AENEASPOS;
+			updatePos( aeneasPos.x, aeneasPos.y, aeneasPos.angle );
+			walkSpeed = getAeneasWalkSpeed();
+			ee::consolePrintLine( "Camera.as/ Walkspeed has been set along with position." );
+			return true;
 		}
+		return false;
 	}
 
 	void updatePos( int x, int y, double angle ) {
