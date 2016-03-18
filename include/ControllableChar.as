@@ -90,17 +90,18 @@ shared class ControllableChar : Character {
 		array< AIChar > npcArray;
 
 		// NOTE: Check for intensity of this calculation
-		for( AIChar trojan: trojans ) {   //DOES ANGELSCRIPT SUPPORT FOR EACH? IT FINDS AN ERROR
-			npcArray.insertLast( trojan );
+		for( int i = 0; i < trojans.length(); i++ ) {
+			npcArray.insertLast( trojans[i] );
 		}
-		for( AIChar greek: greeks ) {   //same error as line 93
-			npcArray.insertLast( greek );
+		for( int i = 0; i < greeks.length(); i++ ) {
+			npcArray.insertLast( greeks[i] );
 		}
 
 		bool isAttacking = false;
 
 		if ( ee::isButtonPressed( ee::Left ) ) {
-			for( AIChar npc : npcArray ) {  //same error as line 93
+			for( int i = 0; i < npcArray.length(); i++ ) {  //same error as line 93
+				AIChar npc = npcArray[i];
 				if( ifMouseOnNPC( npc ) ) {
 					if( npc.stats.isHostile() ) {
 						attack( damage, npc );

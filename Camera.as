@@ -30,17 +30,25 @@ import float getAeneasWalkSpeed() from "Aeneas.as";
 // -------------------------------------------------------------------------------
 
 Camera camera;
+HUD hud;
 
 void initialize() {
 	camera = Camera();
 	do { // Makes sure Camera has an actual Aeneas position to focus on
 		bool b = camera.setupPosition();
 	} while ( !b );
+
+	hud = HUD();
 }
 
 void step( uint32 milliseconds ) {
 	// To calculate speed of camera, use x^1.5 per distance, with cap of Aeneas' walkSpeed
 	camera.update( milliseconds );
+
+	bool b;
+	do {
+		b = isReadyToChangeHealthBar();
+	}
 }
 
 shared class Camera : Movable {

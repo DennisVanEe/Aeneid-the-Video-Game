@@ -6,6 +6,7 @@
 // and includes his inventory etc.
 
 #include "include/ControllableChar.as"
+#include "Camera.as"
 // #include "include/Inventory.as"  <-- might add this in the future
 // #include "include/Weapon.as"
 
@@ -45,6 +46,8 @@ void finishInitialization ( bool thereIsASaveGame ) {
 	}
 	aeneas.setTrojans( getTrojans() );
 	aeneas.setGreeks( getGreeks() );
+
+	hud = HUD();
 }
 
 bool requestSaveData () {
@@ -58,6 +61,8 @@ ControllableChar @ getAeneas() { return aeneas; }
 CharPosition @ getAeneasPos() { return aeneas.getCharPosition(); }
 
 float getAeneasWalkSpeed() { return aeneas.getStat().getWalkSpeedRef(); }
+
+bool isReadyToChangeHealth( bool b ) { return b; }
 
 
 // ----------------------------------------------------------------------------------------------------------------------
@@ -73,6 +78,9 @@ void step ( uint32 milliseconds ) {
 
 	aeneas.setRotation();
 	aeneas.checkInputs( milliseconds );
+	int curHealth = aeneas.stats.getCHealth();
+	int maxiHealth = aeneas.stats.getMHealth();
 
+	healthBar.setScale( curHealth / maxiHealth, getScaleY() );
 }
 	
