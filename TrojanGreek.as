@@ -18,12 +18,8 @@ void initialize() {
     // Check savestate for previously saved stuff
     if( !( requestTrojans() && requestGreeks() ) ) {
         // Set up trojans and greeks for the first time, in the first map
-        AIChar trojan1 = AIChar();
-        trojan1.updatePos( 682, 896, 270 );
-        trojan1.setHostility( false );
-        AIChar trojan2 = AIChar();
-        trojan2.updatePos( 984, 1287, 180 );
-        trojan2.setHostility( false );
+        setTrojansOnMap( 1, 682, 896, 270 );
+        setTrojansOnMap( 2, 984, 1287, 180 );
         AIChar trojan3 = AIChar();
         trojan3.updatePos( 396, 1166, 0 );
         trojan3.setHostility( false );
@@ -129,6 +125,19 @@ bool saveAIChars() {
 		ee::consolePrintln( "ERROR: TrojanGreek.saveAIChars does not work." );
 		return false;
 	}
+}
+
+void setTrojansOnMap( float num, float x, float y, float degree ){
+	string name = "trojan" + num;
+	AIChar name = AIChar( "Character", "trojan" );
+	name.updatePos( x, y, degree );
+	name.setHostility( false );
+}
+
+void setGreeksOnMap( float num, float x, float y, float degree ){
+	string name = "greek" + num;
+	AIChar name = AIChar( "Character", "greek" );
+	name.updatePos( x, y, degree );
 }
 
 // Loads Trojans
