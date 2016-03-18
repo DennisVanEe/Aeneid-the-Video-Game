@@ -23,3 +23,8 @@ void step( uint32 milliseconds ) {
 void setUpVillageTown() {
 	world.add( world.getStaticEntity( "VillageTown", "brickRoof"), "brickRoof" );
 }
+
+void setUpBoundary()
+{
+	world.add(world.getStaticEntity(""))
+}
