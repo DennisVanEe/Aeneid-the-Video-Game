@@ -35,22 +35,21 @@ shared class Character : Movable {
 	}
 	
 	CharPosition @ getPos() {
+		ee::consolePrintln( "Character.as/getPos: returns the position of the character." );
 		return getPos();
 	}
 
 	void setPos( int x, int y, double a ) {
+		ee::consolePrintln( "Character.as/setPos: sets the position of the character." );
 		setPos( x, y, a );
 	}
 
-	void update() {
-		update();
-
-		// Tells the game engine to re-render the Entity in the correct position, 
-		// orientation, state, etc.
-	}
-
-	CharStats @ getStat() { return stats; }
-	void setStat( CharStats s ) { stats = s; }
+	CharStats @ getStat() { 
+		ee::consolePrintln( "Character.as/getStat: returns the character stats." );
+		return stats; }
+	void setStat( CharStats s ) { 
+		ee::consolePrintln( "Character.as/setStat: sets the character stats." );
+		stats = s; }
 
 	void follow( AIChar aic ){} // the NPC follows another NPC
 	void setRotation( int degree ){} // sets the degree the NPC is facing

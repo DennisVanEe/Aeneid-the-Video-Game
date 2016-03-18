@@ -27,13 +27,6 @@ shared class Movable {
 		pos.y = y;
 		pos.angle = a;
 	}
-
-	// Used to make sure engine does not try to render Entity
-	// multiple times in same frame. Called during step in
-	// order to only render entity once per step.
-	void update() {
-	//must implement
-	}
 }
 
 shared class CharPosition {

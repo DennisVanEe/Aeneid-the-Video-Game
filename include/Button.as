@@ -17,6 +17,7 @@ class Button
 	
 	bool isNull()
 	{
+		ee::consolePrintln( "Button.as/isNull: returns tru if there is no entity for button." );
 		if( ent == null ) //need to be handles
 			return true;
 		else
@@ -25,6 +26,7 @@ class Button
 	
 	bool isPressed()
 	{
+		ee::consolePrintln( "Button.as/isPressed: returns true if the button is pressed." );
 		if(intersect(ent, getMouseXPosition(), getMouseYPosition())) //getMouseX and getMouseY unknown
 		{
 			if(isButtonPressed(LEFT)) //LEFT not declared
@@ -39,6 +41,7 @@ class Button
 
 	string getButtonName()
 	{
+		ee::consolePrintln( "Button.as/getButtonName: returns button's name." );
 		return name;
 	}
 	
