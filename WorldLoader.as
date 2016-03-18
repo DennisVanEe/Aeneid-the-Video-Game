@@ -1,22 +1,51 @@
 #include "include/World.as"
 
 World world;
+int level = 1;
 
 void initialize() {
-	world = World();
-
 	setUpWorld( "VillageTown", "villageTownMap" );
 }
 
 void setUpWorld( string contName, string entName ) {
+	world = World();
+
 	world.add( world.getStaticEntity( contName, entName ), entName );
 
-	if( contName.equals( "VillageTown" ) )
+	if( contName == "VillageTown" ) )
 		setUpVillageTown();
+	else if( contName == "PriamAltar" ) )
+		setUpPriamAltar();
 }
 
 void step( uint32 milliseconds ) {
+	if( world.isCompleted() ) {
+		level++;
+		determineNextWorld( level );
+	}
+}
 
+// Determines which world will be loaded next
+void determineNextWorld( int i ) {
+	if( i == 1 ) {
+		setUpWorld( "VillageTown", "villageTownMap" );
+	} else if( i == 2 ) {
+		setUpWorld( "PriamAltar", "priamAltarMap" );
+	} else if( i == 3 ) {
+		setUpWorld( "VillageTown", "villageTownMap" );
+	} else if( i == 4 ) {
+		setUpWorld( "VillageTown", "villageTownMap" );
+	} else if( i == 5 ) {
+		setUpWorld( "VillageTown", "villageTownMap" );
+	} else if( i == 6 ) {
+		setUpWorld( "VillageTown", "villageTownMap" );
+	} else if( i == 7 ) {
+		setUpWorld( "VillageTown", "villageTownMap" );
+	} else if( i == 8 ) {
+		setUpWorld( "VillageTown", "villageTownMap" );
+	} else if( i == 9 ) {
+		setUpWorld( "VillageTown", "villageTownMap" );
+	}
 }
 
 // Put in art assets LOL
@@ -51,6 +80,12 @@ void setUpVillageTown() {
 	world.add( world.getStaticEntity( "VillageTown", "wall" ), "wall" );
 	world.add( world.getStaticEntity( "VillageTown", "westTreeCluster" ), "westTreeCluster" );
 	world.add( world.getStaticEntity( "VillageTown", "westTree" ), "westTree" );
+
+	// TODO: Set up world
+}
+
+void setUpPriamAltar() {
+	world.add( world.getStaticEntity( "PriamAltar", "walls"), "walls" );
 }
 
 

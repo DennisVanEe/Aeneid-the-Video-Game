@@ -40,6 +40,10 @@ class World
 	ee::AnimatedEntity getAnimatedEntity( string contName, string entName ) {
 		return ee::AnimatedEntity( contName, entName );
 	}
+
+	bool isCompleted() {
+		// Implement this function, to return boolean when Aeneas is ready to progress to next World
+	}
 }
 
 //checkpoint saves the character, and stuff, when the character runs over the checkpoint
@@ -47,11 +51,12 @@ class Checkpoint
 {
 	private ee::StaticEntity checkpoint;
 	private CharPosition checkpointpos;
+	bool checkPointUsed;
 	
 	Checkpoint( int x, int y, ee::StaticEntity check )
 	{
 		consolePrintLine( "Creates position for the Checkpoint." );
-		checkpoint = check;;
+		checkpoint = check;
 	}
 	
 	void step(uint32 milliseconds)
@@ -61,10 +66,11 @@ class Checkpoint
 		float ydif = abs( aeneaspos.getY() - checkpoint.getPosY() );
 		float difference = pow( xdif, 2 ) + pow( ydif, 2 );
 		float radius = 2500;
-		if( difference < radius ) {
+		if( difference < radius && !checkPointUsed ) {
 			requestSaveData();
 			saveAIChars();
 			saveCitizens();
+			checkPointUsed = true;
 		}
 	}
 }
