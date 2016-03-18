@@ -13,10 +13,16 @@ void setUpWorld( string contName, string entName ) {
 	world.add( world.getStaticEntity( contName, entName ), entName );
 	world.setName( contName );
 
-	if( contName == "VillageTown" ) )
+	if( contName == "VillageTown" )
 		setUpVillageTown();
-	else if( contName == "PriamAltar" ) )
+	else if( contName == "PriamAltar" )
 		setUpPriamAltar();
+	else if( contName == "cityThree" )
+		setUpCityThree();
+	else if( contName == "cityTwo" )
+		setUpCityTwo();
+	else if( contName == "cityOne" )
+		setUpCityOne();
 }
 
 void step( uint32 milliseconds ) {
@@ -32,21 +38,13 @@ void determineNextWorld( int i ) {
 	if( i == 1 ) {
 		setUpWorld( "VillageTown", "villageTownMap" );
 	} else if( i == 2 ) {
-		setUpWorld( "PriamAltar", "priamAltarMap" );
+		setUpWorld( "cityThree", "cityThreeMap" );
 	} else if( i == 3 ) {
-		setUpWorld( "VillageTown", "villageTownMap" );
+		setUpWorld( "cityTwo", "cityTwoMap" );
 	} else if( i == 4 ) {
-		setUpWorld( "VillageTown", "villageTownMap" );
+		setUpWorld( "cityOne", "cityOneMap" );
 	} else if( i == 5 ) {
-		setUpWorld( "VillageTown", "villageTownMap" );
-	} else if( i == 6 ) {
-		setUpWorld( "VillageTown", "villageTownMap" );
-	} else if( i == 7 ) {
-		setUpWorld( "VillageTown", "villageTownMap" );
-	} else if( i == 8 ) {
-		setUpWorld( "VillageTown", "villageTownMap" );
-	} else if( i == 9 ) {
-		setUpWorld( "VillageTown", "villageTownMap" );
+		setUpWorld( "PriamAltar", "priamAltarMap" );
 	}
 }
 
@@ -117,8 +115,30 @@ void setUpPriamAltar() {
 	world.add( world.getStaticEntity( "PriamAltar", "walls"), "walls" );
 }
 
+void setUpCityThree() {
+	world.add( world.getStaticEntity( "TrojanCity1", "leftColumn" ), "leftColumn" );
+	world.add( world.getStaticEntity( "TrojanCity1", "leftWall" ), "leftWall" );
+	world.add( world.getStaticEntity( "TrojanCity1", "overlapTrees" ), "overlapTrees" );
+	world.add( world.getStaticEntity( "TrojanCity1", "rightColumn" ), "rightColumn" );
+	world.add( world.getStaticEntity( "TrojanCity1", "southernBuilding" ), "southernBuilding" );
+	world.add( world.getStaticEntity( "TrojanCity1", "Trees" ), "Trees" );
 
-void setUpBoundary()
-{
+}
+
+void setUpCityTwo() {
+	world.add( world.getStaticEntity( "TrojanCity2", "leftColumn" ), "leftColumn" );
+	world.add( world.getStaticEntity( "TrojanCity1", "rightColumn" ), "rightColumn" );
+
+}
+
+void setUpCityOne() {
+	world.add( world.getStaticEntity( "TrojanCity1", "leftColumn" ), "leftColumn" );
+	world.add( world.getStaticEntity( "TrojanCity1", "palaceOverlap" ), "palaceOverlap" );
+	world.add( world.getStaticEntity( "TrojanCity1", "rightColumn" ), "rightColumn" );
+	world.add( world.getStaticEntity( "TrojanCity1", "rightWall" ), "rightWall" );
+
+}
+
+void setUpBoundary() {
 	world.add(world.getStaticEntity(""))
 }
