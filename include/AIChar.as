@@ -60,6 +60,7 @@ shared class AIChar : Character
 
 	void follow ( Character aic, uint32 milliseconds )
 	{
+		ee::consolePrintln( "AIChar.as/follow: another AIChar follows this AIChar." );
 		//Andrew made a new inRange function below this that does same function as this whole comment
 		
 		/* CharPosition@ rPos = aic.getPos();
@@ -99,6 +100,7 @@ shared class AIChar : Character
 	
 	bool inRange(Character aic)
 	{
+		ee::consolePrintln( "AIChar.as/inRange: checks if another AIChar is within 30 units of this AIChar." );
 		CharPosition@ rPos = aic.getPos();
 
 		int yDif = pos.getY() - rPos.getY();
@@ -115,7 +117,8 @@ shared class AIChar : Character
 	
 	bool inRangeToAttack(Character aic)
 	{
-	 CharPosition@ rPos = aic.getPos();
+		ee::consolePrintln( "AIChar.as/inRangeToAttack: checks if another AIChar is within 5 units to attack this AIChar." );
+	 	CharPosition@ rPos = aic.getPos();
 
 		int yDif = pos.getY() - rPos.getY();
 		int xDif = pos.getX() - rPos.getX();
@@ -131,7 +134,7 @@ shared class AIChar : Character
 
 	void updatePos( int iX, int iY, double ang )
 	{
-		// ee::consolePrintln( "Updates the position and angle of the character." );
+		ee::consolePrintln( "AIChar.as/updatePos: Updates the position and angle of the character." );
 		pos.setX(iX);
 		pos.setY(iY);
 		pos.setAngle(ang);
@@ -140,13 +143,13 @@ shared class AIChar : Character
 
 	void rotate ( uint32 milliseconds )
 	{
-		// ee::consolePrintln( "Rotates angle of the character" );
+		ee::consolePrintln( "AIChar.as/rotate: Updates angle of the character" );
 		pos.angle += stats.rotationSpeed / 1000 * milliseconds; 
 	}
 
 	const CharPosition@ getPos()
 	{
-		// ee::consolePrintln( "Returns the position of the character." );
+		ee::consolePrintln( "AIChar.as/getPos: Returns the position of the character." );
 		CharPosition@ refPos = pos;
 
 		if (refPos != null )
@@ -161,6 +164,7 @@ shared class AIChar : Character
 	//WORK IN PROGRESS
 	void move(uint32 milliseconds)
 	{	
+		ee::consolePrintln( "AIChar.as/move: moves the character." );
 		int x;
 
 		if( x % 3 == 0 )
@@ -182,6 +186,7 @@ shared class AIChar : Character
 	// Checked -Jason Wang
 	void attack(Character npc, uint32 milliseconds ) //shouldn't it pass in nothing? (unless "int damage" is how much damage the enemy does) -Andrew
 	{
+		ee::consolePrintln( "AIChar.as/attack: attacks another Character." ); 
 		int damages = stats.getDamage();
 		// DO THE attack animation
 		npc.changeHealth( damages );
@@ -192,6 +197,7 @@ shared class AIChar : Character
 
 	void talk( string phrase )
 	{	
+		ee::consolePrintln( "AIChar.as/talk: shows text for this Character's speech" );
 		// make text appear on screen
 		ee::AnimatedEntity text = ee::AnimatedEntity(); //errors here (talk to dennis)
 		text.setVisible(true); //might not use this entire method
@@ -200,6 +206,7 @@ shared class AIChar : Character
 
 	void changeHealth( int difference )
 	{
+		ee::consolePrintln( "AIChar.as/changeHealth: changes the health of this Character." );
 		if( stats.isInvincible ) 
 			return;
 		stats.damage( difference ); 
@@ -212,6 +219,7 @@ shared class AIChar : Character
 	//i think this method is unused
 	void fighting(Character npc, uint32 milliseconds)
 	{
+		ee::consolePrintln( "AIChar.as/fighting: follows another Character and attacks." );
 		if(!inRange(npc))
 			return;
 		
@@ -241,6 +249,7 @@ shared class AIChar : Character
 
 	bool isHostile()
 	{
+		ee::consolePrintln( "AIChar.as/isHostile: returns tru if the Character is hostile." );
 		return stats.isHostile();
 	}
 	
@@ -253,7 +262,7 @@ shared class AIChar : Character
 
 	void step( uint32 milliseconds, array<AIChar> enemies) {
 		//MUST FIRST GET AN AENEAS REFERENCE AND CHECK ITS POSITION TO SEE IF IT SHOULD BE INVINCIBLE AND/OR ATTACK HIM!!! (ASK DENNIS)
-		
+		ee::consolePrintln( "AIChar.as/step: step function." );
 		ControllableChar aeneas = new ControllableChar();
 		aeneas = getAeneas();
 		if(!inRange(aeneas))

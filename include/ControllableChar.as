@@ -23,7 +23,8 @@ shared class ControllableChar : Character {
 	private ee::AnimatedEntity entityAttack;
 	private ee::AnimatedEntity entityAttackMove;
 
-	void addItem( const string &in, Collectible c ) { //Collectible is not a data type in global namespace
+	void addItem( const string &in name, Collectible c ) { 
+		ee::consolePrintln( "ControllableChar.as/addItem: adds a collectible item" );
 		
 	}
 
