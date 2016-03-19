@@ -97,8 +97,8 @@ bool requestTrojans() {
 				rotationSpeed, invincibility, isItHostile, damage );
 
 		trojans.add( aic );
-
-		return true;
+	}
+	return true;
 }
 
 // Loads Greeks
@@ -128,8 +128,8 @@ bool requestGreeks() {
 				rotationSpeed, invincibility, isItHostile, damage );
 
 		greeks.add( aic );
-		
-		return true;
+	}
+	return true;
 }
 
 void setUpTrojansAndGreeks() {

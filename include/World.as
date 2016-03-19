@@ -8,6 +8,8 @@ import bool saveAIChars() from "TrojanGreek.as";
 import bool saveCitizens() from "Citizen.as";
 import bool requestSaveData() from "Aeneas.as";
 
+#include "Movable.as"
+
 class World
 {
 	array< ee::StaticEntity > setobj; // Expecting method, instead receives identifier
@@ -77,6 +79,10 @@ class Checkpoint
 	private ee::StaticEntity checkp;
 	private CharPosition checkpoint;
 	bool checkPointUsed;
+
+	Checkpoint() {
+		checkPointUsed = false;
+	}
 	
 	Checkpoint( int x, int y, ee::StaticEntity check )
 	{
