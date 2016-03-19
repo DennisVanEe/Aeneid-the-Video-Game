@@ -29,7 +29,7 @@ shared class CharStats {
 	}
 
 	CharStats( int cH, int mH, float wS, int p, float cW, float mCW ) {
-		CharStats( cH, mH, wS, p, cW, mCW, 0, false, false, 0 );
+		CharStats( cH, mH, wS, p, cW, mCW, 0, false, false, 30 );
 	}
 
 	CharStats( int cH, int mH, float wS, float rS, bool immunity, bool hostile, int dmg ) {

@@ -132,8 +132,8 @@ shared class Camera : Movable {
 		if( xDif < 0 )
 			pos.angle += 180;
 
-		updatePos( centerCamera.x + ee::getWindowWidth() / 2,  //incorrect typecasting???
-					centerCamera.y + ee::getWindowHeight() / 2, pos.angle );
+		updatePos( pos.x + ee::getWindowWidth() / 2,  //incorrect typecasting???
+					pos.y + ee::getWindowHeight() / 2, pos.angle );
 	}
 
 	void updateHUD() {
@@ -155,11 +155,11 @@ shared class HUD
 	
 	HUD()
 	{
-		health.setPosition(centerCamera.x + ee::getWindowWidth() / 2, centerCamera.y + ee::getWindowHeight() / 2); 
-		objective.setPosition(centerCamera.x + ee::getWindowWidth() / 2, centerCamera.y + ee::getWindowHeight() / 2);
-		objective2.setPosition(centerCamera.x + ee::getWindowWidth() / 2, centerCamera.y + ee::getWindowHeight() / 2);
-		objective3.setPosition(centerCamera.x + ee::getWindowWidth() / 2, centerCamera.y + ee::getWindowHeight() / 2);
-		objective4.setPosition(centerCamera.x + ee::getWindowWidth() / 2, centerCamera.y + ee::getWindowHeight() / 2);
+		health.setPosition(pos.x + ee::getWindowWidth() / 2, pos.y + ee::getWindowHeight() / 2); 
+		objective.setPosition(pos.x + ee::getWindowWidth() / 2, pos.y + ee::getWindowHeight() / 2);
+		objective2.setPosition(pos.x + ee::getWindowWidth() / 2, pos.y + ee::getWindowHeight() / 2);
+		objective3.setPosition(pos.x + ee::getWindowWidth() / 2, pos.y + ee::getWindowHeight() / 2);
+		objective4.setPosition(pos.x + ee::getWindowWidth() / 2, pos.y + ee::getWindowHeight() / 2);
 		objective2.setVisible(false);
 		objective3.setVisible(false);
 		objective4.setVisible(false);

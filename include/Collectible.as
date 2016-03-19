@@ -1,6 +1,6 @@
 #include "Movable.as"
 
-class Collectible : Movable
+shared class Collectible : Movable
 {
 	private float mass;
 	private string name;
