@@ -6,10 +6,10 @@
 // that is AI controlled (like followers
 // or enemies)
 
+import ControllableChar @ getAeneas() from "Aeneas.as";//ERROR
 #include "Character.as"
 #include "Weapon.as"
 #include "ControllableChar.as"
-import ControllableChar @ getAeneas() from "Aeneas.as"; //ERROR
 
 shared class AIChar : Character //ERROR
 {
@@ -163,7 +163,7 @@ shared class AIChar : Character //ERROR
 		pos.angle += stats.rotationSpeed / 1000 * milliseconds; 
 	}
 
-	const CharPosition@ getPos()
+	CharPosition @ getPos()
 	{
 		ee::consolePrintln( "AIChar.as/getPos: Returns the position of the character." );
 		CharPosition@ refPos = pos;

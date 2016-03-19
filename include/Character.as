@@ -51,10 +51,10 @@ shared class Character : Movable {
 		ee::consolePrintln( "Character.as/setStat: sets the character stats." );
 		stats = s; }
 
-	void follow( AIChar aic ){} // the NPC follows another NPC
+	void follow ( Character aic, uint32 milliseconds ){} // the NPC follows another NPC
 	void setRotation( int degree ){} // sets the degree the NPC is facing
-	void move( int x, int y ){} // moves the NPC to postion (x, y)
-	void attack( int damage, AIChar@ npc ){} // NPC attacks with damage on another NPC
+	void move( uint32 milliseconds ){} // moves the NPC to postion (x, y)
+	void attack(Character npc, uint32 milliseconds ){} // NPC attacks with damage on another NPC
 	void talk( string phrase ){} // the NPC speaks the phrase
 
 }
