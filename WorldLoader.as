@@ -111,6 +111,8 @@ void finishWorldSetup( string name ) {
 		ee::consolePrintLine( "ERROR: WorldLoader.as/ Cannot find world name." );
 	else
 		setUpAeneasSpawn( name );
+
+	setUpTrojansAndGreeks( name ) {
 	setUpCheckPoint();
 }
 
