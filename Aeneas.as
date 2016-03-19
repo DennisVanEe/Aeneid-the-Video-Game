@@ -16,6 +16,8 @@ import array< AIChar > @ getGreeks() from "TrojanGreek.as";
 const float BASE_WALK_SPEED = 300;
 ControllableChar aeneas;
 
+bool readyToChangeHealth;
+
 void initialize () {
 	int x;
 		if( ee::readFromDataCont( "Aeneas", "cHealth", x ))
@@ -47,7 +49,7 @@ void finishInitialization ( bool thereIsASaveGame ) {
 	aeneas.setTrojans( getTrojans() );
 	aeneas.setGreeks( getGreeks() );
 
-	hud = HUD();
+	readyToChangeHealth = false;
 }
 
 bool requestSaveData () {
@@ -57,12 +59,21 @@ bool requestSaveData () {
 // function to transfer Aeneas to another module
 ControllableChar @ getAeneas() { return aeneas; }
 
+CharStats @ getAeneasStats() { return aeneas.stats; }
+
 // function to transfer Aeneas' position to another module
 CharPosition @ getAeneasPos() { return aeneas.getCharPosition(); }
 
 float getAeneasWalkSpeed() { return aeneas.getStat().getWalkSpeedRef(); }
 
-bool isReadyToChangeHealth( bool b ) { return b; }
+// Returns true when health has been changed for the last time
+bool isReadyToChangeHealth() { 
+	if( readyToChangeHealth ) {
+		readyToChangeHealth = false;
+		return true;
+	}
+	return false;
+}
 
 
 // ----------------------------------------------------------------------------------------------------------------------
@@ -78,9 +89,15 @@ void step ( uint32 milliseconds ) {
 
 	aeneas.setRotation();
 	aeneas.checkInputs( milliseconds );
+
+	/*
 	int curHealth = aeneas.stats.getCHealth();
 	int maxiHealth = aeneas.stats.getMHealth();
 
 	healthBar.setScale( curHealth / maxiHealth, getScaleY() );
+	*/
+
+	// Allows isReadyToChangeHealth() to return true, which allows Camera's stalling do while loop in step to progress
+	readyToChangeHealth = true;
 }
 	

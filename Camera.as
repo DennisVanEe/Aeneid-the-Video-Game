@@ -26,6 +26,7 @@
 #include "include/Movable.as"
 import CharPosition @ getAeneasPos() from "Aeneas.as";
 import float getAeneasWalkSpeed() from "Aeneas.as";
+import CharStats @ getAeneasStats() from "Aeneas.as";
 
 // -------------------------------------------------------------------------------
 
@@ -46,9 +47,11 @@ void step( uint32 milliseconds ) {
 	camera.update( milliseconds );
 
 	bool b;
-	do {
+	do { // Keeps looping while health bar is not ready to be changed
 		b = isReadyToChangeHealthBar();
-	}
+	} while( !b );
+
+	camera.updateHUD();
 }
 
 shared class Camera : Movable {
@@ -131,6 +134,14 @@ shared class Camera : Movable {
 
 		updatePos( centerCamera.x + ee::getWindowWidth() / 2,  //incorrect typecasting???
 					centerCamera.y + ee::getWindowHeight() / 2, pos.angle );
+	}
+
+	void updateHUD() {
+		// Changes health bar
+		float curHealth = getAeneasStats().getCHealth();
+		float maxHealth = getAeneasStats().getMHealth();
+
+		hud.health.setScale( float(curHealth) / maxHealth, getScaleY() ); // Check if first param is float or int
 	}
 }
 
