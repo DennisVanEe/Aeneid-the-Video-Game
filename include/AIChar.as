@@ -14,8 +14,8 @@ import ControllableChar @ getAeneas() from "Aeneas.as";//ERROR
 shared class AIChar : Character //ERROR
 {
 	float PI = 3.14159;
-	CharPosition @ pos; // name conflict with method names
-	CharStats @ stats; // name conflict with method names
+	CharPosition @ cpos; // name conflict with method names
+	CharStats @ cstats; // name conflict with method names
 	private ee::AnimatedEntity entityMove;
 	private ee::AnimatedEntity entityAttack;
 	private ee::AnimatedEntity entityAttackMove;
@@ -24,8 +24,8 @@ shared class AIChar : Character //ERROR
 	AIChar() {
 		Character();
 
-		pos = getPos(); 
-		stats = getStat();
+		cpos = getPos(); 
+		cstats = getStat();
 	}
 
 	AIChar( string contName, string entName ) {
@@ -39,8 +39,8 @@ shared class AIChar : Character //ERROR
 		setEntityVisibilities( true, false, false );
 		entityMove.setFrame( 0 );
 
-		pos = getPos(); 
-		stats = getStat();
+		cpos = getPos(); 
+		cstats = getStat();
 	}
 
 	// Constructor with all values as parameter
@@ -55,8 +55,8 @@ shared class AIChar : Character //ERROR
 		setEntityVisibilities( true, false, false );
 		entityMove.setFrame( 0 );
 
-		pos = getPos(); 
-		stats = getStat();
+		cpos = getPos(); 
+		cstats = getStat();
 	}
 
 	void setAnimationStates( uint32 milliseconds ) {
@@ -103,13 +103,13 @@ shared class AIChar : Character //ERROR
 			updatePos( pos.x + stats.walkSpeed * milliseconds / 1000, 
 					pos.y + stats.walkSpeed * milliseconds / 1000, pos.getAngle() );
 			*/
-			int x = pos.getX() + stats.getWalkSpeed() * milliseconds / 1000 * cos( PI / 180 * pos.angle );
-			int y = pos.getY() + stats.getWalkSpeed() * milliseconds / 1000 * sin( PI / 180 * pos.angle );
+			int x = cpos.getX() + cstats.getWalkSpeed() * milliseconds / 1000 * cos( PI / 180 * cpos.angle );
+			int y = cpos.getY() + cstats.getWalkSpeed() * milliseconds / 1000 * sin( PI / 180 * cpos.angle );
 			updatePos( x, y, angle );
 			entityMove.playFrame( milliseconds );
 		}
 		else
-			updatePos( pos.getX(), pos.getY(), pos.getAngle() );
+			updatePos( cpos.getX(), cpos.getY(), cpos.getAngle() );
 			entityMove.setFrame( 0 );
 
 	}
@@ -119,8 +119,8 @@ shared class AIChar : Character //ERROR
 		ee::consolePrintln( "AIChar.as/inRange: checks if another AIChar is within 50 units of this AIChar." );
 		const CharPosition @ rPos = aic.getPos();
 
-		int yDif = pos.getY() - rPos.getY();
-		int xDif = pos.getX() - rPos.getX();
+		int yDif = cpos.getY() - rPos.getY();
+		int xDif = cpos.getX() - rPos.getX();
 
 		float distance = sqrt( yDif*yDif + xDif*xDif ); 
 		float bubble = 50; 
@@ -136,8 +136,8 @@ shared class AIChar : Character //ERROR
 		ee::consolePrintln( "AIChar.as/inRangeToAttack: checks if another AIChar is within 5 units to attack this AIChar." );
 	 	const CharPosition @ rPos = aic.getPos();
 
-		int yDif = pos.getY() - rPos.getY();
-		int xDif = pos.getX() - rPos.getX();
+		int yDif = cpos.getY() - rPos.getY();
+		int xDif = cpos.getX() - rPos.getX();
 
 		float distance = sqrt( yDif*yDif + xDif*xDif ); 
 		float bubble = 5; 
@@ -151,22 +151,22 @@ shared class AIChar : Character //ERROR
 	void updatePos( int iX, int iY, double ang )
 	{
 		ee::consolePrintln( "AIChar.as/updatePos: Updates the position and angle of the character." );
-		pos.setX(iX);
-		pos.setY(iY);
-		pos.setAngle(ang);
+		cpos.setX(iX);
+		cpos.setY(iY);
+		cpos.setAngle(ang);
 		
 	}
 
 	void rotate ( uint32 milliseconds )
 	{
 		ee::consolePrintln( "AIChar.as/rotate: Updates angle of the character" );
-		pos.angle += stats.rotationSpeed / 1000 * milliseconds; 
+		cpos.angle += cstats.rotationSpeed / 1000 * milliseconds; 
 	}
 
 	CharPosition @ getPos()
 	{
 		ee::consolePrintln( "AIChar.as/getPos: Returns the position of the character." );
-		CharPosition@ refPos = pos;
+		CharPosition@ refPos = cpos;
 
 		if ( refPos != null )
 		{
@@ -184,16 +184,16 @@ shared class AIChar : Character //ERROR
 		int x;
 
 		if( x % 3 == 0 )
-			pos.angle += 0.1 * milliseconds; // 0.1 is pixels of rotation per millisecond
+			cpos.angle += 0.1 * milliseconds; // 0.1 is pixels of rotation per millisecond
 		else if( x % 3 == 1 )
-			pos.angle -= 0.1 * milliseconds;
+			cpos.angle -= 0.1 * milliseconds;
 
 		// TODO: Add function for boundary collision and reverse direction immediately
 
 		// NOTE: Allow for gradual angle changes as well
-		updatePos( cos( pos.getAngle() * PI / 180 ) * milliseconds * stats.getWalkSpeed() / 1000, 
-			   sin( pos.getAngle() * PI / 180 ) * milliseconds * stats.getWalkSpeed() / 1000, 
-			   pos.getAngle() );
+		updatePos( cos( cpos.getAngle() * PI / 180 ) * milliseconds * cstats.getWalkSpeed() / 1000, 
+			   sin( cpos.getAngle() * PI / 180 ) * milliseconds * cstats.getWalkSpeed() / 1000, 
+			   cpos.getAngle() );
 		setEntityVisibilities( true, false, false );
 		entityMove.playFrame( milliseconds ); //errors
 	}
@@ -203,9 +203,9 @@ shared class AIChar : Character //ERROR
 	void attack(Character npc, uint32 milliseconds ) //shouldn't it pass in nothing? (unless "int damage" is how much damage the enemy does) -Andrew
 	{
 		ee::consolePrintln( "AIChar.as/attack: attacks another Character." ); 
-		int damages = stats.getDamage();
+		int damages = cstats.getDamage();
 		// DO THE attack animation
-		npc.stats.damage( damages );
+		npc.cstats.damage( damages );
 
 		setEntityVisibilities( false, true, false ); // move, attack, attackmove
 		entityAttack.playFrame( milliseconds ); //errors
@@ -226,7 +226,7 @@ shared class AIChar : Character //ERROR
 		if( stats.isInvincible() ) 
 			return;
 		stats.damage( difference ); 
-		if(stats.getCHealth() <= 0)
+		if(cstats.getCHealth() <= 0)
 		{
 			// change image to dead body and kill NPC
 		}
@@ -269,20 +269,20 @@ shared class AIChar : Character //ERROR
 	bool isHostile()
 	{
 		ee::consolePrintln( "AIChar.as/isHostile: returns true if the Character is hostile." );
-		return stats.isHostile();
+		return cstats.isHostile();
 	}
 
 	// Panicked citizen runs around in circles
 	void citizenMove( uint32 milliseconds ) {
 		ee::consolePrintln( "AIChar.as/citizenMove: makes the citizen run in panicked circles." );
 		
-		pos.angle += 0.1 * milliseconds; // 0.1 is pixels of rotation per millisecond
+		cpos.angle += 0.1 * milliseconds; // 0.1 is pixels of rotation per millisecond
 
 		// TODO: Add function for boundary collision and reverse direction immediately
 
-		updatePos( cos( pos.getAngle() * PI / 180 ) * milliseconds * stats.getWalkSpeed() / 1000, 
-			   sin( pos.getAngle() * PI / 180 ) * milliseconds * stats.getWalkSpeed() / 1000, 
-			   pos.getAngle() );
+		updatePos( cos( cpos.getAngle() * PI / 180 ) * milliseconds * cstats.getWalkSpeed() / 1000, 
+			   sin( cpos.getAngle() * PI / 180 ) * milliseconds * cstats.getWalkSpeed() / 1000, 
+			   cpos.getAngle() );
 		setEntityVisibilities( true, false, false );
 		entityMove.playFrame( milliseconds ); //errors
 	}
@@ -300,7 +300,7 @@ shared class AIChar : Character //ERROR
 		ControllableChar @ aeneas = getAeneas();
 		if(!inRange(aeneas))
 		{
-			stats.setInvincibility(true);
+			cstats.setInvincibility(true);
 			
 			bool thereIsEnemy = false;
 			for(int i = 0; i<enemies.length(); i++)
@@ -317,7 +317,7 @@ shared class AIChar : Character //ERROR
 		}
 		else
 		{
-			stats.setInvincibility(false);
+			cstats.setInvincibility(false);
 			follow(aeneas, milliseconds);
 			if(inRangeToAttack(aeneas))
 				attack(aeneas, milliseconds);
@@ -344,27 +344,27 @@ shared class AIChar : Character //ERROR
 
 	void requestSaveData( string prefix, int i ) {
 		//HAVE TO MAKE A THIRD PARAMETER FOR AN INTEGER LIKE DENNIS SAID
-		ee::writeToDataCont( prefix + i, "cHealth", stats.getCHealth() );
-		ee::writeToDataCont( prefix + i, "mHealth", stats.getMHealth() );
-		ee::writeToDataCont( prefix + i, "walkSpeed", stats.getWalkSpeed() );
-		ee::writeToDataCont( prefix + i, "rotationSpeed", stats.getRotationSpeed() );
+		ee::writeToDataCont( prefix + i, "cHealth", cstats.getCHealth() );
+		ee::writeToDataCont( prefix + i, "mHealth", cstats.getMHealth() );
+		ee::writeToDataCont( prefix + i, "walkSpeed", cstats.getWalkSpeed() );
+		ee::writeToDataCont( prefix + i, "rotationSpeed", cstats.getRotationSpeed() );
 		int temp = 0;
-		if( stats.isInvincible() )
+		if( cstats.isInvincible() )
 			temp = 1;
 		else
 			temp = 0; // Allows bool to be saved as integer
 		ee::writeToDataCont( prefix + i, "invincibility", temp );
 		temp = 0;
-		if( stats.isHostile() )
+		if( cstats.isHostile() )
 			temp = 1;
 		else
 			temp = 0; // Allows bool to be saved as integer
 		ee::writeToDataCont( prefix + i, "isItHostile", temp );
-		ee::writeToDataCont( prefix + i, "damage", stats.getDamage() );
+		ee::writeToDataCont( prefix + i, "damage", cstats.getDamage() );
 
-		ee::writeToDataCont( prefix + i, "x", pos.x );
-		ee::writeToDataCont( prefix + i, "y", pos.y );
-		ee::writeToDataCont( prefix + i, "angle", pos.angle );
+		ee::writeToDataCont( prefix + i, "x", cpos.x );
+		ee::writeToDataCont( prefix + i, "y", cpos.y );
+		ee::writeToDataCont( prefix + i, "angle", cpos.angle );
 	}
 }
 
