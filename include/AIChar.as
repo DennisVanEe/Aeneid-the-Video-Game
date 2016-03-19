@@ -117,7 +117,7 @@ shared class AIChar : Character
 	bool inRange(Character aic)
 	{
 		ee::consolePrintln( "AIChar.as/inRange: checks if another AIChar is within 50 units of this AIChar." );
-		const CharPosition @ rPos = aic.getPos();
+		CharPosition @ rPos = aic.getPos();
 
 		int yDif = cpos.getY() - rPos.getY();
 		int xDif = cpos.getX() - rPos.getX();
@@ -134,7 +134,7 @@ shared class AIChar : Character
 	bool inRangeToAttack(Character aic)
 	{
 		ee::consolePrintln( "AIChar.as/inRangeToAttack: checks if another AIChar is within 5 units to attack this AIChar." );
-	 	const CharPosition @ rPos = aic.getPos();
+	 	CharPosition @ rPos = aic.getPos();
 
 		int yDif = cpos.getY() - rPos.getY();
 		int xDif = cpos.getX() - rPos.getX();
@@ -208,7 +208,7 @@ shared class AIChar : Character
 		ee::consolePrintln( "AIChar.as/attack: attacks another Character." ); 
 		int damages = cstats.getDamage();
 		// DO THE attack animation
-		npc.cstats.damage( damages );
+		npc.stats.damage( damages );
 
 		setEntityVisibilities( false, true, false ); // move, attack, attackmove
 		entityAttack.playFrame( milliseconds ); //errors
@@ -304,11 +304,12 @@ shared class AIChar : Character
 		//MUST FIRST GET AN AENEAS REFERENCE AND CHECK ITS POSITION TO SEE IF IT SHOULD BE INVINCIBLE AND/OR ATTACK HIM!!! (ASK DENNIS)
 		ee::consolePrintln( "AIChar.as/step: step function." );
 		ControllableChar @ aeneas = getAeneas();
+		bool thereIsEnemy;
 		if(!inRange(aeneas))
 		{
 			cstats.setInvincibility(true);
 			
-			bool thereIsEnemy = false;
+			thereIsEnemy = false;
 			for(int i = 0; i<enemies.length(); i++)
 			{
 				if(inRange(enemies[i])) 
@@ -329,7 +330,7 @@ shared class AIChar : Character
 				attack(aeneas, milliseconds);
 		}
 		
-		if(!thereIsEnemy() && !inRange(aeneas)) // Make sure bool thereIsEnemy is there for use in else statement (not just in if)
+		if(!thereIsEnemy && !inRange(aeneas)) // Make sure bool thereIsEnemy is there for use in else statement (not just in if)
 			move(milliseconds); // Should move randomly
 		
 		// If Aeneas comes within a certain distance, follow Aeneas and attack him.
