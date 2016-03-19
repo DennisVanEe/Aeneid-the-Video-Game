@@ -58,6 +58,19 @@ bool requestSaveData () {
 	return aeneas.saveRequestValues();
 }
 
+void setUpAeneasSpawn( string name ) {
+	if( name == "VillageTown" )
+		aeneas.updatePos( 2051, 1731, aeneas.cPos.getAngle() );
+	else if( name == "cityThree" )
+		aeneas.updatePos( 436, 1046, aeneas.cPos.getAngle() );
+	else if( name == "cityTwo" )
+		aeneas.updatePos( 40, 1831, aeneas.cPos.getAngle() );
+	else if( name == "cityOne" )
+		aeneas.updatePos( 23, 1830, aeneas.cPos.getAngle() );
+	else if( name == "PriamAltar" )
+		aeneas.updatePos( 1689, 1623, aeneas.cPos.getAngle() );
+}
+
 // function to transfer Aeneas to another module
 ControllableChar @ getAeneas() { return aeneas; }
 

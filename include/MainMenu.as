@@ -39,7 +39,7 @@ class MainMenu// : Menu
 			//Need function of each button name here
 		} */
 		
-		if( isKeyPressed( ee::Space ) )  //any key or any button
+		if( ee::isKeyPressed( ee::Space ) )  //any key or any button
 			{
 				buttonPressed = true;
 				//title.clearAllEntityToRender();

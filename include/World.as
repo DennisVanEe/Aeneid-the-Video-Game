@@ -8,6 +8,8 @@ import bool saveAIChars() from "TrojanGreek.as";
 import bool saveCitizens() from "Citizen.as";
 import bool requestSaveData() from "Aeneas.as";
 
+#include "Movable.as"
+
 class World
 {
 	array< ee::StaticEntity > setobj; // Expecting method, instead receives identifier
@@ -45,6 +47,10 @@ class World
 		name = n;
 	}
 
+	string getName() {
+		return name;
+	}
+
 	ee::StaticEntity getStaticEntity( string contName, string entName ) {
 		return ee::StaticEntity( contName, entName );
 	}
@@ -53,12 +59,29 @@ class World
 		return ee::AnimatedEntity( contName, entName );
 	}
 
-	bool isCompleted() {
-		// Implement this function, to return boolean when Aeneas is ready to progress to next World
+	bool isCompleted( int x, int y ) {
+		CharPosition aeneaspos = getAeneasPos();
+		float xdif = abs( aeneaspos.getX() - x );
+		float ydif = abs( aeneaspos.getY() - y );
+		float difference = pow( xdif, 2 ) + pow( ydif, 2 );
+		float radius = 2500;
+		if( difference < radius && !checkPointUsed ) {
+			return true;
+		}
 	}
 
 	void setupCheckpoint( int x, int y ) {
-		checkpoint = Checkpoint( x, y, null );
+		// DO NOT SET COLLIDEABLE
+		ee::StaticEntity e = StaticEntity( "HUD", "health" ); // setCollideable( true );
+		e.setVisible( false );
+		checkpoint = Checkpoint( x, y, e );
+	}
+
+	void setupExitPoint( int x, int y ) {
+		// DO NOT SET COLLIDEABLE
+		ee::StaticEntity e = StaticEntity( "HUD", "health" ); // setCollideable( true );
+		e.setVisible( false );
+		checkpoint = Checkpoint( x, y, e, true );
 	}
 
 	void setCheckPointWasUsed( bool b ) {
@@ -77,6 +100,14 @@ class Checkpoint
 	private ee::StaticEntity checkp;
 	private CharPosition checkpoint;
 	bool checkPointUsed;
+
+	bool isExitPoint;
+
+	Checkpoint() {
+		checkPointUsed = false;
+
+		isExitPoint = false;
+	}
 	
 	Checkpoint( int x, int y, ee::StaticEntity check )
 	{
@@ -84,6 +115,14 @@ class Checkpoint
 		checkp = check;
 
 		checkPointUsed = false;
+		isExitPoint = false;
+	}
+
+	Checkpoint( int x, int y, ee::StaticEntity check, bool b )
+	{
+		checkp = check;
+
+		isExitPoint = b;
 	}
 
 	void setCheckPointUsed( bool cpu ) {
@@ -92,9 +131,11 @@ class Checkpoint
 	
 	void step(string name, uint32 milliseconds)
 	{
+		if( isExitPoint )
+			stepForExitPoint();
 		CharPosition aeneaspos = getAeneasPos();
-		float xdif = abs( aeneaspos.getX() - checkpoint.getPosX() );
-		float ydif = abs( aeneaspos.getY() - checkpoint.getPosY() );
+		float xdif = abs( aeneaspos.getX() - checkpoint.getX() );
+		float ydif = abs( aeneaspos.getY() - checkpoint.getY() );
 		float difference = pow( xdif, 2 ) + pow( ydif, 2 );
 		float radius = 2500;
 		if( difference < radius && !checkPointUsed ) {
@@ -107,4 +148,20 @@ class Checkpoint
 			ee::writeToDataCont( name, "checkPointUsed", true );
 		}
 	}
+
+	void stepForExitPoint() {
+		CharPosition aeneaspos = getAeneasPos();
+		float xdif = abs( aeneaspos.getX() - checkpoint.getX() );
+		float ydif = abs( aeneaspos.getY() - checkpoint.getY() );
+		float difference = pow( xdif, 2 ) + pow( ydif, 2 );
+		float radius = 2500;
+		if( difference < radius ) {
+			
+		}
+	}
+
+
 }
+
+
+

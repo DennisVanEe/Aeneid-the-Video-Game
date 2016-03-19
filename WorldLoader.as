@@ -1,10 +1,15 @@
 #include "include/World.as"
+import void setUpAeneasSpawn( string name ) from "Aeneas.as"
 
 World world;
 int level = 1;
+int exitX;
+int exitY;
 
 void initialize() {
 	setUpWorld( "VillageTown", "villageTownMap" );
+	exitX = 0;
+	exitY = 0;
 }
 
 void setUpWorld( string contName, string entName ) {
@@ -26,26 +31,86 @@ void setUpWorld( string contName, string entName ) {
 }
 
 void step( uint32 milliseconds ) {
-	if( world.isCompleted() ) {
+	if( world.isCompleted( getExitXPos(), getExitYPos() ) ) {
 		level++;
 		determineNextWorld( level );
 	}
 	world.step( milliseconds );
 }
 
+void setUpCheckPoint() {
+	if( world.getName() == "VillageTown" )
+		world.setUpCheckPoint( 2051, 1731 );
+	else if( world.getName() == "cityThree" )
+		world.setUpCheckPoint( 436, 1046 );
+	else if( world.getName() == "cityTwo" )
+		world.setUpCheckPoint( 40, 1831 );
+	else if( world.getName() == "cityOne" )
+		world.setUpCheckPoint( 23, 1830 );
+	else if( world.getName() == "PriamAltar" )
+		world.setUpCheckPoint( 1689, 1623 );
+}
+
+void setUpExitPoint() {
+	if( world.getName() == "VillageTown" ) {
+		exitX = 2497;
+		exitY = 3106;
+	}
+	else if( world.getName() == "cityThree" ) {
+		exitX = 1477;
+		exitY = 815;
+	}
+	else if( world.getName() == "cityTwo" ) {
+		exitX = 794;
+		exitY = 286;
+	}
+	else if( world.getName() == "cityOne" ) {
+		exitX = 1132;
+		exitY = 1418;
+	}
+	else if( world.getName() == "PriamAltar" ) {
+		exitX = 1695;
+		exitY = 360;
+	}
+}
+
+int getExitXPos() {
+	return exitX;
+}
+
+int getExitYPos() {
+	return exitY;
+}
+
 // Determines which world will be loaded next
 void determineNextWorld( int i ) {
+	string name = "";
 	if( i == 1 ) {
 		setUpWorld( "VillageTown", "villageTownMap" );
+		name = "VillageTown";
 	} else if( i == 2 ) {
 		setUpWorld( "cityThree", "cityThreeMap" );
+		name = "cityThree";
 	} else if( i == 3 ) {
 		setUpWorld( "cityTwo", "cityTwoMap" );
+		name = "cityTwo";
 	} else if( i == 4 ) {
 		setUpWorld( "cityOne", "cityOneMap" );
+		name = "cityOne";
 	} else if( i == 5 ) {
 		setUpWorld( "PriamAltar", "priamAltarMap" );
+		name = "PriamAltar";
 	}
+
+	finishWorldSetup( name );
+}
+
+void finishWorldSetup( string name ) {
+	if( name == "" )
+		ee::consolePrintLine( "ERROR: WorldLoader.as/ Cannot find world name." );
+	else
+		setUpAeneasSpawn( name );
+	setUpCheckPoint();
 }
 
 // Put in art assets LOL
