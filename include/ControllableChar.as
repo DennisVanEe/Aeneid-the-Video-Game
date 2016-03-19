@@ -13,8 +13,9 @@
 
 shared class ControllableChar : Character {
 
-	CharPosition @ pos; //name conflict
-	CharStats @ stats; //name conflict
+	private Inventory inv;
+	CharPosition @ cPos; //name conflict
+	CharStats @ cStats; //name conflict
 	float PI = 3.14159;
 	
 	protected ee::AnimatedEntity entityMove;
@@ -30,7 +31,7 @@ shared class ControllableChar : Character {
 	ControllableChar() {
 		Character();
 
-		pos = getCharPosition();
+		cPos = getCharPosition();
 		stats = getStat();
 	}
 
@@ -46,8 +47,8 @@ shared class ControllableChar : Character {
 
 		entityMove.setFrame( 0 );
 
-		pos = getCharPosition();
-		stats = getStat();
+		cPos = getCharPosition();
+		cStats = getStat();
 	}
 
 	void playAnimationStates( uint32 milliseconds ) {
@@ -61,14 +62,14 @@ shared class ControllableChar : Character {
 	}
 
 	void updateEntityPos() {
-		entityMove.setPosition( pos.x, pos.y );
-		entityMove.setRotation( pos.angle );
+		entityMove.setPosition( cPos.x, cPos.y );
+		entityMove.setRotation( cPos.angle );
 
-		entityAttack.setPosition( pos.x, pos.y );
-		entityAttack.setRotation( pos.angle );
+		entityAttack.setPosition( cPos.x, cPos.y );
+		entityAttack.setRotation( cPos.angle );
 
-		entityAttackMove.setPosition( pos.x, pos.y );
-		entityAttackMove.setRotation( pos.angle );
+		entityAttackMove.setPosition( cPos.x, cPos.y );
+		entityAttackMove.setRotation( cPos.angle );
 	}
 
 	// Checks for inputs
@@ -99,8 +100,8 @@ shared class ControllableChar : Character {
 			for( int i = 0; i < npcArray.length(); i++ ) {  //same error as line 93
 				AIChar npc = npcArray[i];
 				if( ifMouseOnNPC( npc ) ) {
-					if( npc.stats.isHostile() ) {
-						attack( stats.getDamage(), npc );
+					if( npc.cStats.isHostile() ) {
+						attack( cStats.getDamage(), npc );
 						isAttacking = true;
 						break;
 					}
@@ -177,24 +178,24 @@ shared class ControllableChar : Character {
 	bool follow ( AIChar aic, uint32 milliseconds ) {
 		const CharPosition @ rPos = aic.getPos();
 
-		int yDif = pos.y - rPos.y;
-		int xDif = pos.x - rPos.x;
+		int yDif = cPos.y - rPos.y;
+		int xDif = cPos.x - rPos.x;
 
 		if( xDif != 0)
-			pos.angle = 180 / PI * atan( ( float (yDif) ) / xDif );
+			cPos.angle = 180 / PI * atan( ( float (yDif) ) / xDif );
 		else if ( xDif == 0 && yDif > 0 )
-			pos.angle = 90;
+			cPos.angle = 90;
 		else
-			pos.angle = -90;
+			cPos.angle = -90;
 		if( xDif < 0 )
-			pos.angle += 180;
+			cPos.angle += 180;
 
 		float distance = sqrt( yDif*yDif + xDif*xDif );
 
 		// TODO: Update positions
 		float bubble = 30; //or 20
 
-		updatePos( pos.x, pos.y, pos.angle );
+		updatePos( cPos.x, cPos.y, cPos.angle );
 
 		// NOTE: Changed this so that it actually moves DIRECTLY towards AIChar being followed
 		// with the correct speeds (using cos and sin)
@@ -204,13 +205,13 @@ shared class ControllableChar : Character {
 			updatePos( pos.x + stats.walkSpeed * milliseconds / 1000, 
 					pos.y + stats.walkSpeed * milliseconds / 1000, pos.getAngle() );
 			*/
-			int x = pos.x + stats.getWalkSpeed() * milliseconds / 1000 * cos( PI / 180 * angle );
-			int y = pos.y + stats.getWalkSpeed() * milliseconds / 1000 * sin( PI / 180 * angle );
-			updatePos( x, y, pos.angle );
+			int x = cPos.x + cStats.getWalkSpeed() * milliseconds / 1000 * cos( PI / 180 * angle );
+			int y = cPos.y + cStats.getWalkSpeed() * milliseconds / 1000 * sin( PI / 180 * angle );
+			updatePos( x, y, cPos.angle );
 			return false;
 		}
 		else {
-			updatePos( pos.x, pos.y, pos.angle );
+			updatePos( cPos.x, cPos.y, cPos.angle );
 			return true;
 		}
 	}
@@ -229,51 +230,51 @@ shared class ControllableChar : Character {
 
 	// Rotates Aeneas to follow the Mouse
 	void setRotation () {
-		int yDif = int(ee::getYPosMouse() - pos.y);
-		int xDif = int(ee::getXPosMouse() - pos.x);
+		int yDif = int(ee::getYPosMouse() - cPos.y);
+		int xDif = int(ee::getXPosMouse() - cPos.x);
 
 		if( xDif != 0)
-			pos.angle = 180 / PI * atan( ( float(yDif) ) / xDif ); //problems with brackets
+			cPos.angle = 180 / PI * atan( ( float(yDif) ) / xDif ); //problems with brackets
 		else if ( xDif == 0 && yDif > 0 )
-			pos.angle = 90;
+			cPos.angle = 90;
 		else
-			pos.angle = -90;
+			cPos.angle = -90;
 		if( xDif < 0 )
-			pos.angle += 180;
+			cPos.angle += 180;
 	}
 
 	// Tell Aeneas to move in a certain direction based on W, A, S, D 
 	void moveX( uint32 milliseconds, bool sign ) {		//sign is direction (true = positive)
 		
-		int x = int(stats.getWalkSpeed() * milliseconds / 1000); //problems with brackets (typecasting done wrong)	
+		int x = int(cStats.getWalkSpeed() * milliseconds / 1000); //problems with brackets (typecasting done wrong)	
 		if( sign )
-			updatePos( pos.x + x, pos.y, pos.angle );
+			updatePos( cPos.x + x, cPos.y, cPos.angle );
 		else
-			updatePos( pos.x - x, pos.y, pos.angle );	
+			updatePos( cPos.x - x, cPos.y, cPos.angle );	
  	}
 
 	void moveY( uint32 milliseconds, bool sign ) {		//sign is direction (true = positive)
-		int y = int(stats.getWalkSpeed() * milliseconds / 1000); //problems with brackets (typecasting done wrong)	
+		int y = int(cStats.getWalkSpeed() * milliseconds / 1000); //problems with brackets (typecasting done wrong)	
 		if( !sign ) // ! because -y is up, y is down
-			updatePos( pos.x, pos.y + y, pos.angle );
+			updatePos( cPos.x, cPos.y + y, cPos.angle );
 		else
-			updatePos( pos.x, pos.y - y, pos.angle );	
+			updatePos( cPos.x, cPos.y - y, cPos.angle );	
 			
 	}
 
 	void moveXY( uint32 milliseconds, bool xPos, bool yPos ) {
-		int distance = int(stats.getWalkSpeed() * milliseconds / 1000);
+		int distance = int(cStats.getWalkSpeed() * milliseconds / 1000);
 		if( xPos == true ) {
 			if( !(yPos == true) ) { // ! because -y is up, y is down
-				updatePos( pos.x + distance / sqrt( 2 ), pos.y + distance / sqrt( 2 ), pos.angle );
+				updatePos( cPos.x + distance / sqrt( 2 ), cPos.y + distance / sqrt( 2 ), cPos.angle );
 			} else {
-				updatePos( pos.x + distance / sqrt( 2 ), pos.y - distance / sqrt( 2 ), pos.angle );
+				updatePos( cPos.x + distance / sqrt( 2 ), cPos.y - distance / sqrt( 2 ), cPos.angle );
 			}
 		} else {
 			if( !(yPos == true) ) { // ! because -y is up, y is down
-				updatePos( pos.x - distance / sqrt( 2 ), pos.y + distance / sqrt( 2 ), pos.angle );
+				updatePos( cPos.x - distance / sqrt( 2 ), cPos.y + distance / sqrt( 2 ), cPos.angle );
 			} else {
-				updatePos( pos.x - distance / sqrt( 2 ), pos.y - distance / sqrt( 2 ), pos.angle );	
+				updatePos( cPos.x - distance / sqrt( 2 ), cPos.y - distance / sqrt( 2 ), cPos.angle );	
 			}
 		}
 	}
@@ -364,8 +365,8 @@ shared class ControllableChar : Character {
 
 	// cHealth of the NPC is changed to changedTo. If cHealth is 0, the NPC dies
 	void changeHealth( int difference ) {
-		stats.damage( difference );
-		if( stats.getCHealth() <= 0 || stats.getCHealth() < 1 ) //invalid operation on method
+		cStats.damage( difference );
+		if( cStats.getCHealth() <= 0 || cStats.getCHealth() < 1 ) //invalid operation on method
 			die();
 	}
 
@@ -380,17 +381,17 @@ shared class ControllableChar : Character {
 	
 	bool saveRequestValues() {
 		// Saves stats
-		ee::writeToDataCont( "Aeneas", "cHealth", stats.getCHealth() );
-		ee::writeToDataCont( "Aeneas", "mHealth", stats.getMHealth() );
-		ee::writeToDataCont( "Aeneas", "walkSpeed", stats.getWalkSpeed() );
-		ee::writeToDataCont( "Aeneas", "piety", stats.getPiety() );
-		ee::writeToDataCont( "Aeneas", "carryWeight", stats.getCarryWeight() );
-		ee::writeToDataCont( "Aeneas", "maxCarryWeight", stats.getMaxCarryWeight() );
+		ee::writeToDataCont( "Aeneas", "cHealth", cStats.getCHealth() );
+		ee::writeToDataCont( "Aeneas", "mHealth", cStats.getMHealth() );
+		ee::writeToDataCont( "Aeneas", "walkSpeed", cStats.getWalkSpeed() );
+		ee::writeToDataCont( "Aeneas", "piety", cStats.getPiety() );
+		ee::writeToDataCont( "Aeneas", "carryWeight", cStats.getCarryWeight() );
+		ee::writeToDataCont( "Aeneas", "maxCarryWeight", cStats.getMaxCarryWeight() );
 
 		// Saves position
-		ee::writeToDataCont( "Aeneas", "x", pos.x );
-		ee::writeToDataCont( "Aeneas", "y", pos.y );
-		ee::writeToDataCont( "Aeneas", "angle", pos.angle );
+		ee::writeToDataCont( "Aeneas", "x", cPos.x );
+		ee::writeToDataCont( "Aeneas", "y", cPos.y );
+		ee::writeToDataCont( "Aeneas", "angle", cPos.angle );
 
 		return true;
 		// Saves inventory
