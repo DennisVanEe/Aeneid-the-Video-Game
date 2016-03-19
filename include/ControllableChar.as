@@ -10,7 +10,6 @@
 
 #include "Character.as"
 #include "Collectible.as"
-#include "Camera.as"
 
 shared class ControllableChar : Character {
 
