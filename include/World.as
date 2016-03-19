@@ -4,9 +4,9 @@
 // --------------------------------------
 // These classes are used to define the 
 // world the other assets will be in
-import bool saveAIChars() from "TrojanGreek.as"
-import bool saveCitizens() from "Citizen.as"
-import bool requestSaveData() from "Aeneas.as"
+import bool saveAIChars() from "TrojanGreek.as";
+import bool saveCitizens() from "Citizen.as";
+import bool requestSaveData() from "Aeneas.as";
 
 class World
 {
