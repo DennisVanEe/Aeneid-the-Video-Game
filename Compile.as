@@ -3,7 +3,7 @@
 								//CONSISTENT problems with contructor syntax
 								//DENNIS centerCamera is not declared in HUD error
 //#include "TrojanGreek.as"
-#include "include/AIChar.as" 
+//#include "include/AIChar.as" 
 							//FIX writeToDataCont THIRD INT PARAMETER dennis will fix this
 //#include "include/Character.as" //HAVE TO IMPLEMENT LAST METHODS
 //#include "include/ControllableChar.as"  
@@ -12,6 +12,7 @@
 											//JASON CHANGE FOR EACH LOOPS TO FOR LOOPS
 //#include "include/MainMenu.as"  //find out how to call isKeyPressed properly DENNIS
 //#include "include/World.as"
+
 void initialize() {}
 
 void step(uint x) {}

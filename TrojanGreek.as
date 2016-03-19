@@ -146,13 +146,13 @@ void setUpTrojansAndGreeks() {
     setTrojansOnMap( 11, 88, 643, 5 );
     setTrojansOnMap( 12, 2145, 1210, 330 );
     setTrojansOnMap( 13, 1479, 2909, 280 );
-    setTrojansOnMap( 14, );
-    setTrojansOnMap( 15, );
-    setTrojansOnMap( 16, );
-    setTrojansOnMap( 17, );
-    setTrojansOnMap( 18, );
-    setTrojansOnMap( 19, );
-    setTrojansOnMap( 20, );
+    setTrojansOnMap( 14, 600,1000,0);
+    setTrojansOnMap( 15, 500,1500,123);
+    setTrojansOnMap( 16, 466,950,129);
+    setTrojansOnMap( 17, 817,2333,31);
+    setTrojansOnMap( 18, 500,1000,12);
+    setTrojansOnMap( 19, 600,1342,240);
+    setTrojansOnMap( 20, 120,2000,90);
 
 	setGreeksOnMap( 1, 682, 870, 90 );
 	setGreeksOnMap( 2, 797, 1485, 0 );
@@ -163,20 +163,20 @@ void setUpTrojansAndGreeks() {
 	setGreeksOnMap( 7, 2007, 2491, 150 );
 	setGreeksOnMap( 8, 2370, 2651, 135 );
 	setGreeksOnMap( 9, 1210, 2898, 45 );
-	setGreeksOnMap( 10, );
-	setGreeksOnMap( 11, );
-	setGreeksOnMap( 12, );
-	setGreeksOnMap( 13, );
-	setGreeksOnMap( 14, );
-	setGreeksOnMap( 15, );
-	setGreeksOnMap( 16, );
-	setGreeksOnMap( 17, );
-	setGreeksOnMap( 18, );
-	setGreeksOnMap( 19, );
-	setGreeksOnMap( 20, );
-	setGreeksOnMap( 21, );
-	setGreeksOnMap( 22, );
-	setGreeksOnMap( 23, );
+	setGreeksOnMap( 10, 100, 100,45);
+	setGreeksOnMap( 11, 200,150,23);
+	setGreeksOnMap( 12, 300,200,96);
+	setGreeksOnMap( 13, 400,100,43);
+	setGreeksOnMap( 14, 500,350,57);
+	setGreeksOnMap( 15, 600,1000,63);
+	setGreeksOnMap( 16, 700,345,78);
+	setGreeksOnMap( 17, 800,576,68);
+	setGreeksOnMap( 18, 900,1506,72);
+	setGreeksOnMap( 19, 1000,2000,193);
+	setGreeksOnMap( 20, 1100,2100,283);
+	setGreeksOnMap( 21, 1200, 599,1);
+	setGreeksOnMap( 22, 1300, 127, 24);
+	setGreeksOnMap( 23, 1400, 2300, 43);
 }
 
 array< AIChar > @ getTrojans() { return trojans; }
