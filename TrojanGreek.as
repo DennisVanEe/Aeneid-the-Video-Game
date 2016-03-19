@@ -73,13 +73,20 @@ bool requestTrojans() {
 	int n = ee::readFromDataCont( "trojanNumber", "number" );
 	for( int i = n; i >= 0; i-- ) {
 		// Logic to get all the parameter / values from each trojan
+		int temp = 0;
+		bool invincibility = false;
+		bool isItHostile = false;
 
 		int cHealth = ee::readFromDataCont( "trojan" + i, "cHealth" );
 		int mHealth = ee::readFromDataCont( "trojan" + i, "mHealth" );
 		float walkSpeed = ee::readFromDataCont( "trojan" + i, "walkSpeed" );
 		float rotationSpeed = ee::readFromDataCont( "trojan" + i, "rotationSpeed" );
-		bool invincibility = ee::readFromDataCont( "trojan" + i, "invincibility" );
-		bool isItHostile = ee::readFromDataCont( "trojan" + i, "isItHostile" );
+		temp = ee::readFromDataCont( "trojan" + i, "invincibility" );
+		if( temp == 1 )
+			invincibility = true;
+		temp = ee::readFromDataCont( "trojan" + i, "isItHostile" );
+		if( temp == 1 )
+			isItHostile = true;
 		int damage = ee::readFromDataCont( "trojan" + i, "damage" );
 
 		int x = ee::readFromDataCont( "trojan" + i, "x" );
@@ -105,9 +112,13 @@ bool requestGreeks() {
 		int mHealth = ee::readFromDataCont( "greek" + i, "mHealth" );
 		float walkSpeed = ee::readFromDataCont( "greek" + i, "walkSpeed" );
 		float rotationSpeed = ee::readFromDataCont( "greek" + i, "rotationSpeed" );
-		bool invincibility = ee::readFromDataCont( "greek" + i, "invincibility" );
-		bool isItHostile = ee::readFromDataCont( "greek" + i, "isItHostile" );
-		int damage = ee::readFromDataCont( "trojan" + i, "damage" );
+		temp = ee::readFromDataCont( "greek" + i, "invincibility" );
+		if( temp == 1 )
+			invincibility = true;
+		temp = ee::readFromDataCont( "greek" + i, "isItHostile" );
+		if( temp == 1 )
+			isItHostile = true;
+		int damage = ee::readFromDataCont( "greek" + i, "damage" );
 
 		int x = ee::readFromDataCont( "greek" + i, "x" );
 		int y = ee::readFromDataCont( "greek" + i, "y" );

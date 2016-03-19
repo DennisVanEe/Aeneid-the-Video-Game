@@ -103,8 +103,8 @@ shared class AIChar : Character //ERROR
 			updatePos( pos.x + stats.walkSpeed * milliseconds / 1000, 
 					pos.y + stats.walkSpeed * milliseconds / 1000, pos.getAngle() );
 			*/
-			int x = pos.getX() + stats.getWalkSpeed() * milliseconds / 1000 * cos( PI / 180 * angle );
-			int y = pos.getY() + stats.getWalkSpeed() * milliseconds / 1000 * sin( PI / 180 * angle );
+			int x = pos.getX() + stats.getWalkSpeed() * milliseconds / 1000 * cos( PI / 180 * pos.angle );
+			int y = pos.getY() + stats.getWalkSpeed() * milliseconds / 1000 * sin( PI / 180 * pos.angle );
 			updatePos( x, y, angle );
 			entityMove.playFrame( milliseconds );
 		}
@@ -117,7 +117,7 @@ shared class AIChar : Character //ERROR
 	bool inRange(Character aic)
 	{
 		ee::consolePrintln( "AIChar.as/inRange: checks if another AIChar is within 50 units of this AIChar." );
-		CharPosition@ rPos = aic.getPos();
+		const CharPosition @ rPos = aic.getPos();
 
 		int yDif = pos.getY() - rPos.getY();
 		int xDif = pos.getX() - rPos.getX();
@@ -134,7 +134,7 @@ shared class AIChar : Character //ERROR
 	bool inRangeToAttack(Character aic)
 	{
 		ee::consolePrintln( "AIChar.as/inRangeToAttack: checks if another AIChar is within 5 units to attack this AIChar." );
-	 	CharPosition@ rPos = aic.getPos();
+	 	const CharPosition @ rPos = aic.getPos();
 
 		int yDif = pos.getY() - rPos.getY();
 		int xDif = pos.getX() - rPos.getX();
@@ -168,7 +168,7 @@ shared class AIChar : Character //ERROR
 		ee::consolePrintln( "AIChar.as/getPos: Returns the position of the character." );
 		CharPosition@ refPos = pos;
 
-		if (refPos != null )
+		if ( refPos != null )
 		{
 			return refPos;
 		}
@@ -233,6 +233,7 @@ shared class AIChar : Character //ERROR
 	}
 	
 	//i think this method is unused
+	/*
 	void fighting(Character npc, uint32 milliseconds)
 	{
 		ee::consolePrintln( "AIChar.as/fighting: follows another Character and attacks." );
@@ -259,9 +260,11 @@ shared class AIChar : Character //ERROR
 		else{setRotation(int(atan(abs(cy-ny),abs(cx-nx))));} */
 		
 		//shouldn't be exacty 180 since comparing doubles
+		/*
 		if( abs( pos.angle - npc.pos.angle )<181 && abs( pos.angle - npc.pos.angle ) > 179  && inRangeToAttack(npc) )
 			attack(npc, milliseconds);  //illegal access to npc.pos
 	}
+	*/
 
 	bool isHostile()
 	{
@@ -294,8 +297,7 @@ shared class AIChar : Character //ERROR
 	void step( uint32 milliseconds, array<AIChar> enemies) {
 		//MUST FIRST GET AN AENEAS REFERENCE AND CHECK ITS POSITION TO SEE IF IT SHOULD BE INVINCIBLE AND/OR ATTACK HIM!!! (ASK DENNIS)
 		ee::consolePrintln( "AIChar.as/step: step function." );
-		ControllableChar aeneas = ControllableChar();
-		aeneas = getAeneas();
+		ControllableChar @ aeneas = getAeneas();
 		if(!inRange(aeneas))
 		{
 			stats.setInvincibility(true);
@@ -321,7 +323,7 @@ shared class AIChar : Character //ERROR
 				attack(aeneas, milliseconds);
 		}
 		
-		if(!thereIsEnemy() && !inRange(aeneas))
+		if(!thereIsEnemy() && !inRange(aeneas)) // Make sure bool thereIsEnemy is there for use in else statement (not just in if)
 			move(milliseconds); // Should move randomly
 		
 		// If Aeneas comes within a certain distance, follow Aeneas and attack him.
@@ -346,8 +348,18 @@ shared class AIChar : Character //ERROR
 		ee::writeToDataCont( prefix + i, "mHealth", stats.getMHealth() );
 		ee::writeToDataCont( prefix + i, "walkSpeed", stats.getWalkSpeed() );
 		ee::writeToDataCont( prefix + i, "rotationSpeed", stats.getRotationSpeed() );
-		ee::writeToDataCont( prefix + i, "invincibility", stats.isInvincible() );
-		ee::writeToDataCont( prefix + i, "isItHostile", stats.isHostile() );
+		int temp = 0;
+		if( stats.isInvincible() )
+			temp = 1;
+		else
+			temp = 0; // Allows bool to be saved as integer
+		ee::writeToDataCont( prefix + i, "invincibility", temp );
+		temp = 0;
+		if( stats.isHostile() )
+			temp = 1;
+		else
+			temp = 0; // Allows bool to be saved as integer
+		ee::writeToDataCont( prefix + i, "isItHostile", temp );
 		ee::writeToDataCont( prefix + i, "damage", stats.getDamage() );
 
 		ee::writeToDataCont( prefix + i, "x", pos.x );
