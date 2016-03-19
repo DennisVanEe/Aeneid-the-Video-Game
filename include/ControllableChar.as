@@ -10,11 +10,9 @@
 
 #include "Character.as"
 #include "Collectible.as"
-#include "Inventory.as"
 
 shared class ControllableChar : Character {
 
-	private Inventory inv;
 	CharPosition @ pos; //name conflict
 	CharStats @ stats; //name conflict
 	float PI = 3.14159;
@@ -31,7 +29,6 @@ shared class ControllableChar : Character {
 	// Default Constructor
 	ControllableChar() {
 		Character();
-		inv = Inventory();
 
 		pos = getCharPosition();
 		stats = getStat();
@@ -39,9 +36,8 @@ shared class ControllableChar : Character {
 
 	// Constructor with all values as parameter
 	// PARAMETER ERROR: Inventory is not a data type in global namespace
-	ControllableChar( string contName, string entName, Inventory i, int x, int y, double angle, int cH, int mH, float wS, int p, float cW, float mCW) {
-		Character( x, y, angle, cH, mH, wS, p, cW, mCW );   
-		inv = i;											
+	ControllableChar( string contName, string entName, int x, int y, double angle, int cH, int mH, float wS, int p, float cW, float mCW) {
+		Character( x, y, angle, cH, mH, wS, p, cW, mCW );   	
 		entityMove = ee::AnimatedEntity( contName, entName + "Move" ); // CHECK TO SEE IF THIS WORKS
 		entityAttack = ee::AnimatedEntity( contName, entName + "Attack" );
 		entityAttackMove = ee::AnimatedEntity( contName, entName + "AttackMove" );

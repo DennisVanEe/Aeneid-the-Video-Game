@@ -19,8 +19,9 @@ class World
 	World( string name )
 	{
 		bool checkPointUsed;
-		checkPointUsed = ee::readFromDataCont( name, "checkPointUsed" );
-		ee::consolePrintLine( "Constructor for World. Sets the base layer for World." );
+		int x;
+		checkPointUsed = ee::readFromDataCont( name, "checkPointUsed", x );
+		ee::consolePrintln( "Constructor for World. Sets the base layer for World." );
 		layer = 1000;
 		setName( name );
 
@@ -30,13 +31,13 @@ class World
 
 	void add( ee::AnimatedEntity x, string name ) 
 	{
-		ee::consolePrintLine( "Adds animated entity to movingobj array. Adds object to render at layer input relative to the World Layer." );
+		ee::consolePrintln( "Adds animated entity to movingobj array. Adds object to render at layer input relative to the World Layer." );
 		movingobj.insertLast( x );
 	}
 
 	void add( ee::StaticEntity x, string name )
 	{
-		ee::consolePrintLine( "Adds static entity to movingobj array. Adds object to render at layer input relative to the World Layer." );
+		ee::consolePrintln( "Adds static entity to movingobj array. Adds object to render at layer input relative to the World Layer." );
 		setobj.insertLast( x );
 	}
 
@@ -73,14 +74,14 @@ class World
 // Assumes only one checkpoint in each World (at beginning of map)
 class Checkpoint
 {
-	private ee::StaticEntity checkpoint;
+	private ee::StaticEntity checkp;
 	private CharPosition checkpoint;
 	bool checkPointUsed;
 	
 	Checkpoint( int x, int y, ee::StaticEntity check )
 	{
-		consolePrintLine( "Creates position for the Checkpoint." );
-		checkpoint = check;
+		ee::consolePrintln( "Creates position for the Checkpoint." );
+		checkp = check;
 
 		checkPointUsed = false;
 	}
