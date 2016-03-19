@@ -22,6 +22,9 @@ shared class ControllableChar : Character {
 	protected ee::AnimatedEntity entityAttack;
 	protected ee::AnimatedEntity entityAttackMove;
 
+	array< AIChar > @ trojans;
+	array< AIChar > @ greeks;
+
 	void addItem( const string &in name, Collectible c ) { 
 		ee::consolePrintln( "ControllableChar.as/addItem: adds a collectible item" );
 		
@@ -74,16 +77,12 @@ shared class ControllableChar : Character {
 
 	// Checks for inputs
 	// if-statements must be listed in order of priority
-	void checkInputs( uint32 milliseconds ) {
+	void checkInputs( uint32 milliseconds, array< AIChar > @ trojans, array< AIChar > @ greeks ) {
 		// If clicking on NPC
 		// Make sure that mouse is on NPC
 		updateEntityPos();
 
 		// NOTE: Ask Dennis how to communicate to get Trojans and Greeks
-
-
-		array< AIChar > @ trojans = setTrojans(); // TODO: MAKE SURE THIS WORKS, SETTROJANS IS WRONG
-		array< AIChar > @ greeks = setGreeks(); // TODO: MAKE SURE THIS WORKS, SETGREEKS IS WRONG
 		array< AIChar > npcArray;
 
 		// NOTE: Check for intensity of this calculation
@@ -247,28 +246,32 @@ shared class ControllableChar : Character {
 	void moveX( uint32 milliseconds, bool sign ) {		//sign is direction (true = positive)
 		
 		int x = int(cStats.getWalkSpeed() * milliseconds / 1000); //problems with brackets (typecasting done wrong)	
-		if( sign )
+		if( sign ) {
 			updatePos( cPos.x + x, cPos.y, cPos.angle );
 			while( ee::isColliding( entityMove.getSprite() ) ) {
 				updatePos( cPos.x - 2, cPos.y, cPos.angle );
 			}
-		else
+		}
+		else {
 			updatePos( cPos.x - x, cPos.y, cPos.angle );
 			while( ee::isColliding( entityMove.getSprite() ) ) {
 				updatePos( cPos.x + 2, cPos.y, cPos.angle );
 			}	
+		}
  	}
 
 	void moveY( uint32 milliseconds, bool sign ) {		//sign is direction (true = positive)
 		int y = int(cStats.getWalkSpeed() * milliseconds / 1000); //problems with brackets (typecasting done wrong)	
-		if( !sign ) // ! because -y is up, y is down
+		if( !sign ) { // ! because -y is up, y is down
 			updatePos( cPos.x, cPos.y + y, cPos.angle );
 			while( ee::isColliding( entityMove.getSprite() ) )
 				updatePos( cPos.x, cPos.y - 2, cPos.angle );
-		else
+		}
+		else {
 			updatePos( cPos.x, cPos.y - y, cPos.angle );
 			while( ee::isColliding( entityMove.getSprite() ) )
-				updatePos( cPos.x, cPos.y + 2, cPos.angle );	
+				updatePos( cPos.x, cPos.y + 2, cPos.angle );
+		}	
 			
 	}
 
@@ -393,9 +396,9 @@ shared class ControllableChar : Character {
 		// NOTE: Add something for when Aeneas dies
 	}
 
-	array< AIChar > @ setTrojans( array< AIChar > @ trojans ) { return trojans; }
+	void setTrojans( array< AIChar > @ ts ) { trojans = ts; }
 
-	array< AIChar > @ setGreeks( array< AIChar > @ greeks ) { return greeks; }
+	void setGreeks( array< AIChar > @ gs ) { greeks = gs; }
 	
 	bool saveRequestValues() {
 		// Saves stats

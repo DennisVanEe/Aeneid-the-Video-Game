@@ -105,7 +105,7 @@ shared class AIChar : Character
 			*/
 			int x = cpos.getX() + cstats.getWalkSpeed() * milliseconds / 1000 * cos( PI / 180 * cpos.angle );
 			int y = cpos.getY() + cstats.getWalkSpeed() * milliseconds / 1000 * sin( PI / 180 * cpos.angle );
-			updatePos( x, y, angle );
+			updatePos( x, y, cpos.angle );
 			entityMove.playFrame( milliseconds );
 		}
 		else
@@ -194,6 +194,9 @@ shared class AIChar : Character
 		updatePos( cos( cpos.getAngle() * PI / 180 ) * milliseconds * cstats.getWalkSpeed() / 1000, 
 			   sin( cpos.getAngle() * PI / 180 ) * milliseconds * cstats.getWalkSpeed() / 1000, 
 			   cpos.getAngle() );
+		if( ee::isColliding( entityMove.getSprite() ) ) {
+			updatePos( cPos.x - 2, cPos.y - 2, cPos.angle );
+		}
 		setEntityVisibilities( true, false, false );
 		entityMove.playFrame( milliseconds ); //errors
 	}
@@ -283,6 +286,9 @@ shared class AIChar : Character
 		updatePos( cos( cpos.getAngle() * PI / 180 ) * milliseconds * cstats.getWalkSpeed() / 1000, 
 			   sin( cpos.getAngle() * PI / 180 ) * milliseconds * cstats.getWalkSpeed() / 1000, 
 			   cpos.getAngle() );
+		if( ee::isColliding( entityMove.getSprite() ) ) {
+			updatePos( cPos.x - 2, cPos.y - 2, cPos.angle );
+		}
 		setEntityVisibilities( true, false, false );
 		entityMove.playFrame( milliseconds ); //errors
 	}

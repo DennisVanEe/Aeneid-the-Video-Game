@@ -88,7 +88,7 @@ void step ( uint32 milliseconds ) {
 	// Interact with picking up weapons
 
 	aeneas.setRotation();
-	aeneas.checkInputs( milliseconds );
+	aeneas.checkInputs( milliseconds, getTrojans, getGreeks );
 
 	/*
 	int curHealth = aeneas.stats.getCHealth();
