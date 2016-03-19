@@ -249,16 +249,26 @@ shared class ControllableChar : Character {
 		int x = int(cStats.getWalkSpeed() * milliseconds / 1000); //problems with brackets (typecasting done wrong)	
 		if( sign )
 			updatePos( cPos.x + x, cPos.y, cPos.angle );
+			while( ee::isColliding( entityMove.getSprite() ) ) {
+				updatePos( cPos.x - 2, cPos.y, cPos.angle );
+			}
 		else
-			updatePos( cPos.x - x, cPos.y, cPos.angle );	
+			updatePos( cPos.x - x, cPos.y, cPos.angle );
+			while( ee::isColliding( entityMove.getSprite() ) ) {
+				updatePos( cPos.x + 2, cPos.y, cPos.angle );
+			}	
  	}
 
 	void moveY( uint32 milliseconds, bool sign ) {		//sign is direction (true = positive)
 		int y = int(cStats.getWalkSpeed() * milliseconds / 1000); //problems with brackets (typecasting done wrong)	
 		if( !sign ) // ! because -y is up, y is down
 			updatePos( cPos.x, cPos.y + y, cPos.angle );
+			while( ee::isColliding( entityMove.getSprite() ) )
+				updatePos( cPos.x, cPos.y - 2, cPos.angle );
 		else
-			updatePos( cPos.x, cPos.y - y, cPos.angle );	
+			updatePos( cPos.x, cPos.y - y, cPos.angle );
+			while( ee::isColliding( entityMove.getSprite() ) )
+				updatePos( cPos.x, cPos.y + 2, cPos.angle );	
 			
 	}
 
@@ -267,14 +277,22 @@ shared class ControllableChar : Character {
 		if( xPos == true ) {
 			if( !(yPos == true) ) { // ! because -y is up, y is down
 				updatePos( cPos.x + distance / sqrt( 2 ), cPos.y + distance / sqrt( 2 ), cPos.angle );
+				while( ee::isColliding( entityMove.getSprite() ) )
+					updatePos( cPos.x - 2, cPos.y - 2, cPos.angle );
 			} else {
 				updatePos( cPos.x + distance / sqrt( 2 ), cPos.y - distance / sqrt( 2 ), cPos.angle );
+				while( ee::isColliding( entityMove.getSprite() ) )
+					updatePos( cPos.x - 2, cPos.y - 2, cPos.angle );
 			}
 		} else {
 			if( !(yPos == true) ) { // ! because -y is up, y is down
 				updatePos( cPos.x - distance / sqrt( 2 ), cPos.y + distance / sqrt( 2 ), cPos.angle );
+				while( ee::isColliding( entityMove.getSprite() ) )
+					updatePos( cPos.x - 2, cPos.y - 2, cPos.angle );
 			} else {
-				updatePos( cPos.x - distance / sqrt( 2 ), cPos.y - distance / sqrt( 2 ), cPos.angle );	
+				updatePos( cPos.x - distance / sqrt( 2 ), cPos.y - distance / sqrt( 2 ), cPos.angle );
+				while( ee::isColliding( entityMove.getSprite() ) )
+					updatePos( cPos.x - 2, cPos.y - 2, cPos.angle );
 			}
 		}
 	}
