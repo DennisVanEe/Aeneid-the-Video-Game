@@ -31,7 +31,7 @@ shared class ControllableChar : Character {
 
 	// Default Constructor
 	ControllableChar() {
-		Character(); 
+		Character();
 		entityMove = ee::AnimatedEntity( contName, entName + "Move" );
 		entityAttack = ee::AnimatedEntity( contName, entName + "Attack" );
 		entityAttackMove = ee::AnimatedEntity( contName, entName + "AttackMove" );
@@ -83,7 +83,7 @@ shared class ControllableChar : Character {
 
 	// Checks for inputs
 	// if-statements must be listed in order of priority
-	void checkInputs( uint32 milliseconds, ControllableChar @ otherGuy ) {
+	void checkInputs( uint32 milliseconds, ControllableChar @ otherGuy, string name ) {
 		// If clicking on NPC
 		// Make sure that mouse is on NPC();
 
@@ -108,7 +108,10 @@ shared class ControllableChar : Character {
 				isAttacking = true;
 			}
 		}
-		checkForMove( milliseconds, isAttacking ); // moving logistics moved to checkForMove();
+		if( name == "Aeneas" )
+			checkForMove( milliseconds, isAttacking ); // moving logistics moved to checkForMove();
+		else if( name == "Player2" )
+			checkForMove2( milliseconds, isAttacking ); // moving logistics moved to checkForMove();
 	}
 
 	void checkForMove( uint32 milliseconds, bool isAttacking ) {
@@ -152,6 +155,59 @@ shared class ControllableChar : Character {
 			return;
 		}
 		else if(ee::isKeyPressed(ee::A)){ 
+			if( isAttacking ) // Sets entity visibilities during attack-move or move
+				setEntityVisibilities( false, false, true );
+			else
+				setEntityVisibilities( true, false, false );
+			moveX( milliseconds, false );
+			playAnimationStates( milliseconds );
+			return;
+		}
+		setEntityVisibilities( true, false, false );
+		entityMove.setFrame( 0 );
+	}
+
+	void checkForMove2( uint32 milliseconds, bool isAttacking ) {
+		if( ee::isKeyPressed( ee::I ) ) { // If button W is pressed
+			if( isAttacking ) // Sets entity visibilities during attack-move or move
+				setEntityVisibilities( false, false, true );
+			else
+				setEntityVisibilities( true, false, false );
+
+			if( ee::isKeyPressed( ee::J ) ) // Allows for moving up-left
+				moveXY( milliseconds, false, true );
+			else if( ee::isKeyPressed( ee::L ) ) // Allows for moving up-right
+				moveXY( milliseconds, true, true );
+			else
+				moveY( milliseconds, true );
+			playAnimationStates( milliseconds );
+			return;
+		}
+		else if( ee::isKeyPressed( ee::K ) ) { // If button S is pressed
+			if( isAttacking ) // Sets entity visibilities during attack-move or move
+				setEntityVisibilities( false, false, true );
+			else
+				setEntityVisibilities( true, false, false );
+
+			if( ee::isKeyPressed( ee::J ) ) // Allows for moving down-left
+				moveXY( milliseconds, false, false );
+			else if( ee::isKeyPressed( ee::L ) ) // Allows for moving down-right
+				moveXY( milliseconds, true, false );
+			else
+				moveY( milliseconds, false );
+			playAnimationStates( milliseconds );
+			return;
+		}
+		else if( ee::isKeyPressed( ee::L ) ) { // If button D is pressed
+			if( isAttacking ) // Sets entity visibilities during attack-move or move
+				setEntityVisibilities( false, false, true );
+			else
+				setEntityVisibilities( true, false, false );
+			moveX( milliseconds, true );
+			playAnimationStates( milliseconds );
+			return;
+		}
+		else if(ee::isKeyPressed(ee::J)){ 
 			if( isAttacking ) // Sets entity visibilities during attack-move or move
 				setEntityVisibilities( false, false, true );
 			else

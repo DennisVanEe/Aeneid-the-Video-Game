@@ -70,7 +70,7 @@ void step ( uint32 milliseconds ) {
 	// Interact with picking up weapons
 
 	aeneas.setRotation();
-	aeneas.checkInputs( milliseconds, getAeneas() );
+	aeneas.checkInputs( milliseconds, getAeneas(), "Player2" );
 
 	/*
 	int curHealth = aeneas.stats.getCHealth();

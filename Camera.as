@@ -201,38 +201,21 @@ shared class HUD
 	void moveXHUD(int x)
 	{
 		health.move(x,0);
-		objective.move(x,0);
-		objective2.move(x,0);
-		objective3.move(x,0);
-		objective4.move(x,0);
 	}
 	
 	void moveYHUD(int y)
 	{
-	
 		health.move(0,y);
-		objective.move(x,0);
-		objective2.move(x,0);
-		objective3.move(x,0);
-		objective4.move(x,0);
 	}
 	
 	void moveXYHUD(int x, int y)
 	{
 		health.move(x,y);
-		objective.move(x,0);
-		objective2.move(x,0);
-		objective3.move(x,0);
-		objective4.move(x,0);
 	}
 	
 	void setPosition(int x, int y)
 	{
 		health.setPosition(float(x),float(y));
-		objective.setPosition(float(x),float(y));
-		objective2.setPosition(float(x),float(y));
-		objective3.setPosition(float(x),float(y));
-		objective4.setPosition(float(x),float(y));
 	}
 }
 
