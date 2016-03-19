@@ -51,7 +51,7 @@ void step( uint32 milliseconds ) {
 	aCamera.update( milliseconds );
 	bCamera.update( milliseconds );
 
-	bool b;
+	bool b = false;
 	do { // Keeps looping while health bar is not ready to be changed
 		b = isReadyToChangeAeneasHealthBar();
 	} while( !b );
@@ -178,8 +178,10 @@ shared class HUD
 	{
 		health.setPosition(pos.x + ee::getWindowWidth() / 2 + 20, pos.y + ee::getWindowHeight() / 2);
 		healthFrame.setPosition( pos.x + ee::getWindowWidth() / 2, pos.y + ee::getWindowHeight() / 2 );
+
 		healthFlipped.setPosition(pos.x + ee::getWindowWidth() / 2 + 400, pos.y + ee::getWindowHeight() / 2);
 		healthFrameFlipped.setPosition( pos.x + ee::getWindowWidth() / 2 + 380, pos.y + ee::getWindowHeight() / 2 );
+
 		healthFrameFlipped.setVisible( false );
 		healthFlipped.setVisible( false );
 	}
