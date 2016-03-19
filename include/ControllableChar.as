@@ -100,7 +100,7 @@ shared class ControllableChar : Character {
 			for( int i = 0; i < npcArray.length(); i++ ) {  //same error as line 93
 				AIChar npc = npcArray[i];
 				if( ifMouseOnNPC( npc ) ) {
-					if( npc.cStats.isHostile() ) {
+					if( npc.cstats.isHostile() ) {
 						attack( cStats.getDamage(), npc );
 						isAttacking = true;
 						break;
