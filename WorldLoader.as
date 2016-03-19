@@ -1,5 +1,6 @@
 #include "include/World.as"
 import void setUpAeneasSpawn( string name ) from "Aeneas.as"
+import void setUpTrojansAndGreeks( string name ) from "TrojanGreek.as"
 
 World world;
 int level = 1;
