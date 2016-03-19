@@ -18,7 +18,7 @@ shared class Movable {
 		pos = CharPosition( x, y, a );
 	}
 
-	const CharPosition @ getPos() {
+	CharPosition @ getPos() {
 		return pos;
 	}
 

@@ -34,7 +34,7 @@ shared class Character : Movable {
 		stats = CharStats( cH, mH, wS, rS, immunity, hostile, damage );
 	}
 	
-	const CharPosition @ getPos() {
+	CharPosition @ getPos() {
 		ee::consolePrintln( "Character.as/getPos: returns the position of the character." );
 		return getPos();
 	}

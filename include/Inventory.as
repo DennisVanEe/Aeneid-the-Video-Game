@@ -3,12 +3,12 @@
 
 class Inventory
 {
-	dictionary< Collectible > items; //expected method, found dictionary
+	array< Collectible > items;
 	float totalweight;
 
 	Inventory() //expected identifier, instead found (
 	{
-		items = new dictionary< Collectible >();
+		items = array< Collectible >();
 		totalweight = 0;
 	}
 
@@ -20,7 +20,7 @@ class Inventory
 
 	void addItem( const string &in name, Collectible obj )
 	{
-		items.set( name, obj );
+		items.insertLast( obj );
 		totalweight += obj.getMass();
 	}
 
