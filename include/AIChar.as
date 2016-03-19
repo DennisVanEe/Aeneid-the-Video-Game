@@ -6,12 +6,12 @@
 // that is AI controlled (like followers
 // or enemies)
 
-import ControllableChar @ getAeneas() from "Aeneas.as";//ERROR
+import ControllableChar @ getAeneas() from "Aeneas.as";
 #include "Character.as"
 #include "Weapon.as"
 #include "ControllableChar.as"
 
-shared class AIChar : Character //ERROR
+shared class AIChar : Character
 {
 	float PI = 3.14159;
 	CharPosition @ pos; //ERROR
