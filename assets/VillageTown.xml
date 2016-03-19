@@ -1,0 +1,94 @@
+<!-- this is an example for an entity container -->
+<EntityContainer id="VillageTown">
+	<Entity id="villageTownMap" type="static">
+		<texture id="villageTownMap" dir="D:/example project/Assets/VillageTown/villageTownMap.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="brickRoof" type="static">
+		<texture id="VillageTown brickRoof" dir="D:/example project/Assets/VillageTown/Brick Roof.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="clayPot" type="static">
+		<texture id="VillageTown clayPot" dir="D:/example project/Assets/VillageTown/Clay Pot.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="eastCrossThatchRoof" type="static">
+		<texture id="VillageTown eastCrossThatchRoof" dir="D:/example project/Assets/VillageTown/East Cross Thatch Roof.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="fourHouseNE" type="static">
+		<texture id="VillageTown fourHouseNE" dir="D:/example project/Assets/VillageTown/Four House NE.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="fourHouseNW" type="static">
+		<texture id="VillageTown fourHouseNW" dir="D:/example project/Assets/VillageTown/Four House NW.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="fourHouseSE" type="static">
+		<texture id="VillageTown fourHouseSE" dir="D:/example project/Assets/VillageTown/Four House SE.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="fourHouseSW" type="static">
+		<texture id="VillageTown fourHouseSW" dir="D:/example project/Assets/VillageTown/Four House SW.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="northEastGrayPlankHouse" type="static">
+		<texture id="VillageTown northEastGrayPlankHouse" dir="D:/example project/Assets/VillageTown/North East Gray Plank House.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="northEastWall" type="static">
+		<texture id="VillageTown northEastWall" dir="D:/example project/Assets/VillageTown/North East Wall.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="northEastWoodRoofHouse" type="static">
+		<texture id="VillageTown northEastWoodRoofHouse" dir="D:/example project/Assets/VillageTown/North East Wood Roof house.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="northEastTreeBottom" type="static">
+		<texture id="VillageTown northEastTreeBottom" dir="D:/example project/Assets/VillageTown/Northeast Tree Bottom.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="northEastTree" type="static">
+		<texture id="VillageTown northEastTree" dir="D:/example project/Assets/VillageTown/Northeast Tree.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="rotundaRoof" type="static">
+		<texture id="VillageTown rotundaRoof" dir="D:/example project/Assets/VillageTown/Rotunda Roof.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="sEWall" type="static">
+		<texture id="VillageTown sEWall" dir="D:/example project/Assets/VillageTown/SE Wall.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="sEWoodThatchRoof" type="static">
+		<texture id="VillageTown sEWoodThatchRoof" dir="D:/example project/Assets/VillageTown/SE Wood Thatch Roof.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="southTreeCluster" type="static">
+		<texture id="VillageTown southTreeCluster" dir="D:/example project/Assets/VillageTown/South Tree Cluster.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="strawRoof" type="static">
+		<texture id="VillageTown strawRoof" dir="D:/example project/Assets/VillageTown/Straw Roof 1.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="strawRoofEastGrayCross" type="static">
+		<texture id="VillageTown strawRoofEastGrayCross" dir="D:/example project/Assets/VillageTown/Straw Roof East Gray Cross.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="strawRoofEastGray" type="static">
+		<texture id="VillageTown strawRoofEastGray" dir="D:/example project/Assets/VillageTown/Straw Roof East Gray.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="sWThatchHouse" type="static">
+		<texture id="VillageTown sWThatchHouse" dir="D:/example project/Assets/VillageTown/SW Thatch House.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="sWWall2" type="static">
+		<texture id="VillageTown sWWall2" dir="D:/example project/Assets/VillageTown/SW Wall 2.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="sWWall" type="static">
+		<texture id="VillageTown sWWall" dir="D:/example project/Assets/VillageTown/SW Wall.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="thatchRoof" type="static">
+		<texture id="VillageTown thatchRoof" dir="D:/example project/Assets/VillageTown/Thatch Roof 1.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="topTreeBottom" type="static">
+		<texture id="VillageTown topTreeBottom" dir="D:/example project/Assets/VillageTown/Top Tree Bottom.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="topTree" type="static">
+		<texture id="VillageTown topTree" dir="D:/example project/Assets/VillageTown/Top Tree.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="treetops" type="static">
+		<texture id="VillageTown treetops" dir="D:/example project/Assets/VillageTown/Treetops.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="wall" type="static">
+		<texture id="VillageTown wall" dir="D:/example project/Assets/VillageTown/Wall.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="westTreeCluster" type="static">
+		<texture id="VillageTown westTreeCluster" dir="D:/example project/Assets/VillageTown/West Tree Cluster.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="westTree" type="static">
+		<texture id="VillageTown westTree" dir="D:/example project/Assets/VillageTown/West Tree.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+</EntityContainer>
+

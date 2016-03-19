@@ -1,0 +1,9 @@
+<!-- this is an example for an entity container -->
+<EntityContainer id="PriamAltar">
+	<Entity id="priamAltarMap" type="static">
+		<texture id="Priam Altar Map" dir="D:/example project/Assets/PriamAltar/priamAltarMap.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="walls" type="static">
+		<texture id="Priam Altar walls" dir="D:/example project/Assets/PriamAltar/walls.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+</EntityContainer>

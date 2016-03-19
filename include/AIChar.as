@@ -16,8 +16,8 @@ shared class AIChar : Character
 	float PI = 3.14159;
 	CharPosition @ cpos; // name conflict with method names
 	CharStats @ cstats; // name conflict with method names
-	private ee::AnimatedEntity entityMove; 
-	private ee::AnimatedEntity entityAttack; 
+	private ee::AnimatedEntity entityMove;
+	private ee::AnimatedEntity entityAttack;
 	private ee::AnimatedEntity entityAttackMove;
 	private string name;
 

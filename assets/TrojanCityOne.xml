@@ -1,0 +1,18 @@
+<!-- this is an example for an entity container -->
+<EntityContainer id="TrojanCityOne">
+	<Entity id="cityOneMap" type="static">
+		<texture id="cityOneMap" dir="D:/example project/Assets/TrojanCityOne/cityOneMap.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="leftColumn" type="static">
+		<texture id="TrojanCityOne leftColumn" dir="D:/example project/Assets/TrojanCityOne/leftColumn.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="palaceOverlap" type="static">
+		<texture id="TrojanCityOne palaceOverlap" dir="D:/example project/Assets/TrojanCityOne/palaceOverlap.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="rightColumn" type="static">
+		<texture id="TrojanCityOne rightColumn" dir="D:/example project/Assets/TrojanCityOne/rightColumn.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="rightWall" type="static">
+		<texture id="TrojanCityOne rightWall" dir="D:/example project/Assets/TrojanCityOne/rightWall.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+</EntityContainer>

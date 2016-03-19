@@ -1,0 +1,11 @@
+<EntityContainer id="TrojanCityTwo">
+	<Entity id="cityTwoMap" type="static">
+		<texture id="cityTwoMap" dir="D:/example project/Assets/TrojanCityTwo/cityTwoMap.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="leftColumn" type="static">
+		<texture id="TrojanCityTwo leftColumn" dir="D:/example project/Assets/TrojanCityTwo/leftColumn.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="rightColumn" type="static">
+		<texture id="TrojanCityTwo rightColumn" dir="D:/example project/Assets/TrojanCityTwo/rightColumn.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+</EntityContainer>

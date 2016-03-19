@@ -1,0 +1,21 @@
+<!-- this is an example for an entity container -->
+<EntityContainer id="HUD">
+	<Entity id="health" type="static">
+		<texture id="HUD health" dir="D:/example project/Assets/HUD/healthBar.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="objective" type="static">
+		<texture id="HUD objective" dir="D:/example project/Assets/HUD/back.jpg" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="objective2" type="static">
+		<texture id="HUD objective2" dir="D:/example project/Assets/HUD/back.jpg" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="objective3" type="static">
+		<texture id="HUD objective3" dir="D:/example project/Assets/HUD/back.jpg" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="objective4" type="static">
+		<texture id="HUD objective4" dir="D:/example project/Assets/HUD/back.jpg" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="healthFrame" type="static">
+		<texture id="HUD healthFrame" dir="D:/example project/Assets/HUD/healthBarFrame.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+</EntityContainer>

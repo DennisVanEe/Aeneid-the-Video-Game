@@ -1,0 +1,23 @@
+<EntityContainer id="TrojanCityThree">
+	<Entity id="cityThreeMap" type="static">
+		<texture id="cityThreeMap" dir="D:/example project/Assets/TrojanCityThree/cityThreeMap.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="leftColumn" type="static">
+		<texture id="TrojanCityThree leftColumn" dir="D:/example project/Assets/TrojanCityThree/leftColumn.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="rightColumn" type="static">
+		<texture id="TrojanCityThree rightColumn" dir="D:/example project/Assets/TrojanCityThree/rightColumn.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="leftWall" type="static">
+		<texture id="TrojanCityThree leftWall" dir="D:/example project/Assets/TrojanCityThree/leftWall.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="overlapTrees" type="static">
+		<texture id="TrojanCityThree overlapTrees" dir="D:/example project/Assets/TrojanCityThree/overlapTrees.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="southernBuilding" type="static">
+		<texture id="TrojanCityThree southernBuilding" dir="D:/example project/Assets/TrojanCityThree/southernBuilding.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="Trees" type="static">
+		<texture id="TrojanCityThree Trees" dir="D:/example project/Assets/TrojanCityThree/Trees.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+</EntityContainer>

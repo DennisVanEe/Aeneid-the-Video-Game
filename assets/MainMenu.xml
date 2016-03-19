@@ -1,0 +1,12 @@
+<!-- this is an example for an entity container -->
+<EntityContainer id="PriamAltar">
+	<Entity id="title" type="static">
+		<texture id="Main Menu title" dir="D:/example project/Assets/MainMenu/title.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="text" type="static">
+		<texture id="Main Menu text" dir="D:/example project/Assets/MainMenu/text.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+	<Entity id="background" type="static">
+		<texture id="Main Menu background" dir="D:/example project/Assets/MainMenu/background.png" x="0" y="0" width="0" height="0"></texture>
+	</Entity>
+</EntityContainer>
