@@ -21,14 +21,14 @@ shared class Character : Movable {
 	}
 
 	// Constructor for ControllableChar
-	Character( int x, int y, double angle, int cH, int mH, float wS, int p, float cW, float mCW ) {
+	Character( int x, int y, double angle, int cH, int mH, float wS, int p, float cW, float mCW, float dmg ) {
 		Movable( x, y, angle );
 
-		stats = CharStats( cH, mH, wS, p, cW, mCW );
+		stats = CharStats( cH, mH, wS, p, cW, mCW, dmg );
 	}
 
 	// Constructor for AIChar
-	Character( int x, int y, double angle, int cH, int mH, float wS, float rS, bool immunity, bool hostile, int damage ) {
+	Character( int x, int y, double angle, int cH, int mH, float wS, float rS, bool immunity, bool hostile, float damage ) {
 		Movable( x, y, angle );
 
 		stats = CharStats( cH, mH, wS, rS, immunity, hostile, damage );

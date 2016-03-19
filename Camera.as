@@ -25,33 +25,43 @@
 
 #include "include/Movable.as"
 import CharPosition @ getAeneasPos() from "Aeneas.as";
+import CharPosition @ getPlayer2Pos() from "Player2.as";
 import float getAeneasWalkSpeed() from "Aeneas.as";
 import CharStats @ getAeneasStats() from "Aeneas.as";
 
 // -------------------------------------------------------------------------------
 
-Camera camera;
-HUD hud;
+Camera aCamera, bCamera;
 
 void initialize() {
-	camera = Camera();
+	aCamera.setSize(ee::getWindowWidth() / 2, ee::getWindowHeight());
+	bCamera.setSize(ee::getWindowWidth() / 2, ee::getWindowHeight());
+	aCamera.setViewport(0, 0, 0.5f, 1);
+	bCamera.setViewport(0.5f, 0, 0.5f, 1);
 	do { // Makes sure Camera has an actual Aeneas position to focus on
-		bool b = camera.setupPosition();
+		bool a = aCamera.setupPosition( "Aeneas" );
+	} while ( !a );
+	do { // Makes sure Camera has an actual Aeneas position to focus on
+		bool b = bCamera.setupPosition( "Player2" );
 	} while ( !b );
-
-	hud = HUD();
 }
 
 void step( uint32 milliseconds ) {
 	// To calculate speed of camera, use x^1.5 per distance, with cap of Aeneas' walkSpeed
-	camera.update( milliseconds );
+	aCamera.update( milliseconds );
+	bCamera.update( milliseconds );
 
 	bool b;
 	do { // Keeps looping while health bar is not ready to be changed
-		b = isReadyToChangeHealthBar();
+		b = isReadyToChangeAeneasHealthBar();
 	} while( !b );
+	aCamera.updateHUD();
 
-	camera.updateHUD();
+	b = false;
+	do { // Keeps looping while health bar is not ready to be changed
+		b = isReadyToChangePlayer2HealthBar();
+	} while( !b );
+	bCamera.updateHUD();
 }
 
 shared class Camera : Movable {
@@ -60,56 +70,67 @@ shared class Camera : Movable {
 	private CharPosition @ aeneasPos; // Aeneas' position; reference, so doesn't need to be updated
 	float walkSpeed;
 	ee::Camera cameraEntity;
-	HUD headsUp;
+	HUD aHeadsUp;
 
 	Camera() {
 		Movable();
 		pos = CharPosition();
-		headsUp = HUD();
+		aHeadsUp = HUD();
 		if( getAeneasPos() != null ) {
 			aeneasPos = getAeneasPos();
 		} else {
 			ee::consolePrintLine( "ERROR: Camera.as cannot retrieve Aeneas position." );
 			aeneasPos = CharPosition(0, 0, 0);
 		}
-
-		cameraEntity.setSize( ee::getWindowWidth(), ee::getWindowHeight() );
 	}
 
 	Camera( int x, int y, double angle ) {
 		Movable( x, y, angle );
 		pos = CharPosition();
-		headsUp=HUD();
+		aHeadsUp=HUD();
 		if( getAeneasPos() != null ) {
 			aeneasPos = getAeneasPos();
 		} else {
 			ee::consolePrintLine( "ERROR: Camera.as cannot retrieve Aeneas position." );
 			aeneasPos = CharPosition(0, 0, 0); 
 		}
-
-		cameraEntity.setSize( ee::getWindowWidth(), ee::getWindowHeight() );
 	}
 
-	bool setupPosition() {
-		if( getAeneasPos() != null ) {
-			aeneasPos = getAeneasPos();
+	bool setupPosition( string name ) {
+		if( name == "Aeneas" ) {
+			if( getAeneasPos() != null ) {
+				aeneasPos = getAeneasPos();
 
-			// WARNING: DO NOT SET POS = AENEASPOS;
-			updatePos( aeneasPos.x, aeneasPos.y, aeneasPos.angle );
-			walkSpeed = getAeneasWalkSpeed();
-			ee::consolePrintLine( "Camera.as/ Walkspeed has been set along with position." );
-			return true;
+				// WARNING: DO NOT SET POS = AENEASPOS;
+				updatePos( aeneasPos.x, aeneasPos.y, aeneasPos.angle );
+				walkSpeed = getAeneasWalkSpeed();
+				ee::consolePrintLine( "Camera.as/ Walkspeed has been set along with position." );
+				return true;
+			}
+			return false;
 		}
-		return false;
+		// Change these
+		else if( name == "Player2" ) {
+			if( getPlayer2Pos() != null ) {
+				aeneasPos = getPlayer2Pos();
+
+				// WARNING: DO NOT SET POS = AENEASPOS;
+				updatePos( aeneasPos.x, aeneasPos.y, aeneasPos.angle );
+				walkSpeed = getPlayer2WalkSpeed();
+				ee::consolePrintLine( "Camera.as/ Walkspeed has been set along with position." );
+				return true;
+			}
+			return false;
+		}
 	}
 
 	void updatePos( int x, int y, double angle ) {
 		pos.setPos( x, y, angle );
 		cameraEntity.setCenter( x, y, 0 );
-		headsUp.setPosition(x,y);
+		aHeadsUp.setPosition(x,y);
 	}
 
-	void update( uint32 milliseconds ) {
+	void update( uint32 milliseconds, string name ) {
 		// To calculate speed of camera, use x^1.5 per distance, with cap of Aeneas' walkSpeed
 		float xDif = ( (float)pos.x ) - aeneasPos.x; //incorrect typecasting?
 		float yDif = ( (float)pos.y ) - aeneasPos.y;
@@ -148,54 +169,31 @@ shared class Camera : Movable {
 shared class HUD 
 {
 	ee::StaticEntity health("HUD", "health");
-	ee::StaticEntity objective("HUD","objective");
-	ee::StaticEntity objective2("HUD","objective2");
-	ee::StaticEntity objective3("HUD","objective3");
-	ee::StaticEntity objective4("HUD","objective4");
+	ee::StaticEntity healthFrame("HUD", "healthFrame" );
+
+	ee::StaticEntity healthFlipped("HUD", "healthFlipped");
+	ee::StaticEntity healthFrameFlipped("HUD", "healthFrameFlipped" );
 	
 	HUD()
 	{
-		health.setPosition(pos.x + ee::getWindowWidth() / 2, pos.y + ee::getWindowHeight() / 2); 
-		objective.setPosition(pos.x + ee::getWindowWidth() / 2, pos.y + ee::getWindowHeight() / 2);
-		objective2.setPosition(pos.x + ee::getWindowWidth() / 2, pos.y + ee::getWindowHeight() / 2);
-		objective3.setPosition(pos.x + ee::getWindowWidth() / 2, pos.y + ee::getWindowHeight() / 2);
-		objective4.setPosition(pos.x + ee::getWindowWidth() / 2, pos.y + ee::getWindowHeight() / 2);
-		objective2.setVisible(false);
-		objective3.setVisible(false);
-		objective4.setVisible(false);
+		health.setPosition(pos.x + ee::getWindowWidth() / 2 + 20, pos.y + ee::getWindowHeight() / 2);
+		healthFrame.setPosition( pos.x + ee::getWindowWidth() / 2, pos.y + ee::getWindowHeight() / 2 );
+		healthFlipped.setPosition(pos.x + ee::getWindowWidth() / 2 + 400, pos.y + ee::getWindowHeight() / 2);
+		healthFrameFlipped.setPosition( pos.x + ee::getWindowWidth() / 2 + 380, pos.y + ee::getWindowHeight() / 2 );
+		healthFrameFlipped.setVisible( false );
+		healthFlipped.setVisible( false );
 	}
 	
-	void changeObjective2()
-	{
-		objective.setVisible(false);
-		objective2.setVisible(true);
-	}
-	
-	void changeObjective3
-	{
-		objective2.setVisible(false);
-		objective3.setVisible(true);
-	}
-	
-	void changeObjective4()
-	{
-		objective3.setVisible(false);
-		objective4.setVisible(true);
-	}
-	void changeHealth()
-	{
-		health.setScale(0.5,getScaleY());//something about changing the image/sprite of the health bar DENNIS
-		//this doesn't change the health statistic, this has to change the animation of the HUD to show visible change
+	void changeToPlayer2HUD() {
+		health.setVisible( false );
+		healthFrame.setVisible( false );
+		healthFlipped.setVisible( true );
+		healthFrameFlipped.setVisible( true );
 	}
 	
 	ee::StaticEntity @ getHealth() //error
 	{
 		return health;
-	}
-	
-	ee::StaticEntity @ getObjective() //error
-	{
-		return objective;
 	}
 	
 	void moveXHUD(int x)

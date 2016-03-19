@@ -1,4 +1,4 @@
-// Name: Aeneas.as
+// Name: Player2.as
 // Author(s): Jason Wang
 // version 0.1
 // --------------------------------------
@@ -8,7 +8,7 @@
 #include "include/ControllableChar.as"
 #include "Camera.as"
 
-import ControllableChar @ getPlayer2() from "Player2.as"
+import ControllableChar @ getAeneas() from "Aeneas.as"
 // #include "include/Inventory.as"  <-- might add this in the future
 // #include "include/Weapon.as"
 
@@ -20,12 +20,12 @@ ControllableChar aeneas;
 bool readyToChangeHealth;
 
 void initialize () {
-	aeneas = ControllableChar( "Character", "Aeneas", Inventory(), 0, 0, 0, 100, 100, BASE_WALK_SPEED, 0, 0.0, 50.0, 0.01 );
+	aeneas = ControllableChar( "Character", "Aeneas", Inventory(), 0, 0, 0, 100, 100, BASE_WALK_SPEED, 0, 0.0, 50.0, 0 );
 
 	readyToChangeHealth = false;
 }
 
-void setUpAeneasSpawn( string name ) {
+void setUpPlayer2Spawn( string name ) {
 	if( name == "VillageTown" )
 		aeneas.updatePos( 2051, 1731, aeneas.cPos.getAngle() );
 	else if( name == "cityThree" )
@@ -39,17 +39,17 @@ void setUpAeneasSpawn( string name ) {
 }
 
 // function to transfer Aeneas to another module
-ControllableChar @ getAeneas() { return aeneas; }
+ControllableChar @ getPlayer2() { return aeneas; }
 
-CharStats @ getAeneasStats() { return aeneas.stats; }
+CharStats @ getPlayer2Stats() { return aeneas.stats; }
 
 // function to transfer Aeneas' position to another module
-CharPosition @ getAeneasPos() { return aeneas.getCharPosition(); }
+CharPosition @ getPlayer2Pos() { return aeneas.getCharPosition(); }
 
-float getAeneasWalkSpeed() { return aeneas.getStat().getWalkSpeedRef(); }
+float getPlayer2WalkSpeed() { return aeneas.getStat().getWalkSpeedRef(); }
 
 // Returns true when health has been changed for the last time
-bool isReadyToChangeAeneasHealthBar() { 
+bool isReadyToChangePlayer2HealthBar() { 
 	if( readyToChangeHealth ) {
 		readyToChangeHealth = false;
 		return true;
@@ -70,7 +70,7 @@ void step ( uint32 milliseconds ) {
 	// Interact with picking up weapons
 
 	aeneas.setRotation();
-	aeneas.checkInputs( milliseconds, getPlayer2() );
+	aeneas.checkInputs( milliseconds, getAeneas() );
 
 	/*
 	int curHealth = aeneas.stats.getCHealth();

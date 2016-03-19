@@ -22,7 +22,7 @@ shared class CharStats {
 	float rotationSpeed; // to be set later after testing. degree per seconds
 	bool invincibility;
 	bool isItHostile;
-	int damages;
+	float damages;
 
 	CharStats() {
 		CharStats( 100, 100, BASE_WALK_SPEED, 0, 0, 0, 150, false, true, 0 );
@@ -32,11 +32,11 @@ shared class CharStats {
 		CharStats( cH, mH, wS, p, cW, mCW, 0, false, false, 30 );
 	}
 
-	CharStats( int cH, int mH, float wS, float rS, bool immunity, bool hostile, int dmg ) {
+	CharStats( int cH, int mH, float wS, float rS, bool immunity, bool hostile, float dmg ) {
 		CharStats( cH, mH, wS, 0, 0, 3402823466, rS, immunity, hostile, dmg );
 	}
 
-	CharStats( int cH, int mH, float wS, int p, float cW, float mCW, float rS, bool immunity, bool hostile, int dmg ) {
+	CharStats( int cH, int mH, float wS, int p, float cW, float mCW, float rS, bool immunity, bool hostile, float dmg ) {
 		cHealth = cH;
 		mHealth = mH; 
 		walkSpeed = wS;
@@ -49,7 +49,7 @@ shared class CharStats {
 		damages = dmg;
 	}
 
-	void damage( int dmg ) { cHealth -= dmg; }
+	void damage( float dmg, uint32 milliseconds ) { cHealth = int(chealth - dmg * milliseconds); }
 	void heal( int margin ) { cHealth += margin; }
 	void incMaxHealth( int margin ) { mHealth += margin; }
 	void decMaxHealth( int margin ) { mHealth -= margin; }
@@ -68,7 +68,7 @@ shared class CharStats {
 
 	void setHostility( bool hostile ) { isItHostile = hostile; }
 	void setInvincibility( bool isInvincible ) { invincibility = isInvincible; }
-	void setDamage( int dmg ) { damages = dmg; }
+	void setDamage( float dmg ) { damages = dmg; }
 
 	int getCHealth() { return cHealth; }
 	int getMHealth() { return mHealth; }
@@ -79,7 +79,7 @@ shared class CharStats {
 	float getRotationSpeed() { return rotationSpeed; }
 	bool isInvincible() { return invincibility; }
 	bool isHostile() { return isItHostile; }
-	int getDamage() { return damages; }
+	float getDamage() { return damages; }
 
 	float getWalkSpeedRef() { return walkSpeed; }
 }
