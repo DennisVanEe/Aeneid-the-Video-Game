@@ -10,14 +10,15 @@
 
 #include "Character.as"
 #include "Collectible.as"
+#include "Inventory.as"
 
 shared class ControllableChar : Character {
 
 	private Inventory inv;
 	CharPosition @ pos; //name conflict
 	CharStats @ stats; //name conflict
-	const float PI = 3.14159;
-	HUD headsUp;
+	float PI = 3.14159;
+	
 	protected ee::AnimatedEntity entityMove;
 	protected ee::AnimatedEntity entityAttack;
 	protected ee::AnimatedEntity entityAttackMove;
@@ -34,7 +35,6 @@ shared class ControllableChar : Character {
 
 		pos = getCharPosition();
 		stats = getStat();
-		headsUp = HUD();
 	}
 
 	// Constructor with all values as parameter
@@ -52,7 +52,6 @@ shared class ControllableChar : Character {
 
 		pos = getCharPosition();
 		stats = getStat();
-		headsUp = HUD();
 	}
 
 	void playAnimationStates( uint32 milliseconds ) {
@@ -84,8 +83,10 @@ shared class ControllableChar : Character {
 		updateEntityPos();
 
 		// NOTE: Ask Dennis how to communicate to get Trojans and Greeks
-		array< AIChar > @ trojans = setTrojans();
-		array< AIChar > @ greeks = setGreeks();
+
+
+		array< AIChar > @ trojans = setTrojans(); // TODO: MAKE SURE THIS WORKS, SETTROJANS IS WRONG
+		array< AIChar > @ greeks = setGreeks(); // TODO: MAKE SURE THIS WORKS, SETGREEKS IS WRONG
 		array< AIChar > npcArray;
 
 		// NOTE: Check for intensity of this calculation
@@ -103,7 +104,7 @@ shared class ControllableChar : Character {
 				AIChar npc = npcArray[i];
 				if( ifMouseOnNPC( npc ) ) {
 					if( npc.stats.isHostile() ) {
-						attack( damage, npc );
+						attack( stats.getDamage(), npc );
 						isAttacking = true;
 						break;
 					}
@@ -178,7 +179,7 @@ shared class ControllableChar : Character {
 
 	// Tells Aeneas to follow a certain AI Character
 	bool follow ( AIChar aic, uint32 milliseconds ) {
-		CharPosition @ rPos = aic.getPos();
+		const CharPosition @ rPos = aic.getPos();
 
 		int yDif = pos.y - rPos.y;
 		int xDif = pos.x - rPos.x;
@@ -207,13 +208,13 @@ shared class ControllableChar : Character {
 			updatePos( pos.x + stats.walkSpeed * milliseconds / 1000, 
 					pos.y + stats.walkSpeed * milliseconds / 1000, pos.getAngle() );
 			*/
-			int x = pos.x + stats.getWalkSpeed * milliseconds / 1000 * cos( PI / 180 * angle );
-			int y = pos.y + stats.getWalkSpeed * milliseconds / 1000 * sin( PI / 180 * angle );
-			updatePos( x, y, angle );
+			int x = pos.x + stats.getWalkSpeed() * milliseconds / 1000 * cos( PI / 180 * angle );
+			int y = pos.y + stats.getWalkSpeed() * milliseconds / 1000 * sin( PI / 180 * angle );
+			updatePos( x, y, pos.angle );
 			return false;
 		}
 		else {
-			updatePos( pos.x, pos.y, angle );
+			updatePos( pos.x, pos.y, pos.angle );
 			return true;
 		}
 	}
@@ -222,7 +223,7 @@ shared class ControllableChar : Character {
 	void updatePos( int iX, int iY, double ang ) { setPos( iX, iY, ang ); } 
 
 	// gets Character Position
-	CharPosition @ getCharPosition() { return getPos(); }
+	const CharPosition @ getCharPosition() { return getPos(); }
 
 	// gets Character stats
 	CharStats @ getStat() { return getStat(); }
@@ -232,8 +233,8 @@ shared class ControllableChar : Character {
 
 	// Rotates Aeneas to follow the Mouse
 	void setRotation () {
-		int yDif = ee::getYPosMouse - pos.y;
-		int xDif = ee::getXPosMouse - pos.x;
+		int yDif = int(ee::getYPosMouse() - pos.y);
+		int xDif = int(ee::getXPosMouse() - pos.x);
 
 		if( xDif != 0)
 			pos.angle = 180 / PI * atan( ( float(yDif) ) / xDif ); //problems with brackets
@@ -368,7 +369,6 @@ shared class ControllableChar : Character {
 	// cHealth of the NPC is changed to changedTo. If cHealth is 0, the NPC dies
 	void changeHealth( int difference ) {
 		stats.damage( difference );
-		headsUp.changeHealth(); //HUD is non-shared???
 		if( stats.getCHealth() <= 0 || stats.getCHealth() < 1 ) //invalid operation on method
 			die();
 	}

@@ -14,8 +14,8 @@ import ControllableChar @ getAeneas() from "Aeneas.as";//ERROR
 shared class AIChar : Character //ERROR
 {
 	float PI = 3.14159;
-	CharPosition @ pos; //ERROR
-	CharStats @ stats; //ERROR
+	CharPosition @ pos; // name conflict with method names
+	CharStats @ stats; // name conflict with method names
 	private ee::AnimatedEntity entityMove;
 	private ee::AnimatedEntity entityAttack;
 	private ee::AnimatedEntity entityAttackMove;
