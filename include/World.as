@@ -10,8 +10,8 @@ import bool requestSaveData() from "Aeneas.as"
 
 class World
 {
-	dictionary< ee::StaticEntity > setobj; // Expecting method, instead receives identifier
-	dictionary< ee::AnimatedEntity > movingobj; // Expecting method, instead receives identifier
+	array< ee::StaticEntity > setobj; // Expecting method, instead receives identifier
+	array< ee::AnimatedEntity > movingobj; // Expecting method, instead receives identifier
 	private int layer;
 	Checkpoint checkpoint;
 	string name;
@@ -31,13 +31,13 @@ class World
 	void add( ee::AnimatedEntity x, string name ) 
 	{
 		ee::consolePrintLine( "Adds animated entity to movingobj array. Adds object to render at layer input relative to the World Layer." );
-		movingobj.set( name, x );
+		movingobj.insertLast( x );
 	}
 
 	void add( ee::StaticEntity x, string name )
 	{
 		ee::consolePrintLine( "Adds static entity to movingobj array. Adds object to render at layer input relative to the World Layer." );
-		setobj.set( name, x );
+		setobj.insertLast( x );
 	}
 
 	void setName( string n ) {
