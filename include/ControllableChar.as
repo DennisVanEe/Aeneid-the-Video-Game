@@ -13,14 +13,9 @@
 
 shared class ControllableChar : Character {
 
-<<<<<<< HEAD
 	private Inventory inv;
 	CharPosition @ cPos; //name conflict
 	CharStats @ cStats; //name conflict
-=======
-	CharPosition @ pos; //name conflict
-	CharStats @ stats; //name conflict
->>>>>>> e9ea88fad59d941dad0d1d513d72aa1053c957b7
 	float PI = 3.14159;
 	
 	protected ee::AnimatedEntity entityMove;
