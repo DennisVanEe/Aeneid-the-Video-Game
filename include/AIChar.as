@@ -195,7 +195,7 @@ shared class AIChar : Character
 			   sin( cpos.getAngle() * PI / 180 ) * milliseconds * cstats.getWalkSpeed() / 1000, 
 			   cpos.getAngle() );
 		if( ee::isColliding( entityMove.getSprite() ) ) {
-			updatePos( cPos.x - 2, cPos.y - 2, cPos.angle );
+			updatePos( cpos.x - 2, cpos.y - 2, cpos.angle );
 		}
 		setEntityVisibilities( true, false, false );
 		entityMove.playFrame( milliseconds ); //errors
@@ -287,7 +287,7 @@ shared class AIChar : Character
 			   sin( cpos.getAngle() * PI / 180 ) * milliseconds * cstats.getWalkSpeed() / 1000, 
 			   cpos.getAngle() );
 		if( ee::isColliding( entityMove.getSprite() ) ) {
-			updatePos( cPos.x - 2, cPos.y - 2, cPos.angle );
+			updatePos( cpos.x - 2, cpos.y - 2, cpos.angle );
 		}
 		setEntityVisibilities( true, false, false );
 		entityMove.playFrame( milliseconds ); //errors
