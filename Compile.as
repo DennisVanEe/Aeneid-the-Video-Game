@@ -1,12 +1,12 @@
 //#include "Aeneas.as"
-//#include "Camera.as" 
+#include "Camera.as" 
 								//CONSISTENT problems with contructor syntax
 								//DENNIS centerCamera is not declared in HUD error
 //#include "TrojanGreek.as"
 //#include "include/AIChar.as" 
 							//FIX writeToDataCont THIRD INT PARAMETER dennis will fix this
 //#include "include/Character.as" //HAVE TO IMPLEMENT LAST METHODS
-#include "include/ControllableChar.as"  
+//#include "include/ControllableChar.as"  
 											//DENNIS NO MATCHING SIGNATURESWITH isKeyPressed();
 											//DENNIS no for each loop support in angelscript???
 											//JASON CHANGE FOR EACH LOOPS TO FOR LOOPS
