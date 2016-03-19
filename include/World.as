@@ -10,8 +10,8 @@ import bool requestSaveData() from "Aeneas.as";
 
 class World
 {
-	dictionary< ee::StaticEntity > setobj; 
-	dictionary< ee::AnimatedEntity > movingobj;
+	dictionary< ee::StaticEntity > setobj; // Expecting method, instead receives identifier
+	dictionary< ee::AnimatedEntity > movingobj; // Expecting method, instead receives identifier
 	private int layer;
 	Checkpoint checkpoint;
 	string name;
