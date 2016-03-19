@@ -32,10 +32,10 @@ shared class ControllableChar : Character {
 
 	// Default Constructor
 	ControllableChar() {
-		Character();
+		Character(); entityMove.setCollidable(true); 
 
-		cPos = getCharPosition();
-		stats = getStat();
+		cPos = getCharPosition(); entityAttack.setCollidable(true);
+		stats = getStat(); entityAttackMove.setCollidable(true);
 	}
 
 	// Constructor with all values as parameter
@@ -52,6 +52,9 @@ shared class ControllableChar : Character {
 
 		cPos = getCharPosition();
 		cStats = getStat();
+		entityMove.setCollidable(true);
+		entityAttack.setCollidable(true);		
+		entityAttackMove.setCollidable(true);
 	}
 
 	void playAnimationStates( uint32 milliseconds ) {
@@ -99,7 +102,7 @@ shared class ControllableChar : Character {
 			for( int i = 0; i < npcArray.length(); i++ ) {  //same error as line 93
 				AIChar npc = npcArray[i];
 				if( ifMouseOnNPC( npc ) ) {
-					if( npc.cstats.isHostile() ) {
+					if( npc.cStats.isHostile() ) {
 						attack( cStats.getDamage(), npc );
 						isAttacking = true;
 						break;

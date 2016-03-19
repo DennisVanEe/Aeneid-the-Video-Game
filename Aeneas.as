@@ -18,6 +18,8 @@ ControllableChar aeneas;
 
 bool readyToChangeHealth;
 
+
+
 void initialize () {
 	int x;
 		if( ee::readFromDataCont( "Aeneas", "cHealth", x ))

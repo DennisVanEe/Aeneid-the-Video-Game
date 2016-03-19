@@ -16,13 +16,13 @@ shared class AIChar : Character
 	float PI = 3.14159;
 	CharPosition @ cpos; // name conflict with method names
 	CharStats @ cstats; // name conflict with method names
-	private ee::AnimatedEntity entityMove;
-	private ee::AnimatedEntity entityAttack;
+	private ee::AnimatedEntity entityMove; 
+	private ee::AnimatedEntity entityAttack; 
 	private ee::AnimatedEntity entityAttackMove;
 	private string name;
 
 	AIChar() {
-		Character();
+		Character(); entityMove.setCollidable(true); entityAttack.setCollidable(true); entityAttackMove.setCollidable(true);
 
 		cpos = getPos(); 
 		cstats = getStat();
@@ -31,9 +31,9 @@ shared class AIChar : Character
 	AIChar( string contName, string entName ) {
 		Character();
 
-		entityMove = ee::AnimatedEntity( contName, entName + "Move" ); // CHECK TO SEE IF THIS WORKS
-		entityAttack = ee::AnimatedEntity( contName, entName + "Attack" );
-		entityAttackMove = ee::AnimatedEntity( contName, entName + "AttackMove" );
+		entityMove = ee::AnimatedEntity( contName, entName + "Move" ); entityMove.setCollidable(true); // CHECK TO SEE IF THIS WORKS
+		entityAttack = ee::AnimatedEntity( contName, entName + "Attack" ); entityAttack.setCollidable(true);
+		entityAttackMove = ee::AnimatedEntity( contName, entName + "AttackMove" ); entityAttackMove.setCollidable(true);
 		name = entName;
 
 		setEntityVisibilities( true, false, false );
@@ -54,9 +54,9 @@ shared class AIChar : Character
 
 		setEntityVisibilities( true, false, false );
 		entityMove.setFrame( 0 );
-
-		cpos = getPos(); 
-		cstats = getStat();
+		entityMove.setCollidable(true); 
+		cpos = getPos(); entityAttack.setCollidable(true);
+		cstats = getStat(); entityAttackMove.setCollidable(true);
 	}
 
 	void setAnimationStates( uint32 milliseconds ) {
