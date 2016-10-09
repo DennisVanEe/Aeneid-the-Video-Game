@@ -1,6 +1,6 @@
-# README #
+# Aeneid the Video Game
 
-A demo of the Aeneid Game was demonstrated at the California JCL State Convention of 2016.
-The game was meant to be an RPG based on Vergil's, the Aenead.
+An unfinished RPG that is based on Vergil's the Aeneid. The game was set to demo at the 2016 Junior Classical League California State Convention. The game was being developed for the EEngine.
 
-As of this moment, the game is no longer under development.
+The EEngine
+https://github.com/DennisVanEe/EEngine
